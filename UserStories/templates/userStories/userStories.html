@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+<div>
+    <h1 class="m-auto">UserStories</h1>
+</div>
+<div class="table-responsive p-0">
+    <table class="table align-items-center mb-0">
+        <thead>
+            <tr>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
+
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DevTask</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Group</th>
+                <th class="text-secondary opacity-7"></th>
+            </tr>
+        </thead>
+
+        <thead>
+            <tr>
+                <form id="form" method="get">
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{filter.form.iWantTO}}</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{filter.form.soThat}}</th>
+        
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Description">
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="Persona" class="form-control" value="{{form.persona}}" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Description"></th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="RAIDS" value="{{form.RAIDS}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Description"></th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="DevTask" value="{{form.DevTask}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Description"></th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="Indicator" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Description"></th>
+                
+                </form>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for user in users %}
+                <tr>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{user.iWantTO}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{user.soThat}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{user.Epic.versionName}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{user.get_Persona}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{user.get_RAIDS}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{user.get_DevTask}}</span>
+                </td>
+                <td class="align-middle text-center col-1">
+                    <span class="text-secondary text-xs font-weight-bold" data-toggle="tooltip" title={{user.get_UsGroup}}>
+                        {% if user.get_UsGroup %}
+                        <button class="btn btn-success rounded-circle"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                        {% endif %}
+                    </span>
+                </td>
+                <td class="align-middle text-center">
+                    <a href="{% url 'userDetails' user.id %}" class="btn btn-success" aria-hidden="true">
+                        Details
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+
+    </table>
+</div>
+<a href="{% url 'addUserStory' %}" class="btn btn-success" aria-hidden="true"><i class="fa fa-plus text-white"
+        aria-hidden="true"></i>
+</a>
+{% endblock %}

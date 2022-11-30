@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+<div>
+    <h1 class="m-auto">Add UserStory</h1>
+</div>
+<form method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" class="btn btn-success" value="Log in"></p>
+</form>
+{% endblock %}

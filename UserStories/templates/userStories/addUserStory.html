@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+<div>
+    <h1 class="m-auto">Add UserStory</h1>
+</div>
+<form method="post" style="height: 100%;">
+    {% csrf_token %}
+    <div class="row" style="width:100% ;">
+        <div class="form-group col-1">
+            <label for="exampleInputEmail1">Epic</label>
+            <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Epic">
+        </div>
+        <div class="form-group col-1">
+            <label for="exampleInputEmail1">Category</label>
+            <input type="text" name="EpicCategory" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Epic Category">
+        </div>
+        <div class="form-group col-1">
+            <label for="exampleInputEmail1">Persona</label>
+            <input type="text" name="Persona" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Persona">
+        </div>
+        <div class="form-group col-2">
+            <label for="exampleInputEmail1">IWantTO</label>
+            <input type="text" name="IWantTO" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="IWantTO">
+        </div>
+        <div class="form-group col-2">
+            <label for="exampleInputEmail1">SoThat</label>
+            <input type="text" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="SoThat">
+        </div>
+        <div class="col-2" style="height: 100%;">
+            <div style="width:100% ;" class="row">
+                <div class="form-group col-10">
+                    <label for="exampleInputEmail1">R.A.I.DS</label>
+                    <input type="text" class="form-control Raids" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="R.A.I.DS">
+                </div>
+                <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids" style="display: flex;justify-content: center;align-items: center;"></i>
+            </div>
+            <textarea type="text" name="RAIDS" class="form-control mt-2 RaidsArea" cols="250" style="height: auto !important;"></textarea>
+        </div>
+        <div class="col-2">
+            <div style="width:100% ;" class="row">
+                <div class="form-group col-10">
+                    <label for="exampleInputEmail1">DK</label>
+                    <input type="text" class="form-control Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Dev Tasks">
+                </div>
+                <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
+                    style="display: flex;justify-content: center;align-items: center;"></i>
+            </div>
+            <textarea type="text" name="Dev" class="form-control mt-2  DevArea" cols="250" style="height: auto !important;"></textarea>
+        </div>
+        <div class="form-group col-1">
+            <div class="row">
+                <label for="exampleInputEmail1">Priority</label>
+                <input type="text" name="Priority" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Priority">
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Add Group</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="form-group ">
+                            <label for="exampleInputEmail1">Description</label>
+                            <input type="text" name="US_Group" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                placeholder="Description">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button data-dismiss="modal" aria-label="Close" type="button" class="btn btn-success">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- <div class="text-center">
+            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
+                Modal Login Form</a>
+        </div> -->
+        <button type="submit" class="col-1 btn btn-success ">Submit</button>
+        <button type="button" class="col-2 btn btn-success" data-toggle="modal" data-target="#modalLoginForm"
+            >add to group</button>
+    </div>
+    <!-- <div class="form-group">
+        <label for="exampleInputEmail1">US_Group</label>
+        <input type="text" name="US_Group" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="US_Group">
+    </div> -->
+    <!-- <div style="width:100% ;" class="row">
+        <div class="form-group col-10">
+            <label for="exampleInputEmail1">Estimates</label>
+            <input type="text" class="form-control Estimates" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Estimates">
+        </div>
+        <div class="col-2 text-center">
+            <button type="button" class="btn btn-success AddEstimates" style="margin-top:2rem ;">add another</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <textarea type="text" name="Estimates" class="form-control mt-2 h-25 EstimatesArea" cols="10"></textarea>
+    </div> -->
+</form>
+{% endblock %}

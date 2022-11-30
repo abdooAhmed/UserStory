@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+<div>
+    <h1 class="m-auto">Projects</h1>
+</div>
+<div class="table-responsive p-0">
+    <table class="table align-items-center mb-0">
+        <thead>
+            <tr>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project Name</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Business</th>
+
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">no. of Versions
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">BA</th>
+                <th class="text-secondary opacity-7"></th>
+            </tr>
+        </thead>
+
+        <thead>
+            <tr>
+                <form id="form" method="get">
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        {{filter.form.name}}</th>
+                    <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        {{filter.form.Role}}</th> -->
+        
+                    <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    placeholder="Description">
+                            </th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input
+                                    type="text" name="Persona" class="form-control" value="{{form.persona}}" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Description"></th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input
+                                    type="text" name="RAIDS" value="{{form.RAIDS}}" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Description"></th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input
+                                    type="text" name="DevTask" value="{{form.DevTask}}" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Description"></th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input
+                                    type="text" name="Indicator" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Description"></th> -->
+        
+                </form>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for project in projects %}
+                <tr>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{project.name}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{project.Business.name}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">null</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">null</span>
+                </td>
+                <td class="align-middle text-center">
+                    <a href="{% url 'userDetails' user.id %}" class="btn btn-success" aria-hidden="true">
+                        Details
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+
+    </table>
+</div>
+<a href="{% url 'AddProject' %}" class="btn btn-success" aria-hidden="true"><i class="fa fa-plus text-white"
+        aria-hidden="true"></i>
+</a>
+{% endblock %}
