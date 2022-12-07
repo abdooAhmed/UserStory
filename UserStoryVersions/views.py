@@ -82,11 +82,12 @@ def add_userStoryVersions(request):
     project = Project.objects.all()
     business = Business.objects.all()
     projects = []
+    current_user = request.user
     for p in project:
         projects.append({'id': p.id, 'name': p.name,
                         'business': p.Business.id})
     projectJson = dumps(projects)
-    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'persona': projects, 'project': projectJson, 'userStories': userStories, 'business': business})
+    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'persona': projects, 'userName': current_user.username, 'project': projectJson, 'userStories': userStories, 'business': business})
 
 
 def userStoryVersionDetails(request, id):

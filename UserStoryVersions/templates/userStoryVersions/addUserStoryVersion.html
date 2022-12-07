@@ -46,10 +46,30 @@
                     aria-describedby="emailHelp" placeholder="Description">
             </div>
         </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="exampleInputEmail1">User Name</label>
+                <input type="text" name="VersionName" disabled value="{{userName}}" class="form-control"
+                    id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
+            </div>
+        </div>
     </div>
     <div>
         {% for u in userStories %}
         <div class="row" id="UserStory" style="width:100% ;">
+            <div class="col-2" style="height: 100%;">
+                <div style="width:100% ;" class="row">
+                    <div class="form-group col-10">
+                        <label for="exampleInputEmail1">Persona</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Persona">
+                    </div>
+                    <i class="col-2 m-auto btn btn-success fa fa-plus"
+                        style="display: flex;justify-content: center;align-items: center;"></i>
+                </div>
+                <textarea type="text" disabled class="form-control mt-2 " cols="250"
+                    style="height: auto !important;">{{u.get_Persona}}</textarea>
+            </div>
             <div class="form-group col-1">
                 <label for="exampleInputEmail1">Epic</label>
                 <input type="text" disabled value="{{u.Epic.versionName}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -65,18 +85,18 @@
                 <input type="text" disabled value="{{u.soThat}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="SoThat">
             </div>
-            <div class="col-2" style="height: 100%;">
+            <div class="col-2">
                 <div style="width:100% ;" class="row">
                     <div class="form-group col-10">
-                        <label for="exampleInputEmail1">Persona</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Persona">
+                        <label for="exampleInputEmail1">Dev Tasks</label>
+                        <input type="text" disabled class="form-control Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Dev Tasks">
                     </div>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus"
+                    <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
                         style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
-                <textarea type="text" disabled class="form-control mt-2 " cols="250"
-                    style="height: auto !important;">{{u.get_Persona}}</textarea>
+                <textarea type="text" disabled class="form-control mt-2  DevArea" cols="250"
+                    style="height: auto !important;">{{u.get_DevTask}}</textarea>
             </div>
             <div class="col-2" style="height: 100%;">
                 <div style="width:100% ;" class="row">
@@ -91,19 +111,6 @@
                 <textarea type="text" disabled class="form-control mt-2 RaidsArea" cols="250"
                     style="height: auto !important;">{{u.get_RAIDS}}</textarea>
             </div>
-            <div class="col-2">
-                <div style="width:100% ;" class="row">
-                    <div class="form-group col-10">
-                        <label for="exampleInputEmail1">DK</label>
-                        <input type="text" disabled class="form-control Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Dev Tasks">
-                    </div>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
-                </div>
-                <textarea type="text" disabled class="form-control mt-2  DevArea" cols="250"
-                    style="height: auto !important;">{{u.get_DevTask}}</textarea>
-            </div>
             <div class="form-group col-1">
                 <div class="row">
                     <label for="exampleInputEmail1">Priority</label>
@@ -114,6 +121,26 @@
         </div>
         {% endfor %}
         <div class="row" id="UserStory" style="width:100% ;">
+            <div class="col-2" style="height: 100%;">
+                <div style="width:100% ;" class="row">
+                    <div class="form-group col-10 mb-0">
+                        <label for="exampleInputEmail1">Persona</label>
+                    </div>
+                </div>
+                <div class="PersonDiv">
+            
+                </div>
+                <div style="width:100% ;" class="row">
+                    <div class="form-group col-10">
+                        <input type="text" class="form-control Persona" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Persona">
+                    </div>
+                    <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
+                        style="display: flex;justify-content: center;align-items: center;"></i>
+                </div>
+                <textarea type="text" name="Persona" class="form-control mt-2  PersonaArea" cols="250"
+                    style="height: auto !important; display: none;"></textarea>
+            </div>
             <div class="form-group col-1">
                 <label for="exampleInputEmail1">Epic</label>
                 <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -129,25 +156,25 @@
                 <input type="text" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="SoThat">
             </div>
-            <div class="col-2" style="height: 100%;">
+            <div class="col-2">
                 <div style="width:100% ;" class="row">
                     <div class="form-group col-10 mb-0">
-                        <label for="exampleInputEmail1">Persona</label>
+                        <label for="exampleInputEmail1">Dev Tasks</label>
                     </div>
                 </div>
-                <div class="PersonDiv">
-                    
+                <div class="DKDiv">
+            
                 </div>
                 <div style="width:100% ;" class="row">
                     <div class="form-group col-10">
-                        <input type="text" class="form-control Persona" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Persona">
+                        <input type="text" class="form-control Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Dev Tasks">
                     </div>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
+                    <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
                         style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
-                <textarea type="text" name="Persona" class="form-control mt-2  PersonaArea" cols="250"
-                    style="height: auto !important; display: none;"></textarea>
+                <textarea type="text" name="Dev" class="form-control mt-2  DevArea" cols="250"
+                    style="height: auto !important;display: none;"></textarea>
             </div>
             <div class="col-2" style="height: 100%;">
                 <div style="width:100% ;" class="row">
@@ -168,26 +195,6 @@
                 </div>
                 <textarea type="text" name="RAIDS" class="form-control mt-2 RaidsArea" cols="250"
                     style="height: auto !important; display: none;"></textarea>
-            </div>
-            <div class="col-2">
-                <div style="width:100% ;" class="row">
-                    <div class="form-group col-10 mb-0">
-                        <label for="exampleInputEmail1">DK</label>
-                    </div>
-                </div>
-                <div class="DKDiv">
-                
-                </div>
-                <div style="width:100% ;" class="row">
-                    <div class="form-group col-10">
-                        <input type="text" class="form-control Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Dev Tasks">
-                    </div>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
-                </div>
-                <textarea type="text" name="Dev" class="form-control mt-2  DevArea" cols="250"
-                    style="height: auto !important;display: none;"></textarea>
             </div>
             <div class="form-group col-1">
                 <div class="row">

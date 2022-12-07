@@ -7,26 +7,6 @@
 <form method="post" style="height: 100%;">
     {% csrf_token %}
     <div class="row" id="UserStory" style="width:100% ;">
-        <div class="form-group col-1">
-            <label for="exampleInputEmail1">Epic</label>
-            <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Epic">
-        </div>
-        <div class="form-group col-1">
-            <label for="exampleInputEmail1">Category</label>
-            <input type="text" name="EpicCategory" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Epic Category">
-        </div>
-        <div class="form-group col-1">
-            <label for="exampleInputEmail1">IWantTO</label>
-            <input type="text" name="IWantTO" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="IWantTO">
-        </div>
-        <div class="form-group col-2">
-            <label for="exampleInputEmail1">SoThat</label>
-            <input type="text" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="SoThat">
-        </div>
         <div class="col-2" style="height: 100%;">
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10 mb-0">
@@ -34,7 +14,7 @@
                 </div>
             </div>
             <div class="PersonDiv">
-    
+        
             </div>
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10">
@@ -46,6 +26,41 @@
             </div>
             <textarea type="text" name="Persona" class="form-control mt-2  PersonaArea" cols="250"
                 style="height: auto !important; display: none;"></textarea>
+        </div>
+        <div class="form-group col-1">
+            <label for="exampleInputEmail1">Epic</label>
+            <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Epic">
+        </div>
+        <div class="form-group col-2">
+            <label for="exampleInputEmail1">IWantTO</label>
+            <input type="text" name="IWantTO" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="IWantTO">
+        </div>
+        <div class="form-group col-2">
+            <label for="exampleInputEmail1">SoThat</label>
+            <input type="text" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="SoThat">
+        </div>
+        <div class="col-2">
+            <div style="width:100% ;" class="row">
+                <div class="form-group col-10 mb-0">
+                    <label for="exampleInputEmail1">Dev Tasks</label>
+                </div>
+            </div>
+            <div class="DKDiv">
+        
+            </div>
+            <div style="width:100% ;" class="row">
+                <div class="form-group col-10">
+                    <input type="text" class="form-control Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Dev Tasks">
+                </div>
+                <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
+                    style="display: flex;justify-content: center;align-items: center;"></i>
+            </div>
+            <textarea type="text" name="Dev" class="form-control mt-2  DevArea" cols="250"
+                style="height: auto !important;display: none;"></textarea>
         </div>
         <div class="col-2" style="height: 100%;">
             <div style="width:100% ;" class="row">
@@ -66,34 +81,6 @@
             </div>
             <textarea type="text" name="RAIDS" class="form-control mt-2 RaidsArea" cols="250"
                 style="height: auto !important; display: none;"></textarea>
-        </div>
-        <div class="col-2">
-            <div style="width:100% ;" class="row">
-                <div class="form-group col-10 mb-0">
-                    <label for="exampleInputEmail1">DK</label>
-                </div>
-            </div>
-            <div class="DKDiv">
-    
-            </div>
-            <div style="width:100% ;" class="row">
-                <div class="form-group col-10">
-                    <input type="text" class="form-control Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Dev Tasks">
-                </div>
-                <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
-                    style="display: flex;justify-content: center;align-items: center;"></i>
-            </div>
-            <textarea type="text" name="Dev" class="form-control mt-2  DevArea" cols="250"
-                style="height: auto !important;display: none;"></textarea>
-        </div>
-        <div class="form-group col-1">
-            <div class="row">
-                <label for="exampleInputEmail1">Priority</label>
-                <input type="text" name="Priority" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Priority">
-                <input type="checkbox" name="AddAnother" id="status" style="display: none;">
-            </div>
         </div>
     </div>
     <div>
