@@ -8,12 +8,11 @@
     <table class="table align-items-center mb-0">
         <thead>
             <tr>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
-
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DevTask</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Group</th>
@@ -24,20 +23,20 @@
         <thead>
             <tr>
                 <form id="form" method="get">
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Description">
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text"
+                            name="Persona" class="form-control" value="{{form.persona}}" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="Description"></th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{filter.form.iWantTO}}</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{filter.form.soThat}}</th>
-        
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Description">
-                </th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="Persona" class="form-control" value="{{form.persona}}" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Description"></th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="RAIDS" value="{{form.RAIDS}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Description"></th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="DevTask" value="{{form.DevTask}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Description"></th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="Indicator" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="Indicator" value="{{form.indicator}}" class="form-control groupField" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Description"></th>
                 
                 </form>
@@ -47,6 +46,19 @@
         <tbody>
             {% for user in users %}
                 <tr>
+                    <td class="align-middle text-center">
+                        {% if user.get_UsGroup %}
+                        <span class="text-secondary text-xs font-weight-bold mr-1 groupName" data-toggle="tooltip" title={{user.get_UsGroup}}>
+                            <i class="fa fa-check-circle text-success group" style="cursor: pointer;"></i>
+                        </span>
+                        <span class="text-secondary text-xs font-weight-bold">{{user.Epic.versionName}}</span>
+                        {% else %}
+                        <span class="text-secondary text-xs font-weight-bold ml-4">{{user.Epic.versionName}}</span>
+                        {% endif %}
+                    </td>
+                    <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{user.get_Persona}}</span>
+                    </td>
                 <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{user.iWantTO}}</span>
                 </td>
@@ -54,26 +66,16 @@
                     <span class="text-secondary text-xs font-weight-bold">{{user.soThat}}</span>
                 </td>
                 <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{user.Epic.versionName}}</span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{user.get_Persona}}</span>
-                </td>
-                <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{user.get_RAIDS}}</span>
                 </td>
                 <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{user.get_DevTask}}</span>
                 </td>
-                <td class="align-middle text-center col-1">
-                    <span class="text-secondary text-xs font-weight-bold" data-toggle="tooltip" title={{user.get_UsGroup}}>
-                        {% if user.get_UsGroup %}
-                        <button class="btn btn-success rounded-circle"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                        {% endif %}
-                    </span>
+                <td class="align-middle text-center">
+                    
                 </td>
                 <td class="align-middle text-center">
-                    <a href="{% url 'userDetails' user.id %}" class="btn btn-success" aria-hidden="true">
+                    <a href="{% url 'userStoryDetails' user.id %}" class="btn btn-success" aria-hidden="true">
                         Details
                     </a>
                 </td>

@@ -2,7 +2,7 @@
 {% block title %}Log-in{% endblock %}
 {% block content %}
 <div>
-    <h1 class="m-auto">UserStories</h1>
+    <h1 class="m-auto">UserStories Version</h1>
 </div>
 <div class="table-responsive p-0">
     <table class="table align-items-center mb-0">
@@ -72,7 +72,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{user.User.username}}</span>
                 </td>
                 <td class="align-middle text-center">
-                    <a href="{% url 'userDetails' user.id %}" class="btn btn-success" aria-hidden="true">
+                    <a href="{% url 'userStoryVersionDetails' user.id %}" class="btn btn-success" aria-hidden="true">
                         Details
                     </a>
                 </td>

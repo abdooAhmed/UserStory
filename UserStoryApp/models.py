@@ -20,18 +20,6 @@ def __str__(self):
     return self.name
 
 
-class Category(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.TextField(blank=True)
-
-    class Meta:
-        db_table = "Category"
-
-
-def __str__(self):
-    return self.name
-
-
 class Platform(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.TextField(blank=True)
@@ -101,6 +89,7 @@ class Project(models.Model):
     Business = models.ForeignKey(Business, on_delete=models.CASCADE)
     User = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
+    project = ""
 
     class Meta:
         db_table = "Project"
@@ -177,10 +166,12 @@ def __str__(self):
 class Epic(models.Model):
     id = models.AutoField(primary_key=True)
     versionName = models.TextField(blank=True)
-    Category = models.ManyToManyField(Category)
 
     class Meta:
         db_table = "Epic"
+
+    def get_categories(self):
+        return "\n".join([f'{p.name} , ' for p in self.Category.all()])
 
 
 def __str__(self):
@@ -192,7 +183,8 @@ class UserStory(models.Model):
     iWantTO = models.TextField(blank=True)
     soThat = models.TextField(blank=True)
     priority = models.TextField(blank=True)
-    userStoriesVersion = models.ManyToManyField(UserStoryVersion)
+    userStoriesVersion = models.ForeignKey(
+        UserStoryVersion, on_delete=models.CASCADE, blank=True, null=True)
     Persona = models.ManyToManyField(Persona)
     RAIDS = models.ManyToManyField(RAIDS)
     DevelopmentTask = models.ManyToManyField(DevelopmentTask)
@@ -207,10 +199,11 @@ class UserStory(models.Model):
         return "\n".join([f'{p.Name} , ' for p in self.Persona.all()])
 
     def get_RAIDS(self):
-        return "\n".join([f'{p.description} , ' for p in self.RAIDS.all()])
+        print("g\r\ng")
+        return "\n".join([f'{p.description} \r\n' for p in self.RAIDS.all()])
 
     def get_DevTask(self):
-        return "\n".join([f'{p.description} , ' for p in self.DevelopmentTask.all()])
+        return "\n".join([f'{p.description} \r\n' for p in self.DevelopmentTask.all()])
 
     def get_UsGroupState(self):
         return True if self.US_Group.description else False

@@ -1,15 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Log-in{% endblock %}
 {% block content %}
-<div>
-    <h1 class="m-auto">Add UserStory</h1>
-</div>
-<form method="post" style="height: 100%;">
+<form>
     {% csrf_token %}
     <div class="row" id="UserStory" style="width:100% ;">
         <div class="form-group col-1">
             <label for="exampleInputEmail1">Epic</label>
-            <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <input type="text" name="Epic" value="{{userStory.Epic.versionName}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                 placeholder="Epic">
         </div>
         <div class="form-group col-1">
@@ -19,12 +16,12 @@
         </div>
         <div class="form-group col-1">
             <label for="exampleInputEmail1">IWantTO</label>
-            <input type="text" name="IWantTO" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <input type="text" name="IWantTO" value="{{userStory.iWantTO}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                 placeholder="IWantTO">
         </div>
         <div class="form-group col-2">
             <label for="exampleInputEmail1">SoThat</label>
-            <input type="text" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <input type="text" name="SoThat" value="{{userStory.soThat}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                 placeholder="SoThat">
         </div>
         <div class="col-2" style="height: 100%;">
@@ -34,7 +31,16 @@
                 </div>
             </div>
             <div class="PersonDiv">
-    
+                {% for Persona in userStory.Persona.all %}
+                <div style="width:100% ;" class="row">
+                    <div class="form-group col-10">
+                        <input type="text" value="{{Persona.Name}}" class="form-control Raids" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="R.A.I.DS">
+                    </div>
+                    <i class="col-2 m-auto btn btn-success fa fa-minus AddRaids"
+                        style="display: flex;justify-content: center;align-items: center;"></i>
+                </div>
+                {% endfor %}
             </div>
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10">
@@ -54,7 +60,16 @@
                 </div>
             </div>
             <div class="RAIDSDiv">
-    
+                {% for RAIDS in userStory.RAIDS.all %}
+                <div style="width:100% ;" class="row">
+                    <div class="form-group col-10">
+                        <input type="text" value="{{RAIDS.description}}" class="form-control Raids" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="R.A.I.DS">
+                    </div>
+                    <i class="col-2 m-auto btn btn-success fa fa-minus AddRaids"
+                        style="display: flex;justify-content: center;align-items: center;"></i>
+                </div>
+                {% endfor %}
             </div>
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10">
@@ -65,7 +80,7 @@
                     style="display: flex;justify-content: center;align-items: center;"></i>
             </div>
             <textarea type="text" name="RAIDS" class="form-control mt-2 RaidsArea" cols="250"
-                style="height: auto !important; display: none;"></textarea>
+                style="height: auto !important; display: none;">{{userStory.get_RAIDS}}</textarea>
         </div>
         <div class="col-2">
             <div style="width:100% ;" class="row">
@@ -74,7 +89,16 @@
                 </div>
             </div>
             <div class="DKDiv">
-    
+                {% for DevelopmentTask in userStory.DevelopmentTask.all %}
+                <div style="width:100% ;" class="row">
+                    <div class="form-group col-10">
+                        <input type="text" value="{{DevelopmentTask.description}}" class="form-control Raids" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="R.A.I.DS">
+                    </div>
+                    <i class="col-2 m-auto btn btn-success fa fa-minus AddRaids"
+                        style="display: flex;justify-content: center;align-items: center;"></i>
+                </div>
+                {% endfor %}
             </div>
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10">
@@ -85,12 +109,12 @@
                     style="display: flex;justify-content: center;align-items: center;"></i>
             </div>
             <textarea type="text" name="Dev" class="form-control mt-2  DevArea" cols="250"
-                style="height: auto !important;display: none;"></textarea>
+                style="height: auto !important;display: none;">{{userStory.get_DevTask}}</textarea>
         </div>
         <div class="form-group col-1">
             <div class="row">
                 <label for="exampleInputEmail1">Priority</label>
-                <input type="text" name="Priority" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input type="text" value="{{userStory.priority}}" name="Priority" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Priority">
                 <input type="checkbox" name="AddAnother" id="status" style="display: none;">
             </div>
@@ -110,8 +134,8 @@
                     <div class="modal-body mx-3">
                         <div class="form-group ">
                             <label for="exampleInputEmail1">Description</label>
-                            <input type="text" name="US_Group" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="Description">
+                            <input type="text" name="US_Group" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Description">
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
@@ -120,32 +144,14 @@
                 </div>
             </div>
         </div>
-        
+    
         <!-- <div class="text-center">
-            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
-                Modal Login Form</a>
-        </div> -->
+                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
+                    Modal Login Form</a>
+            </div> -->
         <button type="submit" class="col-1 btn btn-success ">Submit</button>
-        <button type="button" class="col-2 btn btn-success" data-toggle="modal" data-target="#modalLoginForm"
-            >add to group</button>
+        <button type="button" class="col-2 btn btn-success" data-toggle="modal" data-target="#modalLoginForm">add to
+            group</button>
     </div>
-    <!-- <div class="form-group">
-        <label for="exampleInputEmail1">US_Group</label>
-        <input type="text" name="US_Group" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="US_Group">
-    </div> -->
-    <!-- <div style="width:100% ;" class="row">
-        <div class="form-group col-10">
-            <label for="exampleInputEmail1">Estimates</label>
-            <input type="text" class="form-control Estimates" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Estimates">
-        </div>
-        <div class="col-2 text-center">
-            <button type="button" class="btn btn-success AddEstimates" style="margin-top:2rem ;">add another</button>
-        </div>
-    </div>
-    <div class="form-group">
-        <textarea type="text" name="Estimates" class="form-control mt-2 h-25 EstimatesArea" cols="10"></textarea>
-    </div> -->
 </form>
 {% endblock %}

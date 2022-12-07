@@ -46,7 +46,6 @@ def add_user(request):
                 return HttpResponse('Invalid login')
     else:
         form = AddUserForm()
-    print(form)
     return render(request, 'user/addUser.html', {'form': form})
 
 

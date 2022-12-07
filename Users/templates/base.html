@@ -88,8 +88,12 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script>
+        var projects = JSON.parse('{{project|safe}}');
+        console.log(projects);
+        function remove(e) {
+            e.parentNode.remove();
+        }
         $(".AddRaids").on('click', function (e) {
-            e.preventDefault();
             var currentValue = $(".Raids").val()
             var value = $(".RaidsArea").val()
             $(".RaidsArea").val(currentValue +"\r\n"+ value)
@@ -97,10 +101,10 @@
             var text = document.getElementsByClassName("RaidsArea")[0]
             text.style.height = "";
             text.style.setProperty('height', Math.max(text.scrollHeight, 80) + "px", 'important');
+            $('<input type="text" class="form-control" value=' + currentValue + ' id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group col-10"></div>').prependTo($('<div style="width:100%;" class="row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('.RAIDSDiv'))));
             //elem.val(elem.val() + 'add this');
         });
         $(".AddDev").on('click', function (e) {
-            e.preventDefault();
             var currentValue = $(".Dev").val()
             var value = $(".DevArea").val()
             $(".DevArea").val(currentValue + "\r\n" + value)
@@ -108,21 +112,54 @@
             var text = document.getElementsByClassName("DevArea")[0]
             text.style.height = "";
             text.style.setProperty('height', Math.max(text.scrollHeight, 80) + "px", 'important');
+            $('<input type="text" class="form-control" value=' + currentValue + ' id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group col-10"></div>').prependTo($('<div style="width:100%;" class="row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('.DKDiv'))));
+                //elem.val(elem.val() + 'add this');
+            });
+        $(".AddPersona").on('click', function (e) {
+                var currentValue = $(".Persona").val()
+                var value = $(".PersonaArea").val()
+                $(".PersonaArea").val(currentValue + "\r\n" + value)
+                $(".Persona").val("")
+                var text = document.getElementsByClassName("PersonaArea")[0]
+                text.style.height = "";
+                text.style.setProperty('height', Math.max(text.scrollHeight, 80) + "px", 'important');
+                $('<input type="text" class="form-control" value='+ currentValue +' id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group col-10"></div>').prependTo($('<div style="width:100%;" class="row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('.PersonDiv'))));
+                
                 //elem.val(elem.val() + 'add this');
             });
         $(".AddEstimates").on('click', function (e) {
-                e.preventDefault();
                 var currentValue = $(".Estimates").val()
                 var value = $(".EstimatesArea").val()
                 $(".EstimatesArea").val(currentValue + "\r\n" + value)
                 $(".Estimates").val("")
                 //elem.val(elem.val() + 'add this');
             });
-        $('input').change(function () {
+        $('input').change(function (e) {
                 console.log("dv");
                 document.getElementById("form").submit();
             });
+        $(".AddUserStory").on('click', function (e) {
+                var status = document.getElementById("status");
+                status.checked  = true;
+                $('form').submit();
+            });
+        $(".group").on('click', function (e) {
+                var name = $(".groupName").attr("data-original-title");
+                $(".groupField").val(name);
+                $("#form").submit();
+            });
+        $('.business').change(function () {
+            $(".projectOption").remove();
+            projects.forEach(project => {
+                if (project['business'] == $(".business").val()){
+                    $('.project').append($('<option class="projectOption" value=' + project['id'] + '>' + project['name'] + '</option>'));
+                }
+            });
+        });
         $('[data-toggle="tooltip"]').tooltip();
+        if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
     </script>
 </body>
     

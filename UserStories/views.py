@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from UserStoryApp.models import UserStory, Persona, DevelopmentTask, RAIDS, Category, Epic, US_Group
+from UserStoryApp.models import UserStory, Persona, DevelopmentTask, RAIDS, Epic, US_Group, UserStoryVersion, Project
 from .forms import AddUserStoryForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
@@ -38,7 +38,7 @@ def userStories_list(request):
         userStories = userStories.filter(
             US_Group__description__contains=request.GET.get("Indicator"))
         Indicator = request.GET.get("Indicator")
-    return render(request, 'userStories/userStories.html', {'users': userStories, 'filter': my_filter, 'form': {'persona': Persona, 'RAIDS': RAIDS, 'DevTask': DevTask}})
+    return render(request, 'userStories/userStories.html', {'users': userStories, 'filter': my_filter, 'form': {'persona': Persona, 'RAIDS': RAIDS, 'DevTask': DevTask, 'indicator': Indicator}})
 
 
 @login_required
@@ -48,8 +48,10 @@ def add_userStory(request):
         uS_Group = US_Group.objects.create(
             description=request.POST.get("US_Group"))
         persona = []
-        persona.append(Persona.objects.create(
-            Name=request.POST.get("Persona")))
+        personas = request.POST.get("Persona").splitlines()
+        for p in personas:
+            persona.append(Persona.objects.create(
+                Name=request.POST.get("Persona")))
         print(request.POST.get("Dev"))
         devs = request.POST.get("Dev").splitlines()
         devResult = []
@@ -62,12 +64,8 @@ def add_userStory(request):
         RaidsResult = []
         for Raid in Raids:
             RaidsResult.append(RAIDS.objects.create(description=Raid))
-        epicCategory = []
-        epicCategory.append(Category.objects.create(
-            name=request.POST.get("EpicCategory")))
         epic = Epic.objects.create(
             versionName=request.POST.get("Epic"))
-        epic.Category.set(epicCategory)
         userStory = UserStory.objects.create(
             iWantTO=request.POST.get("IWantTO"),
             soThat=request.POST.get("SoThat"),
@@ -78,10 +76,20 @@ def add_userStory(request):
         userStory.Persona.set(persona)
         userStory.RAIDS.set(RaidsResult)
         userStory.DevelopmentTask.set(devResult)
-    return render(request, 'userStories/addUserStory.html')
+        VersionName = request.POST.get("VersionName")
+        VersionDescription = request.POST.get("VersionDescription")
+        print(VersionName)
+        print(VersionDescription)
+        current_user = request.user
+        project = Project.objects.get(id=request.POST.get("project"))
+        userStoryVersion = UserStoryVersion.objects.create(
+            name=VersionName, description=VersionDescription, Project=project, User=current_user)
+    persona = Project.objects.all()
+    print(persona)
+    return render(request, 'userStories/addUserStory.html', {'persona': persona})
 
 
-def userDetails(request, id):
+def userStoryDetails(request, id):
     User = get_user_model()
-    users = User.objects.get(id=id)
-    return render(request, 'user/userDetails.html', {'user': users})
+    users = UserStory.objects.get(id=id)
+    return render(request, 'userStories/userStoryDetails.html', {'userStory': users})

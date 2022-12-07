@@ -25,9 +25,8 @@ def business_list(request):
             project__name__contains=request.GET.get("Projects"))
         Projects = request.GET.get("Projects")
     for b in business:
-        project = Project.objects.get(Business=b)
-        b.project = project.name
-        print(b.project)
+        project = Project.objects.filter(Business=b)
+        b.project = "\n".join([f'{p.name} , ' for p in project])
     return render(request, 'Business/Business.html', {'businesses': business, 'filter': my_filter, 'form': {'industry': Industry, 'projects': Projects}})
 
 
