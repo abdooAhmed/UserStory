@@ -36,11 +36,13 @@ def add_business(request):
         form = AddProjectsForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            current_user = request.user
             user = Business.objects.create(hourlyRate=cd['hourlyRate'], name=cd['name'],
                                            LegalEntityName=cd['LegalEntityName'], Address=cd['Address'],
                                            BusinessNumber=cd['BusinessNumber'],
-                                           BusinessEmail=cd['BusinessEmail'])
+                                           BusinessEmail=cd['BusinessEmail'], User=current_user)
             user.businessIndustry.set(cd['businessIndustry'])
+            print(user)
             if user is not None:
                 return redirect('/Business/list/')
     else:
