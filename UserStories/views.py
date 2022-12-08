@@ -69,24 +69,13 @@ def add_userStory(request):
         userStory = UserStory.objects.create(
             iWantTO=request.POST.get("IWantTO"),
             soThat=request.POST.get("SoThat"),
-            priority=request.POST.get("Priority"),
             Epic=epic,
             US_Group=uS_Group
         )
         userStory.Persona.set(persona)
         userStory.RAIDS.set(RaidsResult)
         userStory.DevelopmentTask.set(devResult)
-        VersionName = request.POST.get("VersionName")
-        VersionDescription = request.POST.get("VersionDescription")
-        print(VersionName)
-        print(VersionDescription)
-        current_user = request.user
-        project = Project.objects.get(id=request.POST.get("project"))
-        userStoryVersion = UserStoryVersion.objects.create(
-            name=VersionName, description=VersionDescription, Project=project, User=current_user)
-    persona = Project.objects.all()
-    print(persona)
-    return render(request, 'userStories/addUserStory.html', {'persona': persona})
+    return render(request, 'userStories/addUserStory.html')
 
 
 def userStoryDetails(request, id):

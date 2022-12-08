@@ -1,11 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from enum import Enum
 
 # Create your models here.
 
 
+class Role(Enum):
+    Customer = 1
+    InternalUser = 2
+
+
 class User (AbstractUser):
-    Role = models.TextField(blank=True)
+    Role = models.IntegerField(blank=True, null=True)
     project = []
     business = []
 

@@ -1,4 +1,5 @@
 from django import forms
+from UserStoryApp.models import Role
 
 
 class AddUserForm(forms.Form):
@@ -7,4 +8,5 @@ class AddUserForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
     email = forms.CharField()
-    Role = forms.CharField()
+    Role = forms.TypedChoiceField(choices=[(choice.value, choice.name)
+                                           for choice in Role])

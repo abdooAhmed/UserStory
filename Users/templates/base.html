@@ -88,8 +88,6 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script>
-        var projects = JSON.parse('{{project|safe}}');
-        console.log(projects);
         function remove(e) {
             e.parentNode.remove();
         }
@@ -148,6 +146,8 @@
                 $(".groupField").val(name);
             });
         $('.business').change(function () {
+            var projects = JSON.parse('{{project|safe}}');
+            console.log(projects);
             $(".projectOption").remove();
             projects.forEach(project => {
                 if (project['business'] == $(".business").val()){
