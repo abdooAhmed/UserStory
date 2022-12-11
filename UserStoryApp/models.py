@@ -60,7 +60,8 @@ class Business(models.Model):
     Address = models.TextField(blank=True)
     BusinessNumber = models.IntegerField(blank=True, null=True)
     BusinessEmail = models.TextField(blank=True)
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    User = models.ManyToManyField(User)
+    ABN = models.IntegerField(blank=True, null=True)
 
     def get_categories(self):
         return "\n".join([f'{p.name} , ' for p in self.businessIndustry.all()])

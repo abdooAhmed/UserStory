@@ -1,5 +1,5 @@
 from django import forms
-from UserStoryApp.models import BusinessCategory, Business
+from UserStoryApp.models import BusinessCategory, Business, User
 
 
 class MyModelMultipleChoiceField(forms.ModelMultipleChoiceField):
@@ -7,18 +7,35 @@ class MyModelMultipleChoiceField(forms.ModelMultipleChoiceField):
         return obj.name
 
 
-class AddProjectsForm(forms.ModelForm):
-    hourlyRate = forms.IntegerField()
+class UserMyModelMultipleChoiceField(forms.ModelMultipleChoiceField):
+    def label_from_instance(self, obj):
+        return obj.username
+
+
+class AddBusinessForm1(forms.Form):
     name = forms.CharField()
-    LegalEntityName = forms.CharField()
-    Address = forms.CharField()
-    BusinessNumber = forms.IntegerField()
-    BusinessEmail = forms.CharField()
     businessIndustry = MyModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(),
         queryset=BusinessCategory.objects.all()
     )
+    hourlyRate = forms.IntegerField()
+    # LegalEntityName = forms.CharField()
+    # Address = forms.CharField()
+    # BusinessNumber = forms.IntegerField()
+    # BusinessEmail = forms.CharField()
+    Internal_User = UserMyModelMultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple(),
+        queryset=User.objects.filter(Role=2)
+    )
+    Customer = UserMyModelMultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple(),
+        queryset=User.objects.filter(Role=1)
+    )
 
-    class Meta:
-        model = Business
-        exclude = ['created_at', 'edited_at']
+
+class AddBusinessForm2(forms.Form):
+    LegalEntityName = forms.CharField(required=False)
+    Address = forms.CharField(required=False)
+    BusinessNumber = forms.IntegerField(required=False)
+    BusinessEmail = forms.CharField(required=False)
+    ABN = forms.IntegerField(required=False)

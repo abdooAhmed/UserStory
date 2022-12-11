@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+<div>
+    <h1 class="m-auto">Add UserStory</h1>
+</div>
+<form method="post">
+    {% csrf_token %}
+    <div class="row w-100">
+        <div class="col-5">
+            {{ form.as_p }}
+        </div>
+        <div class="col-5">
+            {{form2.as_p}}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success" value="submit">Submit</button>
+    <button type="button" class="col-2 btn btn-success" data-toggle="modal" data-target="#modalLoginForm">Add Business
+        Industry
+    </button>
+</form>
+{% endblock %}

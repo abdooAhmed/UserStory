@@ -33,3 +33,23 @@ def add_Projects(request):
         form = AddProjectsForm()
     print(form)
     return render(request, 'projects/addProject.html', {'form': form})
+
+
+@login_required
+def projectDetails(request, id):
+    if request.method == 'POST':
+        form = AddProjectsForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            project = Project.objects.get(id=id)
+            project.name = cd['name']
+            project.status = cd['status']
+            project.Business = cd['business']
+            project.save()
+            if project is not None:
+                return redirect('/Projects/list/')
+    else:
+        project = Project.objects.get(id=id)
+        form = AddProjectsForm(
+            initial={'name': project.name, 'status': project.status, 'business': project.Business})
+    return render(request, 'projects/projectDetails.html', {'form': form})

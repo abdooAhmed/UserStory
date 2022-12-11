@@ -4,6 +4,9 @@
 <div>
     <h1 class="m-auto">Projects</h1>
 </div>
+<a href="{% url 'AddProject' %}" class="btn btn-success" aria-hidden="true"><i class="fa fa-plus text-white"
+        aria-hidden="true"></i>
+</a>
 <div class="table-responsive p-0">
     <table class="table align-items-center mb-0">
         <thead>
@@ -63,7 +66,7 @@
                     <span class="text-secondary text-xs font-weight-bold">null</span>
                 </td>
                 <td class="align-middle text-center">
-                    <a href="{% url 'userDetails' user.id %}" class="btn btn-success" aria-hidden="true">
+                    <a href="{% url 'projectDetails' user.id %}" class="btn btn-success" aria-hidden="true">
                         Details
                     </a>
                 </td>
@@ -74,7 +77,5 @@
 
     </table>
 </div>
-<a href="{% url 'AddProject' %}" class="btn btn-success" aria-hidden="true"><i class="fa fa-plus text-white"
-        aria-hidden="true"></i>
-</a>
+
 {% endblock %}

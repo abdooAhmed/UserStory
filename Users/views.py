@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from .forms import AddUserForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from UserStoryApp.models import User, Project, Business
+from UserStoryApp.models import User, Project, Business, Role
 from django.contrib.auth.decorators import login_required
 from .filter import UsersFilter
 # Create your views here.
@@ -25,6 +25,7 @@ def user_list(request):
         if len(business):
             u.business = business
             print(u.business)
+        u.Role = Role(u.Role).name
     return render(request, 'user/users.html', {'users': users, 'filter': my_filter})
 
 
@@ -52,4 +53,7 @@ def add_user(request):
 def userDetails(request, id):
     User = get_user_model()
     users = User.objects.get(id=id)
-    return render(request, 'user/userDetails.html', {'user': users})
+    form = AddUserForm(
+        initial={'first_name': users.first_name, 'last_name': users.last_name, 'username': users.username, 'password': users.password,
+                 'email': users.email, 'Role': (users.Role, Role(users.Role).name)})
+    return render(request, 'user/userDetails.html', {'form': form})

@@ -95,8 +95,14 @@ def userStoryVersionDetails(request, id):
     userStoryVersion = UserStoryVersion.objects.get(id=id)
     userStory = UserStory.objects.filter(
         userStoriesVersion=userStoryVersion)
-    projects = Project.objects.all()
-    print(userStoryVersion)
-    print(userStory)
+    project = Project.objects.all()
+    business = Business.objects.all()
+    projects = []
+    current_user = request.user
+    for p in project:
+        projects.append({'id': p.id, 'name': p.name,
+                        'business': p.Business.id})
+    projectJson = dumps(projects)
+    print(userStoryVersion.Project.name)
     return render(request, 'userStoryVersions/userStoryVersionsDetails.html',
-                  {'userStoryVersion': userStoryVersion, 'userStories': userStory, 'persona': projects})
+                  {'userStoryVersion': userStoryVersion, 'userStories': userStory, 'persona': project, 'userName': current_user.username, 'project': projectJson, 'business': business})
