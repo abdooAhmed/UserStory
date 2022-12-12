@@ -53,7 +53,7 @@
                     id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1" style="display: block;width: 100%;">User Name</label>
+                <label for="exampleInputEmail1" style="display: block;width: 100%;">PlatForm</label>
                 <select id="example-getting-started" class="form-control form-select platform" multiple="multiple">
                     {% for p in platforms %}
                     <option class="projectOption" value="{{p.id}}">{{p.name}}</option>
@@ -133,8 +133,8 @@
             </div>
         </div>
         {% endfor %}
-        <div class="row" id="UserStory" style="width:100% ;">
-            <div class="col-2 m-0" style="height: 100%;">
+        <div class="row no-gutters" id="UserStory" style="width:100% ;">
+            <div class="col-2 pl-5" style="height: 100%;">
                 <div style="width:100% ;" class="row">
                     <div class="form-group col-10 mb-0">
                         <label for="exampleInputEmail1">Persona</label>
@@ -144,12 +144,12 @@
             
                 </div>
                 <div style="width:100% ;" class="row">
-                    <div class="form-group col-10">
-                        <input type="text" class="form-control Persona" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <div class="form-group row">
+                        <input type="text" style="display: inline;" class="form-control Persona col-10" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="Persona">
+                        <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
+                                style="display: flex;justify-content: center;align-items: center;"></i>
                     </div>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
                 <textarea type="text" required name="Persona" class="form-control mt-2  PersonaArea" cols="250"
                     style="height: auto !important; display: none;"></textarea>
@@ -159,17 +159,17 @@
                 <input type="text" name="Epic" class="form-control input" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Epic">
             </div>
-            <div class="form-group col-2">
+            <div class="form-group col-1">
                 <label for="exampleInputEmail1">IWantTO</label>
                 <input type="text" name="IWantTO" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="IWantTO">
             </div>
-            <div class="form-group col-2">
+            <div class="form-group col-1">
                 <label for="exampleInputEmail1">SoThat</label>
                 <input type="text" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="SoThat">
             </div>
-            <div class="col-2">
+            <div class="col-2" style="padding-left: 1.8rem;">
                 <div style="width:100% ;" class="row">
                     <div class="form-group col-10 mb-0">
                         <label for="exampleInputEmail1">Dev Tasks</label>
@@ -179,17 +179,17 @@
             
                 </div>
                 <div style="width:100% ;" class="row">
-                    <div class="form-group col-10">
-                        <input type="text" class="form-control Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <div class="form-group row">
+                        <input type="text" class="form-control Dev col-10" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="Dev Tasks">
+                        <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
+                            style="display: flex;justify-content: center;align-items: center;"></i>
                     </div>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
                 <textarea type="text" name="Dev" class="form-control mt-2  DevArea" cols="250"
                     style="height: auto !important;display: none;"></textarea>
             </div>
-            <div class="col-2" style="height: 100%;">
+            <div class="col-2" style="padding-left: 1.8rem;">
                 <div style="width:100% ;" class="row">
                     <div class="form-group col-10 mb-0">
                         <label for="exampleInputEmail1">R.A.I.DS</label>
@@ -199,22 +199,28 @@
                 
                 </div>
                 <div style="width:100% ;" class="row">
-                    <div class="form-group col-10">
-                        <input type="text" class="form-control Raids" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <div class="form-group row">
+                        <input type="text" class="form-control Raids col-10" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="R.A.I.DS">
+                        <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
+                                style="display: flex;justify-content: center;align-items: center;"></i>
                     </div>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
                 <textarea type="text" name="RAIDS" class="form-control mt-2 RaidsArea" cols="250"
                     style="height: auto !important; display: none;"></textarea>
             </div>
-            <div class="form-group col-1">
+            <div class="form-group col-1" style="padding-left: .9rem;">
                 <div class="row">
                     <label for="exampleInputEmail1">Priority</label>
                     <input type="text" name="Priority" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Priority">
                     <input type="checkbox" name="AddAnother" id="status" style="display: none;">
+                </div>
+            </div>
+            <div class="form-group col-2" style="padding-left: 1.2rem;">
+                <label for="exampleInputEmail1">Estimate</label>
+                <div style="width: 100%;" class="estimateDiv row pl-2">
+                    
                 </div>
             </div>
         </div>
