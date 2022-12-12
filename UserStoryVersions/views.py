@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from UserStoryApp.models import UserStory, Persona, DevelopmentTask, RAIDS, Epic, US_Group, UserStoryVersion, Project, Business
+from UserStoryApp.models import UserStory, Persona, DevelopmentTask, Platform, RAIDS, Epic, US_Group, UserStoryVersion, Project, Business
 from .forms import AddUserStoryVersionForm
 from django.contrib.auth.decorators import login_required
 from .filter import userStoryVersionsFilter
@@ -33,9 +33,12 @@ def userStoryVersions_list(request):
 
 @login_required
 def add_userStoryVersions(request):
+    if request.method == 'GET' and 'Platform' in request.GET:
+        Platform.objects.create(name=request.GET.get("Name"))
+        print(request.GET.get("platform"))
+        return redirect('/UserStoryVersion/addUserStoryVersion/')
+    platforms = Platform.objects.all()
     if request.method == 'POST':
-        uS_Group = US_Group.objects.create(
-            description=request.POST.get("US_Group"))
         persona = []
         personas = request.POST.get("Persona").splitlines()
         for p in personas:
@@ -66,7 +69,6 @@ def add_userStoryVersions(request):
             soThat=request.POST.get("SoThat"),
             priority=request.POST.get("Priority"),
             Epic=epic,
-            US_Group=uS_Group,
             userStoriesVersion=userStoryVersion
         )
         userStory.Persona.set(persona)
@@ -78,7 +80,7 @@ def add_userStoryVersions(request):
             return redirect('/UserStoryVersion/list/', {'persona': persona, 'userStories': userStories})
         business = Business.objects.all()
         projects = Project.objects.all()
-        return render(request, 'userStoryVersions/addUserStoryVersion.html', {'persona': projects, 'userStories': userStories, 'userStoryVersion': userStoryVersion, 'business': business})
+        return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userStories': userStories, 'userStoryVersion': userStoryVersion, 'business': business})
     project = Project.objects.all()
     business = Business.objects.all()
     projects = []
@@ -87,7 +89,7 @@ def add_userStoryVersions(request):
         projects.append({'id': p.id, 'name': p.name,
                         'business': p.Business.id})
     projectJson = dumps(projects)
-    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'persona': projects, 'userName': current_user.username, 'project': projectJson, 'userStories': userStories, 'business': business})
+    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business})
 
 
 def userStoryVersionDetails(request, id):

@@ -11,7 +11,7 @@
         <div class="col-3">
             <div class="form-group mb-0">
                 <label for="exampleInputEmail1">business</label>
-                <select class="form-control form-select business" name="business" style="display:block ;"
+                <select class="form-control form-select business" required name="business" style="display:block ;"
                     aria-label="Default select example">
                     <option selected>Open this select menu</option>
                     {% for p in business %}
@@ -21,9 +21,9 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Project</label>
-                <select class="form-control form-select project" name="project" style="display:block ;"
+                <select class="form-control form-select project" required name="project" style="display:block ;"
                     aria-label="Default select example">
-                    <option selected value="0">Open this select menu</option>
+                    <option value="0">Open this select menu</option>
                     {% for p in persona %}
                     {% if p == userStoryVersion.Project %}
                     <option class="projectOption" value="{{p.id}}" selected>{{p.name}}</option>
@@ -37,12 +37,12 @@
         <div class="col-3">
             <div class="form-group">
                 <label for="exampleInputEmail1">Version Name</label>
-                <input type="text" name="VersionName" value="{{userStoryVersion.name}}" class="form-control" id="exampleInputEmail1"
+                <input type="text" name="VersionName" required value="{{userStoryVersion.name}}" class="form-control" id="exampleInputEmail1"
                     aria-describedby="emailHelp" placeholder="Name">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Version Description</label>
-                <input type="text" name="VersionDescription" value="{{userStoryVersion.description}}" class="form-control" id="exampleInputEmail1"
+                <input type="text" name="VersionDescription" required value="{{userStoryVersion.description}}" class="form-control" id="exampleInputEmail1"
                     aria-describedby="emailHelp" placeholder="Description">
             </div>
         </div>
@@ -52,7 +52,20 @@
                 <input type="text" name="VersionName" disabled value="{{userName}}" class="form-control"
                     id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
             </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1" style="display: block;width: 100%;">User Name</label>
+                <select id="example-getting-started" class="form-control form-select platform" multiple="multiple">
+                    {% for p in platforms %}
+                    <option class="projectOption" value="{{p.id}}">{{p.name}}</option>
+                    {% endfor %}
+                </select>
+                <!-- <select class="form-control form-select" required name="platform" style="display:block ;"
+                                            aria-label="Default select example">
+                                            
+                                        </select> -->
+            </div>
         </div>
+        
     </div>
     <div>
         {% for u in userStories %}
@@ -121,7 +134,7 @@
         </div>
         {% endfor %}
         <div class="row" id="UserStory" style="width:100% ;">
-            <div class="col-2" style="height: 100%;">
+            <div class="col-2 m-0" style="height: 100%;">
                 <div style="width:100% ;" class="row">
                     <div class="form-group col-10 mb-0">
                         <label for="exampleInputEmail1">Persona</label>
@@ -138,12 +151,12 @@
                     <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
                         style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
-                <textarea type="text" name="Persona" class="form-control mt-2  PersonaArea" cols="250"
+                <textarea type="text" required name="Persona" class="form-control mt-2  PersonaArea" cols="250"
                     style="height: auto !important; display: none;"></textarea>
             </div>
-            <div class="form-group col-1">
+            <div class="form-group col-1 m-0" style="margin: 0;">
                 <label for="exampleInputEmail1">Epic</label>
-                <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input type="text" name="Epic" class="form-control input" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Epic">
             </div>
             <div class="form-group col-2">
@@ -207,40 +220,11 @@
         </div>
     </div>
     <div>
-        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Add Group</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <div class="form-group ">
-                            <label for="exampleInputEmail1">Description</label>
-                            <input type="text" name="US_Group" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Description">
-                        </div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button data-dismiss="modal" aria-label="Close" type="button"
-                            class="btn btn-success">Add</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div class="text-center">
-            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
-                Modal Login Form</a>
-        </div> -->
         <button type="button" class="col-2 btn btn-success AddUserStory">add another
             UserStory</button>
         <button type="submit" class="col-1 btn btn-success ">Submit</button>
-        <button type="button" class="col-2 btn btn-success" data-toggle="modal" data-target="#modalLoginForm">add to
-            group</button>
+        <button type="button" class="col-2 btn btn-success" data-toggle="modal" data-target="#modalLoginForm">Add Platform
+        </button>
     </div>
     <!-- <div class="form-group">
         <label for="exampleInputEmail1">US_Group</label>
@@ -261,4 +245,38 @@
         <textarea type="text" name="Estimates" class="form-control mt-2 h-25 EstimatesArea" cols="10"></textarea>
     </div> -->
 </form>
+<div>
+    <form method="get">
+        {% csrf_token %}
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Add Platform</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="form-group ">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="text" name="Name" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" value="submit" name="Platform"
+                            class="btn btn-success">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="text-center">
+                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
+                            Modal Login Form</a>
+                    </div> -->
+    </form>
+</div>
 {% endblock %}

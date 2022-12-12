@@ -185,6 +185,19 @@ def __str__(self):
     return self.name
 
 
+class Estimates(models.Model):
+    id = models.AutoField(primary_key=True)
+    noOfHours = models.IntegerField(blank=True, null=True)
+    Platform = models.OneToOneField(Platform, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "Estimates"
+
+
+def __str__(self):
+    return self.name
+
+
 class UserStory(models.Model):
     id = models.AutoField(primary_key=True)
     iWantTO = models.TextField(blank=True)
@@ -195,6 +208,7 @@ class UserStory(models.Model):
     Persona = models.ManyToManyField(Persona)
     RAIDS = models.ManyToManyField(RAIDS)
     DevelopmentTask = models.ManyToManyField(DevelopmentTask)
+    Estimates = models.ManyToManyField(Estimates)
     US_Group = models.ForeignKey(
         US_Group, on_delete=models.CASCADE, blank=True, null=True)
     Epic = models.ForeignKey(Epic, on_delete=models.CASCADE)
@@ -217,20 +231,6 @@ class UserStory(models.Model):
 
     def get_UsGroup(self):
         return self.US_Group.description
-
-
-def __str__(self):
-    return self.name
-
-
-class Estimates(models.Model):
-    id = models.AutoField(primary_key=True)
-    noOfHours = models.IntegerField(blank=True, null=True)
-    UserStory = models.ForeignKey(UserStory, on_delete=models.CASCADE)
-    Platform = models.OneToOneField(Platform, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = "Estimates"
 
 
 def __str__(self):
