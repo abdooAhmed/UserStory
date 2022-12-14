@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from .forms import AddBusinessForm1, AddBusinessForm2
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from UserStoryApp.models import Business, BusinessCategory, Project
+from UserStoryApp.models import Business, BusinessCategory, Project, User
 from django.contrib.auth.decorators import login_required
 from .filter import BusinessFilter
 # Create your views here.
@@ -32,6 +32,9 @@ def business_list(request):
 
 @login_required
 def add_business(request):
+    businessIndustries = BusinessCategory.objects.all()
+    internal_User = User.objects.filter(Role=2)
+    Customer = User.objects.filter(Role=1)
     if request.method == 'GET' and 'businessIndustry' in request.GET:
         BusinessCategory.objects.create(name=request.GET.get("Name"))
         form = AddBusinessForm1()
@@ -57,10 +60,10 @@ def add_business(request):
             user.User.set(users)
             if user is not None:
                 return redirect('/Business/list/')
-        return render(request, 'Business/addBusiness.html', {'form': form, 'form2': form2})
+        return render(request, 'Business/addBusiness.html', {'form': form, 'form2': form2, 'internal_User': internal_User, 'customer': Customer, 'businessIndustries': businessIndustries})
     form = AddBusinessForm1()
     form2 = AddBusinessForm2()
-    return render(request, 'Business/addBusiness.html', {'form': form, 'form2': form2})
+    return render(request, 'Business/addBusiness.html', {'form': form, 'form2': form2, 'internal_User': internal_User, 'customer': Customer, 'businessIndustries': businessIndustries})
 
 
 def BusinessDetails(request, id):

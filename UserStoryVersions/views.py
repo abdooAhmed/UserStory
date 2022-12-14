@@ -33,6 +33,7 @@ def userStoryVersions_list(request):
 
 @login_required
 def add_userStoryVersions(request):
+    userStoriesObjects = UserStory.objects.all()
     if request.method == 'GET' and 'Platform' in request.GET:
         Platform.objects.create(name=request.GET.get("Name"))
         print(request.GET.get("platform"))
@@ -89,7 +90,7 @@ def add_userStoryVersions(request):
         projects.append({'id': p.id, 'name': p.name,
                         'business': p.Business.id})
     projectJson = dumps(projects)
-    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business})
+    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business, 'userStoriesObject': userStoriesObjects})
 
 
 def userStoryVersionDetails(request, id):

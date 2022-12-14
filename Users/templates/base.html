@@ -99,7 +99,19 @@
         $('#example-getting-started').multiselect({
                 buttonClass: 'form-select',
                 templates: {
-                    button: '<button type="button" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                    button: '<button type="button" style="width: 15.2rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                }
+            });
+        $('#example-getting-started1').multiselect({
+                buttonClass: 'form-select',
+                templates: {
+                    button: '<button type="button" style="width: 15.2rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                }
+            });
+        $('#example-getting-started2').multiselect({
+                buttonClass: 'form-select',
+                templates: {
+                    button: '<button type="button" style="width: 15.2rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 }
             });
         function remove(e) {
@@ -248,6 +260,7 @@
             });
         });
         estimateList =[]
+        var platfrom = ""
         $('.platform').change(function () {
                 var list = $(".platform").val();
                 if($('.estimate').length){
@@ -258,10 +271,14 @@
                         }
                     }
                 }
+                var index = 0;
                 list.forEach(i=>{
-                    if(!estimateList.includes(i)){
-                        $('.estimateDiv').append($('<input type="number" id="' + i + '" class="form-control estimate col-4" id="exampleInputEmail1" aria-describedby="emailHelp">'));
+                    var currentPlatform = $('.platform option:selected').text();
+                    platfrom = currentPlatform.split(',');
+                    if(!estimateList.includes(i)&& platfrom[index]){
+                        $('.estimateDiv').append($('<input type="number" id="' + i + '" class="form-control estimate col-6" id="exampleInputEmail1" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp">'));
                     }
+                    index ++;
                 });
                 estimateList = list;
             });

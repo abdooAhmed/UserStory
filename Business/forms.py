@@ -14,23 +14,11 @@ class UserMyModelMultipleChoiceField(forms.ModelMultipleChoiceField):
 
 class AddBusinessForm1(forms.Form):
     name = forms.CharField()
-    businessIndustry = MyModelMultipleChoiceField(
-        widget=forms.SelectMultiple(attrs={'class': ''}),
-        queryset=BusinessCategory.objects.all()
-    )
     hourlyRate = forms.IntegerField()
     # LegalEntityName = forms.CharField()
     # Address = forms.CharField()
     # BusinessNumber = forms.IntegerField()
     # BusinessEmail = forms.CharField()
-    Internal_User = UserMyModelMultipleChoiceField(
-        widget=forms.SelectMultiple(attrs={'class': ''}),
-        queryset=User.objects.filter(Role=2)
-    )
-    Customer = UserMyModelMultipleChoiceField(
-        widget=forms.SelectMultiple(attrs={'class': ''}),
-        queryset=User.objects.filter(Role=1)
-    )
 
 
 class AddBusinessForm2(forms.Form):

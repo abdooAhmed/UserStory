@@ -54,14 +54,7 @@
                         <span class="text-secondary text-xs font-weight-bold">{{user.get_Persona}}</span>
                     </td>
                     <td class="align-middle text-center">
-                        {% if user.get_UsGroup %}
-                        <span class="text-secondary text-xs font-weight-bold mr-1 groupName" data-toggle="tooltip" title={{user.get_UsGroup}}>
-                            <i class="fa fa-check-circle text-success group" style="cursor: pointer;"></i>
-                        </span>
-                        <span class="text-secondary text-xs font-weight-bold">{{user.Epic.versionName}}</span>
-                        {% else %}
-                        <span class="text-secondary text-xs font-weight-bold ml-4">{{user.Epic.versionName}}</span>
-                        {% endif %}
+                        
                     </td>
                 <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{user.iWantTO}}</span>
