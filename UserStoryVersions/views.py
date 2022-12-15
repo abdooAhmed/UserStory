@@ -33,15 +33,17 @@ def userStoryVersions_list(request):
 
 @login_required
 def add_userStoryVersions(request):
+    print("here")
     userStoriesObjects = UserStory.objects.all()
     if request.method == 'GET' and 'Platform' in request.GET:
         Platform.objects.create(name=request.GET.get("Name"))
         print(request.GET.get("platform"))
         return redirect('/UserStoryVersion/addUserStoryVersion/')
     platforms = Platform.objects.all()
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST.get("project") != '0':
         persona = []
         personas = request.POST.get("Persona").splitlines()
+        print(personas)
         for p in personas:
             persona.append(Persona.objects.create(
                 Name=request.POST.get("Persona")))
@@ -73,14 +75,18 @@ def add_userStoryVersions(request):
             userStoriesVersion=userStoryVersion
         )
         userStory.Persona.set(persona)
+        print(RaidsResult)
+        print(devResult)
         userStory.RAIDS.set(RaidsResult)
         userStory.DevelopmentTask.set(devResult)
         userStories.append(userStory)
         if not request.POST.get('AddAnother'):
+            print("here")
             print(request.POST.get('AddAnother'))
             return redirect('/UserStoryVersion/list/', {'persona': persona, 'userStories': userStories})
         business = Business.objects.all()
         projects = Project.objects.all()
+        print(userStories)
         return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userStories': userStories, 'userStoryVersion': userStoryVersion, 'business': business})
     project = Project.objects.all()
     business = Business.objects.all()
@@ -90,6 +96,7 @@ def add_userStoryVersions(request):
         projects.append({'id': p.id, 'name': p.name,
                         'business': p.Business.id})
     projectJson = dumps(projects)
+    print("here")
     return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business, 'userStoriesObject': userStoriesObjects})
 
 
