@@ -101,7 +101,6 @@ def add_userStoryVersions(request):
     project = Project.objects.all()
     business = Business.objects.all()
     projects = []
-    userStories = []
     current_user = request.user
     for p in project:
         projects.append({'id': p.id, 'name': p.name,
