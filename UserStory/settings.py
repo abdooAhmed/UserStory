@@ -38,13 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'bootstrap_modal_forms',
     'UserStoryApp.apps.UserstoryappConfig',
     'Users.apps.UsersConfig',
     'UserStories.apps.UserstoriesConfig',
     'UserStoryVersions.apps.UserstoryversionsConfig',
     'Projects.apps.ProjectsConfig',
-    'Business.apps.BusinessConfig'
+    'Business.apps.BusinessConfig',
+    'Apis.apps.ApisConfig'
 
 ]
 

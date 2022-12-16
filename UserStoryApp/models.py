@@ -188,7 +188,7 @@ def __str__(self):
 class Estimates(models.Model):
     id = models.AutoField(primary_key=True)
     noOfHours = models.IntegerField(blank=True, null=True)
-    Platform = models.OneToOneField(Platform, on_delete=models.CASCADE)
+    Platform = models.ForeignKey(Platform, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Estimates"

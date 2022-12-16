@@ -9,4 +9,4 @@ class AddUserForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
     email = forms.CharField()
     Role = forms.TypedChoiceField(choices=[(choice.value, choice.name)
-                                           for choice in Role])
+                                           for choice in Role], widget=forms.Select(attrs={'class': 'form-control form-select'}))

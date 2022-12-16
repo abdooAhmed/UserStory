@@ -248,7 +248,6 @@
         });
 
         $(".AddUserStory").on('click', function (e) {
-                e.preventDefault();
                 var status = document.getElementById("status");
                 status.checked  = true;
                 $('.submit').trigger('click');
@@ -284,16 +283,42 @@
                     var currentPlatform = $('.platform option:selected').text();
                     platfrom = currentPlatform.split(',');
                     if(!estimateList.includes(i)&& platfrom[index]){
-                        $('.estimateDiv').append($('<input type="number" id="' + i + '" class="form-control estimate col-6" id="exampleInputEmail1" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp">'));
+                        $('.estimateDiv').append($('<input type="number" id="' + i + '" class="form-control estimate col-6" name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp">'));
                     }
                     index ++;
                 });
                 estimateList = list;
             });
+        
+        
+        $('.delUserStory').on('click', function (e) {
+            e.target.closest('.parent').remove();
+            });
         $('[data-toggle="tooltip"]').tooltip();
         if (window.history.replaceState) {
                 window.history.replaceState(null, null, window.location.href);
             }
+
+        function showmenu(e) {
+                e.target.nextElementSibling.classList.toggle("show");
+            }
+        window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementById("myDropdown");
+                    if(dropdowns){
+                        if (dropdowns.classList.contains('show')) {
+                            console.log(dropdowns);
+                            dropdowns.classList.remove('show');
+                        }
+                    }
+                    // for (i = 0; i < dropdowns.length; i++) {
+                    //     var openDropdown = dropdowns[i];
+                    //     if (openDropdown.classList.contains('show')) {
+                    //         openDropdown.classList.remove('show');
+                    //     }
+                    // }
+                }
+            }  // Close the dropdown if the user clicks outside of 
     </script>
 </body>
     

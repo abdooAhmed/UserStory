@@ -11,12 +11,14 @@
             {{ form.as_p }}
             <div class="form-group">
                 <label for="exampleInputEmail1" style="display: block;width: 100%;">BusinessIndustries</label>
-                <select id="example-getting-started1" style="width: 100%;" class="form-control form-select platform"
-                    multiple="multiple">
-                    {% for p in businessIndustries %}
-                    <option class="projectOption" value="{{p.id}}">{{p.name}}</option>
-                    {% endfor %}
-                </select>
+                    <select id="example-getting-started1" style="width: 100%;" class="form-control form-select platform"
+                        multiple="multiple">
+                        {% for p in businessIndustries %}
+                        <option class="projectOption" value="{{p.id}}">{{p.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="button" class="col-2 btn btn-success fa fa-plus" data-toggle="modal" data-target="#modalLoginForm">
+                    </button>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1" style="display: block;width: 100%;">Internal_User</label>
@@ -42,8 +44,6 @@
         </div>
     </div>
     <button type="submit" class="btn btn-success" value="submit">Submit</button>
-    <button type="button" class="col-2 btn btn-success" data-toggle="modal" data-target="#modalLoginForm">Add Business Industry
-        </button>
 </form>
     <div>
         <form method="get">

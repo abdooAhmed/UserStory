@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from UserStoryApp.models import UserStory, Persona, DevelopmentTask, Platform, RAIDS, Epic, US_Group, UserStoryVersion, Project, Business
+from UserStoryApp.models import UserStory, Persona, DevelopmentTask, Estimates, Platform, RAIDS, Epic, US_Group, UserStoryVersion, Project, Business
 from .forms import AddUserStoryVersionForm
 from django.contrib.auth.decorators import login_required
 from .filter import userStoryVersionsFilter
@@ -42,6 +42,15 @@ def add_userStoryVersions(request):
     platforms = Platform.objects.all()
     if request.method == 'POST' and request.POST.get("project") != '0':
         persona = []
+        platformIds = request.POST.getlist("platforms")
+        platformIds = [eval(i) for i in platformIds]
+        noOfHoursList = request.POST.getlist("estimate[]")
+        estimates = []
+        for i in range(len(platformIds)):
+            platformObject = Platform.objects.get(id=platformIds[i])
+            print(platformObject)
+            estimates.append(
+                Estimates.objects.create(noOfHours=noOfHoursList[i], Platform=platformObject))
         personas = request.POST.get("Persona").splitlines()
         print(personas)
         for p in personas:
@@ -72,9 +81,10 @@ def add_userStoryVersions(request):
             soThat=request.POST.get("SoThat"),
             priority=request.POST.get("Priority"),
             Epic=epic,
-            userStoriesVersion=userStoryVersion
+            userStoriesVersion=userStoryVersion,
         )
         userStory.Persona.set(persona)
+        userStory.Estimates.set(estimates)
         print(RaidsResult)
         print(devResult)
         userStory.RAIDS.set(RaidsResult)
@@ -87,10 +97,11 @@ def add_userStoryVersions(request):
         business = Business.objects.all()
         projects = Project.objects.all()
         print(userStories)
-        return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userStories': userStories, 'userStoryVersion': userStoryVersion, 'business': business})
+        return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'platformIds': platformIds, 'userStories': userStories, 'userStoryVersion': userStoryVersion, 'business': business})
     project = Project.objects.all()
     business = Business.objects.all()
     projects = []
+    userStories = []
     current_user = request.user
     for p in project:
         projects.append({'id': p.id, 'name': p.name,
