@@ -11,7 +11,7 @@
             {{ form.as_p }}
             <div class="form-group">
                 <label for="exampleInputEmail1" style="display: block;width: 100%;">BusinessIndustries</label>
-                    <select id="example-getting-started1" style="width: 100%;" class="form-control form-select platform"
+                    <select id="example-getting-started1" name="businessIndustry" style="width: 100%;" class="form-control form-select platform"
                         multiple="multiple">
                         {% for p in businessIndustries %}
                         <option class="projectOption" value="{{p.id}}">{{p.name}}</option>
@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1" style="display: block;width: 100%;">Internal_User</label>
-                <select id="example-getting-started" style="width: 100%;" class="form-control form-select platform"
+                <select id="example-getting-started" name="Internal_User" style="width: 100%;" class="form-control form-select platform"
                     multiple="multiple">
                     {% for p in internal_User %}
                     <option class="projectOption" value="{{p.id}}">{{p.username}}</option>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1" style="display: block;width: 100%;">Customer</label>
-                <select id="example-getting-started2" style="width: 100%;" class="form-control form-select platform"
+                <select id="example-getting-started2" name="Customer" style="width: 100%;" class="form-control form-select platform"
                     multiple="multiple">
                     {% for p in customer %}
                     <option class="projectOption" value="{{p.id}}">{{p.username}}</option>

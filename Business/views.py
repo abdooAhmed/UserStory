@@ -43,6 +43,16 @@ def add_business(request):
     if request.method == 'POST':
         form = AddBusinessForm1(request.POST)
         form2 = AddBusinessForm2(request.POST)
+        businessIndustry = []
+        for b in request.POST.get("businessIndustry"):
+            businessIndustry.append(BusinessCategory.objects.get(id=int(b)))
+        users = []
+        for u in request.POST.get("Customer"):
+            users.append(User.objects.get(id=int(u)))
+        for u in request.POST.get("Internal_User"):
+            users.append(User.objects.get(id=int(u)))
+        print(users)
+        print(businessIndustry)
         if form.is_valid() and form2.is_valid():
             cd = form.cleaned_data
             cd2 = form2.cleaned_data
@@ -50,13 +60,7 @@ def add_business(request):
                                            LegalEntityName=cd2['LegalEntityName'], Address=cd2['Address'],
                                            BusinessNumber=cd2['BusinessNumber'],
                                            BusinessEmail=cd2['BusinessEmail'], ABN=cd2['ABN'])
-            user.businessIndustry.set(cd['businessIndustry'])
-            users = []
-            for u in cd['Customer']:
-                users.append(u)
-            for u in cd['Internal_User']:
-                users.append(u)
-            print(users)
+            user.businessIndustry.set(businessIndustry)
             user.User.set(users)
             if user is not None:
                 return redirect('/Business/list/')

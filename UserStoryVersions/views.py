@@ -33,8 +33,11 @@ def userStoryVersions_list(request):
 
 @login_required
 def add_userStoryVersions(request):
-    print("here")
-    userStoriesObjects = UserStory.objects.all()
+    personaObjects = list(Persona.objects.values_list('Name'))
+    print(personaObjects)
+    personaObjects = dumps(personaObjects)
+    epicObjects = list(Epic.objects.values_list('versionName'))
+    epicObjects = dumps(epicObjects)
     if request.method == 'GET' and 'Platform' in request.GET:
         Platform.objects.create(name=request.GET.get("Name"))
         print(request.GET.get("platform"))
@@ -107,7 +110,7 @@ def add_userStoryVersions(request):
                         'business': p.Business.id})
     projectJson = dumps(projects)
     del userStories[:]
-    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business, 'userStoriesObject': userStoriesObjects})
+    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business, 'personaObjects': personaObjects, 'epicObjects': epicObjects})
 
 
 def userStoryVersionDetails(request, id):

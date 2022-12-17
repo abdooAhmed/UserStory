@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Log-in{% endblock %}
 {% block project %}{{project}}{% endblock %}
+{% block personaObjects %}{{personaObjects}}{% endblock %}
+{% block epicObjects %}{{epicObjects}}{% endblock %}
 {% block content %}
 <div>
     <h1 class="m-auto">Add UserStory Version</h1>
@@ -159,15 +161,8 @@
                 <div style="width:100% ;" class="row">
                     <div class="form-group row">
                         <div class="col-10 m-0 p-0">
-                            <input type="text" list="personList" style="display: inline;" class="form-control Persona" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            <input type="text" list="personList" style="display: inline;" class="form-control Persona" id="myInput" aria-describedby="emailHelp"
                             placeholder="Persona">
-                            <datalist id="personList">
-                                {% for u in userStoriesObject %}
-                                {% for p in u.Persona.all %}
-                                <option value="{{p.Name}}">{{p.Name}}</option>
-                                {% endfor %}
-                                {% endfor %}
-                            </datalist>
                         </div>
                         <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
                                 style="display: flex;justify-content: center;align-items: center;"></i>
@@ -176,13 +171,8 @@
             </div>
             <div class="form-group col-1 m-0" style="margin: 0;">
                 <label for="exampleInputEmail1">Epic</label>
-                <input type="text" list="encodings" name="Epic" class="form-control input" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input type="text" list="encodings" name="Epic" class="form-control input" id="epicInput" aria-describedby="emailHelp"
                     placeholder="Epic">
-                <datalist id="encodings">
-                    {% for u in userStoriesObject %}
-                    <option value="{{u.Epic.versionName}}">{{u.Epic.versionName}}</option>
-                    {% endfor %}
-                </datalist>
             </div>
             <div class="form-group col-1">
                 <label for="exampleInputEmail1">IWantTO</label>

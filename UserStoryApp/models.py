@@ -11,7 +11,7 @@ class Role(Enum):
 
 
 class User (AbstractUser):
-    Role = models.IntegerField(blank=True, null=True)
+    Role = models.IntegerField(blank=True, null=True, default=2)
     project = []
     business = []
 
