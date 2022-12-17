@@ -51,19 +51,19 @@ def add_userStoryVersions(request):
             print(platformObject)
             estimates.append(
                 Estimates.objects.create(noOfHours=noOfHoursList[i], Platform=platformObject))
-        personas = request.POST.get("Persona").splitlines()
+        personas = request.POST.getlist("Persona")
         print(personas)
         for p in personas:
             persona.append(Persona.objects.create(
-                Name=request.POST.get("Persona")))
-        devs = request.POST.get("Dev").splitlines()
+                Name=p))
+        devs = request.POST.getlist("Dev")
         devResult = []
         for dev in devs:
             devResult.append(DevelopmentTask.objects.create(description=dev))
         # estimates = request.POST.get("Estimates").splitlines()
         # for estimate in estimates:
         #     Estimates.objects.create()
-        Raids = request.POST.get("RAIDS").splitlines()
+        Raids = request.POST.getlist("RAIDS")
         RaidsResult = []
         for Raid in Raids:
             RaidsResult.append(RAIDS.objects.create(description=Raid))
@@ -106,7 +106,7 @@ def add_userStoryVersions(request):
         projects.append({'id': p.id, 'name': p.name,
                         'business': p.Business.id})
     projectJson = dumps(projects)
-    print("here")
+    del userStories[:]
     return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business, 'userStoriesObject': userStoriesObjects})
 
 

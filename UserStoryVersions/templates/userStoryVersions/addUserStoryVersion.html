@@ -57,9 +57,9 @@
                 <select id="example-getting-started3" name="platforms" style="width: 100%;" class="form-control form-select platform" multiple="multiple">
                     {% for p in platforms %}
                     {% if p.id in platformIds %}
-                    <option class="projectOption" value="{{p.id}}" selected>{{p.name}}</option>
+                    <option  value="{{p.id}}" selected>{{p.name}}</option>
                     {% else %}
-                    <option class="projectOption" value="{{p.id}}">{{p.name}},</option>
+                    <option  value="{{p.id}}">{{p.name}},</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -173,8 +173,6 @@
                                 style="display: flex;justify-content: center;align-items: center;"></i>
                     </div>
                 </div>
-                <textarea type="text" name="Persona" class="form-control mt-2  PersonaArea" cols="250"
-                    style="height: auto !important; display: none;"></textarea>
             </div>
             <div class="form-group col-1 m-0" style="margin: 0;">
                 <label for="exampleInputEmail1">Epic</label>
@@ -213,8 +211,6 @@
                             style="display: flex;justify-content: center;align-items: center;"></i>
                     </div>
                 </div>
-                <textarea type="text" name="Dev" class="form-control mt-2  DevArea" cols="250"
-                    style="height: auto !important;display: none;"></textarea>
             </div>
             <div class="col-2" style="padding-left: 1.8rem;">
                 <div style="width:100% ;" class="row">
@@ -233,8 +229,6 @@
                                 style="display: flex;justify-content: center;align-items: center;"></i>
                     </div>
                 </div>
-                <textarea type="text" name="RAIDS" class="form-control mt-2 RaidsArea" cols="250"
-                    style="height: auto !important; display: none;"></textarea>
             </div>
             <div class="form-group col-1" style="padding-left: .9rem;">
                 <div class="row">
@@ -244,9 +238,9 @@
                     <input type="checkbox" name="AddAnother" id="status" style="display: none;">
                 </div>
             </div>
-            <div class="form-group col-2" style="padding-left: 1.2rem;">
-                <label for="exampleInputEmail1">Estimate</label>
-                <div style="width: 100%;" class="estimateDiv row pl-2">
+            <div class="form-group col-2" style="padding-left: .9rem;">
+                <label for="exampleInputEmail1" class="m-0">Estimate</label>
+                <div style="width: 100%;" class="estimateDiv row no-gutters">
                     {% for e in platformIds %}
                     <input type="number" id="{{e}}" class="form-control estimate col-6" 
                         aria-describedby="emailHelp">

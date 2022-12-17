@@ -125,42 +125,30 @@
         }
         $(".AddRaids").on('click', function (e) {
             var currentValue = $(".Raids").val()
-            var value = $(".RaidsArea").val()
-            $(".RaidsArea").val(currentValue +"\r\n"+ value)
-            $(".Raids").val("")
-            var text = document.getElementsByClassName("RaidsArea")[0]
-            text.style.height = "";
-            text.style.setProperty('height', Math.max(text.scrollHeight, 80) + "px", 'important');
-            $('<input type="text" class="form-control" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group col-10"></div>').prependTo($('<div style="width:100%;" class="row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('.RAIDSDiv'))));
+            if(currentValue){
+                $(".Raids").val("")
+                $('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
             //elem.val(elem.val() + 'add this');
+            }
         });
         $(".AddDev").on('click', function (e) {
             var currentValue = $(".Dev").val()
-            var value = $(".DevArea").val()
-            $(".DevArea").val(currentValue + "\r\n" + value)
-            $(".Dev").val("")
-            var text = document.getElementsByClassName("DevArea")[0]
-            text.style.height = "";
-            text.style.setProperty('height', Math.max(text.scrollHeight, 80) + "px", 'important');
-            $('<input type="text" class="form-control" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group col-10"></div>').prependTo($('<div style="width:100%;" class="row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('.DKDiv'))));
+            if(currentValue){
+                $(".Dev").val("")
+                $('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                 //elem.val(elem.val() + 'add this');
+            }
             });
         $(".AddPersona").on('click', function (e) {
                 var currentValue = $(".Persona").val()
-                var value = $(".PersonaArea").val()
-                $(".PersonaArea").val(currentValue + "\r\n" + value)
-                $(".Persona").val("")
-                var text = document.getElementsByClassName("PersonaArea")[0]
-                text.style.height = "";
-                text.style.setProperty('height', Math.max(text.scrollHeight, 80) + "px", 'important');
-                $('<input type="text" class="form-control" value="'+ currentValue +'" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group col-10"></div>').prependTo($('<div style="width:100%;" class="row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('.PersonDiv'))));
-                
+                if(currentValue){
+                    $(".Persona").val("")
+                    $('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
                 //elem.val(elem.val() + 'add this');
+                }
             });
         $(".AddEstimates").on('click', function (e) {
                 var currentValue = $(".Estimates").val()
-                var value = $(".EstimatesArea").val()
-                $(".EstimatesArea").val(currentValue + "\r\n" + value)
                 $(".Estimates").val("")
                 //elem.val(elem.val() + 'add this');
             });
@@ -174,15 +162,10 @@
             if (key == 13)
             {
                 var currentValue = $(".Persona").val()
-                var value = $(".PersonaArea").val()
-                $(".PersonaArea").val(currentValue + "\r\n" + value)
-                $(".Persona").val("")
-                var text = document.getElementsByClassName("PersonaArea")[0]
-                text.style.height = "";
-                text.style.setProperty('height', Math.max(text.scrollHeight, 80) + "px", 'important');
-                console.log(currentValue);
-                $('<input type="text" class="form-control" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" >').prependTo($('<div class="form-group col-10"></div>').prependTo($('<div style="width:100%;" class="row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('.PersonDiv'))));
-                e.preventDefault();
+                if(currentValue){
+                    $(".Persona").val("")
+                    $('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
+                }
             }
         });
 
@@ -190,14 +173,11 @@
                 var key = e.charCode || e.keyCode || 0;
                 if (key == 13) {
                     var currentValue = $(".Dev").val()
-                    var value = $(".DevArea").val()
-                    $(".DevArea").val(currentValue + "\r\n" + value)
-                    $(".Dev").val("")
-                    var text = document.getElementsByClassName("DevArea")[0]
-                    text.style.height = "";
-                    text.style.setProperty('height', Math.max(text.scrollHeight, 80) + "px", 'important');
-                    $('<input type="text" class="form-control" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group col-10"></div>').prependTo($('<div style="width:100%;" class="row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('.DKDiv'))));
-                    e.preventDefault(); 
+                    if(currentValue){
+                        $(".Dev").val("")
+                        $('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
+                        
+                    }
                 }
         });
 
@@ -205,14 +185,11 @@
                 var key = e.charCode || e.keyCode || 0;
                 if (key == 13) {
                     var currentValue = $(".Raids").val()
-                    var value = $(".RaidsArea").val()
-                    $(".RaidsArea").val(currentValue + "\r\n" + value)
-                    $(".Raids").val("")
-                    var text = document.getElementsByClassName("RaidsArea")[0]
-                    text.style.height = "";
-                    text.style.setProperty('height', Math.max(text.scrollHeight, 80) + "px", 'important');
-                    $('<input type="text" class="form-control" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group col-10"></div>').prependTo($('<div style="width:100%;" class="row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('.RAIDSDiv'))));
-                    e.preventDefault();
+                    if(currentValue){
+                        $(".Raids").val("")
+                        $('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
+                        
+                    }
                 }
         });
 
@@ -283,7 +260,7 @@
                     var currentPlatform = $('.platform option:selected').text();
                     platfrom = currentPlatform.split(',');
                     if(!estimateList.includes(i)&& platfrom[index]){
-                        $('.estimateDiv').append($('<input type="number" id="' + i + '" class="form-control estimate col-6" name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp">'));
+                        $('.estimateDiv').append($('<div class="col-6 form-group"><label for="exampleInputEmail1" class="m-0">' + platfrom[index] +'</label><input type="number" id="' + i + '" class="form-control estimate" name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
                     }
                     index ++;
                 });
