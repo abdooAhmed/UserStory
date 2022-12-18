@@ -195,6 +195,10 @@
                 }
         });
 
+        $('.filter').change(function(){
+            $('form').submit();
+        });
+
         $("input").keypress(function (e) {
                 var key = e.charCode || e.keyCode || 0;
                 if (key == 13) {
@@ -262,7 +266,7 @@
                     var currentPlatform = $('.platform option:selected').text();
                     platfrom = currentPlatform.split(',');
                     if(!estimateList.includes(i)&& platfrom[index]){
-                        $('.estimateDiv').append($('<div class="col-6 form-group"><label for="exampleInputEmail1" class="m-0">' + platfrom[index] +'</label><input type="number" id="' + i + '" class="form-control estimate" name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
+                        $('.estimateDiv').append($('<div class="col-6 form-group"><label for="exampleInputEmail1" class="m-0">' + platfrom[index] +'</label><input type="number" id="' + i + '" class="form-control estimate" required name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
                     }
                     index ++;
                 });
@@ -298,17 +302,20 @@
                     // }
                 }
             }  // Close the dropdown if the user clicks outside of 
-        if(JSON.parse('{{personaObjects|safe}}')){
-            var personaObjects = JSON.parse('{{personaObjects|safe}}');
-            autocomplete(document.getElementById("myInput"), personaObjects);
-        }
-        if(JSON.parse('{{personaObjects|safe}}')) {
+        
+        try 
+        {
+            if (JSON.parse('{{personaObjects|safe}}')) {
                 var personaObjects = JSON.parse('{{personaObjects|safe}}');
                 autocomplete(document.getElementById("myInput"), personaObjects);
+            }
+            if (JSON.parse('{{epicObjects|safe}}')) {
+                var epicObjects = JSON.parse('{{epicObjects|safe}}');
+                autocomplete(document.getElementById("epicInput"), epicObjects);
+            }
         }
-        if (JSON.parse('{{epicObjects|safe}}')) {
-            var epicObjects = JSON.parse('{{epicObjects|safe}}');
-            autocomplete(document.getElementById("epicInput"), epicObjects);
+        catch (err) {
+            
         }
     </script>
 </body>
