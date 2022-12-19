@@ -230,7 +230,9 @@ class UserStory(models.Model):
         return True if self.US_Group.description else False
 
     def get_UsGroup(self):
-        return self.US_Group.description
+        if self.US_Group:
+            return self.US_Group.description
+        return False
 
 
 def __str__(self):

@@ -101,25 +101,31 @@
         $('#example-getting-started').multiselect({
                 buttonClass: 'form-select',
                 templates: {
-                    button: '<button type="button" style="width: 15.2rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                    button: '<button type="button" style="width: 15rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 }
             });
         $('#example-getting-started1').multiselect({
                 buttonClass: 'form-select',
                 templates: {
-                    button: '<button type="button" style="width: 15.2rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                    button: '<button type="button" style="width: 15rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 }
             });
         $('#example-getting-started2').multiselect({
                 buttonClass: 'form-select',
                 templates: {
-                    button: '<button type="button" style="width: 15.2rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                    button: '<button type="button" style="width: 15rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 }
             });
         $('#example-getting-started3').multiselect({
                 buttonClass: 'form-select',
                 templates: {
-                    button: '<button type="button" style="width: 15.2rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                    button: '<button type="button" style="width: 15rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                }
+            });
+        $('#example-getting-started4').multiselect({
+                buttonClass: 'form-select',
+                templates: {
+                    button: '<button type="button" style="width: 18.5rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 }
             });
         function remove(e) {
@@ -159,7 +165,7 @@
         //         console.log("dv");
         //         document.getElementById("form").submit();
         //     });
-        $(".Persona").keypress(function (e) {
+        $(".Persona").keyup(function (e) {
             var key = e.charCode || e.keyCode || 0;
             if (key == 13)
             {
@@ -188,8 +194,9 @@
                 if (key == 13) {
                     var currentValue = $(".Raids").val()
                     if(currentValue){
+                        console.log(currentValue);
                         $(".Raids").val("")
-                        $('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
+                        $('<input type="text" class="form-control col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
                         
                     }
                 }

@@ -6,63 +6,88 @@
 </div>
 <form method="post" style="height: 100%;">
     {% csrf_token %}
-    <div class="row" id="UserStory" style="width:100% ;">
-        <div class="col-2" style="height: 100%;">
+    <div class="row" style="width:100% ;">
+        <div class="col-3">
+            <div class="form-group">
+                <label for="exampleInputEmail1">User Name</label>
+                <input type="text" name="VersionName" disabled value="{{userName}}" class="form-control"
+                    id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1" style="display: block;width: 100%;">PlatForm</label>
+                <select id="example-getting-started4" name="platforms" style="width: 100%;"
+                    class="form-control form-select platform" multiple="multiple">
+                    {% for p in platforms %}
+                    {% if p.id in platformIds %}
+                    <option value="{{p.id}}" selected>{{p.name}}</option>
+                    {% else %}
+                    <option value="{{p.id}}">{{p.name}},</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <!-- <select class="form-control form-select" required name="platform" style="display:block ;"
+                                                aria-label="Default select example">
+                                                
+                                            </select> -->
+            </div>
+        </div>
+    
+    </div>
+    <div class="row no-gutters" id="UserStory" style="width:100% ;">
+        <div class="col-2 pl-5" style="height: 100%;">
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10 mb-0">
                     <label for="exampleInputEmail1">Persona</label>
                 </div>
             </div>
             <div class="PersonDiv">
-        
+    
             </div>
             <div style="width:100% ;" class="row">
-                <div class="form-group col-10">
-                    <input type="text" class="form-control Persona" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Persona">
+                <div class="form-group row">
+                    <div class="col-10 m-0 p-0">
+                        <input type="text" list="personList" style="display: inline;" class="form-control Persona"
+                            id="myInput" aria-describedby="emailHelp" placeholder="Persona">
+                    </div>
+                    <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
+                        style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
-                <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
-                    style="display: flex;justify-content: center;align-items: center;"></i>
             </div>
-            <textarea type="text" name="Persona" class="form-control mt-2  PersonaArea" cols="250"
-                style="height: auto !important; display: none;"></textarea>
+        </div>
+        <div class="form-group col-1 m-0" style="margin: 0;">
+            <label for="exampleInputEmail1">Epic</label>
+            <input type="text" list="encodings" name="Epic" class="form-control input" id="epicInput"
+                aria-describedby="emailHelp" placeholder="Epic">
         </div>
         <div class="form-group col-1">
-            <label for="exampleInputEmail1">Epic</label>
-            <input type="text" name="Epic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Epic">
-        </div>
-        <div class="form-group col-2">
             <label for="exampleInputEmail1">IWantTO</label>
             <input type="text" name="IWantTO" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                 placeholder="IWantTO">
         </div>
-        <div class="form-group col-2">
+        <div class="form-group col-1">
             <label for="exampleInputEmail1">SoThat</label>
             <input type="text" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                 placeholder="SoThat">
         </div>
-        <div class="col-2">
+        <div class="col-2" style="padding-left: 1.8rem;">
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10 mb-0">
                     <label for="exampleInputEmail1">Dev Tasks</label>
                 </div>
             </div>
             <div class="DKDiv">
-        
+    
             </div>
             <div style="width:100% ;" class="row">
-                <div class="form-group col-10">
-                    <input type="text" class="form-control Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <div class="form-group row">
+                    <input type="text" class="form-control Dev col-10" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Dev Tasks">
+                    <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
+                        style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
-                <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
-                    style="display: flex;justify-content: center;align-items: center;"></i>
             </div>
-            <textarea type="text" name="Dev" class="form-control mt-2  DevArea" cols="250"
-                style="height: auto !important;display: none;"></textarea>
         </div>
-        <div class="col-2" style="height: 100%;">
+        <div class="col-2" style="padding-left: 1.8rem;">
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10 mb-0">
                     <label for="exampleInputEmail1">R.A.I.DS</label>
@@ -72,15 +97,21 @@
     
             </div>
             <div style="width:100% ;" class="row">
-                <div class="form-group col-10">
-                    <input type="text" class="form-control Raids" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="R.A.I.DS">
+                <div class="form-group row">
+                    <input type="text" class="form-control Raids col-10" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" placeholder="R.A.I.DS">
+                    <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
+                        style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
-                <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
-                    style="display: flex;justify-content: center;align-items: center;"></i>
             </div>
-            <textarea type="text" name="RAIDS" class="form-control mt-2 RaidsArea" cols="250"
-                style="height: auto !important; display: none;"></textarea>
+        </div>
+        <div class="form-group col-3" style="padding-left: .9rem;">
+            <label for="exampleInputEmail1" class="m-0">Estimate</label>
+            <div style="width: 100%;" class="estimateDiv row no-gutters">
+                {% for e in platformIds %}
+                <input type="number" id="{{e}}" class="form-control estimate col-6" aria-describedby="emailHelp">
+                {% endfor %}
+            </div>
         </div>
     </div>
     <div>
