@@ -16,7 +16,10 @@ from json import dumps
 
 @login_required
 def userStories_list(request):
-    Persona = ""
+    personaObjects = list(Persona.objects.values_list('Name'))
+    print(personaObjects)
+    personaObjects = dumps(personaObjects)
+    persona = ""
     RAIDS = ""
     DevTask = ""
     Indicator = ""
@@ -26,7 +29,7 @@ def userStories_list(request):
     if request.GET.get("Persona"):
         userStories = userStories.filter(
             Persona__Name__contains=request.GET.get("Persona"))
-        Persona = request.GET.get("Persona")
+        persona = request.GET.get("Persona")
     if request.GET.get("RAIDS"):
         userStories = userStories.filter(
             RAIDS__description__contains=request.GET.get("RAIDS"))
@@ -39,7 +42,7 @@ def userStories_list(request):
         userStories = userStories.filter(
             US_Group__description__contains=request.GET.get("Indicator"))
         Indicator = request.GET.get("Indicator")
-    return render(request, 'userStories/userStories.html', {'users': userStories, 'filter': my_filter, 'form': {'persona': Persona, 'RAIDS': RAIDS, 'DevTask': DevTask, 'indicator': Indicator}})
+    return render(request, 'userStories/userStories.html', {'users': userStories, 'filter': my_filter, 'personaObjects': personaObjects, 'form': {'persona': persona, 'RAIDS': RAIDS, 'DevTask': DevTask, 'indicator': Indicator}})
 
 
 @login_required
