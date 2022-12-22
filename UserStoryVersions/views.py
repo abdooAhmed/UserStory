@@ -38,6 +38,14 @@ def add_userStoryVersions(request):
     personaObjects = dumps(personaObjects)
     epicObjects = list(Epic.objects.values_list('versionName'))
     epicObjects = dumps(epicObjects)
+    project = Project.objects.all()
+    business = Business.objects.all()
+    projects = []
+    current_user = request.user
+    for p in project:
+        projects.append({'id': p.id, 'name': p.name,
+                        'business': p.Business.id})
+    projectJson = dumps(projects)
     if request.method == 'GET' and 'Platform' in request.GET:
         Platform.objects.create(name=request.GET.get("Name"))
         print(request.GET.get("platform"))
@@ -99,16 +107,10 @@ def add_userStoryVersions(request):
             return redirect('/UserStoryVersion/list/', {'persona': persona, 'userStories': userStories})
         business = Business.objects.all()
         projects = Project.objects.all()
-        print(userStories)
-        return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'platformIds': platformIds, 'userStories': userStories, 'userStoryVersion': userStoryVersion, 'business': business})
-    project = Project.objects.all()
-    business = Business.objects.all()
-    projects = []
-    current_user = request.user
-    for p in project:
-        projects.append({'id': p.id, 'name': p.name,
-                        'business': p.Business.id})
-    projectJson = dumps(projects)
+        platformIds = [{'id': i, 'name': Platform.objects.get(
+            id=i).name} for i in platformIds]
+        print(platformIds)
+        return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'platformIds': platformIds, 'userStories': userStories, 'userStoryVersion': userStoryVersion, 'business': business, 'personaObjects': personaObjects, 'epicObjects': epicObjects, 'project': projectJson})
     del userStories[:]
     return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business, 'personaObjects': personaObjects, 'epicObjects': epicObjects})
 

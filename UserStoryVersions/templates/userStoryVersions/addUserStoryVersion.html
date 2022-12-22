@@ -137,12 +137,13 @@
                         placeholder="Priority">
                 </div>
             </div>
-            <div class="form-group col-2" style="padding-left: 1.2rem;">
-                <label for="exampleInputEmail1">Estimate</label>
-                <div style="width: 100%;" class="estimateDiv row pl-2">
+            <div class="form-group col-2" style="padding-left: .9rem;">
+                <div style="width: 100%;" class="estimateDiv row no-gutters">
                     {% for e in u.Estimates.all %}
-                    <input type="number" id="' + i + '" disabled class="form-control estimate col-6" value="{{e.noOfHours}}"
-                        aria-describedby="emailHelp">
+                    <div class="col-6 form-group" id="nodejs"><label for="exampleInputEmail1">{{e.Platform.name}}</label>
+                        <input type="number" id="' + i + '" disabled class="form-control estimate" value="{{e.noOfHours}}"
+                            aria-describedby="emailHelp">
+                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -229,11 +230,13 @@
                 </div>
             </div>
             <div class="form-group col-2" style="padding-left: .9rem;">
-                <label for="exampleInputEmail1" class="m-0">Estimate</label>
                 <div style="width: 100%;" class="estimateDiv row no-gutters">
                     {% for e in platformIds %}
-                    <input type="number" id="{{e}}" class="form-control estimate col-6" 
-                        aria-describedby="emailHelp">
+                    <div class="col-6 form-group" id="nodejs">
+                        <label for="exampleInputEmail1">{{e.name}}</label>
+                        <input type="number" id="{{e.id}}"
+                            class="form-control estimate" required="" name="estimate[]" placeholder="{{e.name}}" aria-describedby="emailHelp">
+                    </div>
                     {% endfor %}
                 </div>
             </div>

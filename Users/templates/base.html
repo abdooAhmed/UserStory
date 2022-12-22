@@ -264,7 +264,7 @@
                     for(var i=0;i< $('.estimate').length;i++){
                         var estimate = document.getElementsByClassName('estimate')[i];
                         if(!list.includes(estimate.id)){
-                            $('#'+ estimate.id +'').remove();
+                            estimate.parentNode.remove();
                         }
                     }
                 }
@@ -273,7 +273,7 @@
                     var currentPlatform = $('.platform option:selected').text();
                     platfrom = currentPlatform.split(',');
                     if(!estimateList.includes(i)&& platfrom[index]){
-                        $('.estimateDiv').append($('<div class="col-6 form-group"><label for="exampleInputEmail1" class="m-0">' + platfrom[index] +'</label><input type="number" id="' + i + '" class="form-control estimate" required name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
+                        $('.estimateDiv').append($('<div class="col-6 form-group" id="' + platfrom[index] + '"><label for="exampleInputEmail1">' + platfrom[index] +'</label><input type="number" id="' + i + '" class="form-control estimate" required name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
                     }
                     index ++;
                 });
