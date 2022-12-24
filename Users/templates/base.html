@@ -83,6 +83,7 @@
     <script src="{% static "js/main.js" %}"></script>
     <script src="{% static "js/jquery.bootstrap.modal.forms.js" %}"></script>
     <script src="{% static "js/autocomplete.js" %}"></script>
+    <script src="{% static "js/filterAutocomplete.js" %}"></script>
     <!-- You can alternatively load the minified version -->
     <script src="{% static "js/jquery.bootstrap.modal.forms.min.js" %}"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -206,6 +207,14 @@
             $('form').submit();
         });
 
+        $('.filter').keypress(function () {
+            var key = e.charCode || e.keyCode || 0;
+            console.log(key);
+            if (key == 13) {
+                $('form').submit();
+            }
+        });
+
         $("input").keypress(function (e) {
                 var key = e.charCode || e.keyCode || 0;
                 if (key == 13) {
@@ -319,6 +328,14 @@
             if (JSON.parse('{{epicObjects|safe}}')) {
                 var epicObjects = JSON.parse('{{epicObjects|safe}}');
                 autocomplete(document.getElementById("epicInput"), epicObjects);
+            }
+            if (JSON.parse('{{iWantTOObjects|safe}}')) {
+                var epicObjects = JSON.parse('{{iWantTOObjects|safe}}');
+                filterAutocomplete(document.getElementById("id_iWantTO"), epicObjects);
+            }
+            if (JSON.parse('{{epicObjects|safe}}')) {
+                var epicObjects = JSON.parse('{{epicObjects|safe}}');
+                filterAutocomplete(document.getElementById("epicFilter"), epicObjects);
             }
         }
         catch (err) {

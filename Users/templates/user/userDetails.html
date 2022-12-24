@@ -1,9 +1,30 @@
 {% extends "base.html" %}
-{% block title %}Log-in{% endblock %}
+{% block title %}Update User{% endblock %}
 {% block content %}
-<form method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <p><input type="submit" class="btn btn-success" value="Log in"></p>
-</form>
+<div>
+    <h1 class="m-auto">Update User</h1>
+</div>
+<div class="row">
+    <form class="col-3" method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" class="btn btn-success" value="Update User"></p>
+    </form>
+    <div class="col-4 mt-2 text-center"">
+        <h3>Businesses</h3>
+        <div class="text-center"">
+            {% for b in business %}
+            <h5>{{b.name}}</h5>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-4 mt-2 text-center"">
+            <h3>Projects</h3>
+            <div class=" text-center"">
+                    {% for p in projects %}
+                    <h5>{{p.name}}</h5>
+                    {% endfor %}
+            </div>
+    </div>
+</div>
 {% endblock %}

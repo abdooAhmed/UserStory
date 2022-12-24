@@ -19,11 +19,16 @@ def userStories_list(request):
     personaObjects = list(Persona.objects.values_list('Name'))
     print(personaObjects)
     personaObjects = dumps(personaObjects)
+    epicObjects = list(Epic.objects.values_list('versionName'))
+    epicObjects = dumps(epicObjects)
     persona = ""
     RAIDS = ""
     DevTask = ""
     Indicator = ""
+    epic = ""
     userStories = UserStory.objects.all()
+    iWantTOObjects = [i.iWantTO for i in userStories]
+    iWantTOObjects = dumps(iWantTOObjects)
     my_filter = UserStoriesFilter(request.GET, queryset=userStories)
     userStories = my_filter.qs
     if request.GET.get("Persona"):
@@ -42,7 +47,11 @@ def userStories_list(request):
         userStories = userStories.filter(
             US_Group__description__contains=request.GET.get("Indicator"))
         Indicator = request.GET.get("Indicator")
-    return render(request, 'userStories/userStories.html', {'users': userStories, 'filter': my_filter, 'personaObjects': personaObjects, 'form': {'persona': persona, 'RAIDS': RAIDS, 'DevTask': DevTask, 'indicator': Indicator}})
+    if request.GET.get("Epic"):
+        userStories = userStories.filter(
+            Epic__versionName__contains=request.GET.get("Epic"))
+        epic = request.GET.get("Epic")
+    return render(request, 'userStories/userStories.html', {'users': userStories, 'filter': my_filter, 'personaObjects': personaObjects, 'epicObjects': epicObjects, 'iWantTOObjects': iWantTOObjects, 'form': {'persona': persona, 'RAIDS': RAIDS, 'DevTask': DevTask, 'indicator': Indicator, 'Epic': epic}})
 
 
 @login_required

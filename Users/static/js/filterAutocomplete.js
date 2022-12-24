@@ -1,10 +1,10 @@
 var currentinp;
-function autocomplete(inp, arr) {
+function filterAutocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
   inp.addEventListener("focus",function(e){
-    console.log("auto");
+    console.log(this.value);
     if(this.value){
       return false;
     }

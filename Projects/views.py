@@ -26,7 +26,7 @@ def add_Projects(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = Project.objects.create(
-                name=cd['name'], status=cd['status'], Business=cd['business'])
+                name=cd['name'], status=cd['status'], Business=cd['business'], User=request.user)
             if user is not None:
                 return redirect('/Projects/list/')
     else:

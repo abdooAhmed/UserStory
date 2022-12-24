@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Log-in{% endblock %}
+{% block personaObjects %}{{personaObjects}}{% endblock %}
+{% block epicObjects %}{{epicObjects}}{% endblock %}
+{% block iWantTOObjects %}{{iWantTOObjects}}{% endblock %}
 {% block content %}
 <div>
     <h1 class="m-auto">UserStories</h1>
@@ -26,12 +29,17 @@
         <thead>
             <tr>
                 <form id="form" method="get">
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text"
-                            name="Persona" class="form-control filter" value="{{form.persona}}" id="exampleInputEmail1"
-                            aria-describedby="emailHelp" placeholder="Description"></th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        <input type="text" name="Epic" class="form-control filter" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        <div><input type="text"
+                            name="Persona" class="form-control filter" id="myInput" value="{{form.persona}}" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="Description">
+                        </div>
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        <div>
+                        <input type="text" name="Epic" value="{{form.Epic}}" class="form-control filter" id="epicInput" aria-describedby="emailHelp"
                             placeholder="Description">
+                        </div>
                     </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{filter.form.iWantTO}}</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{filter.form.soThat}}</th>

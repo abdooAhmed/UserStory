@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from .forms import AddUserForm
+from .forms import AddUserForm, EditUserForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from UserStoryApp.models import User, Project, Business, Role
@@ -53,7 +53,18 @@ def add_user(request):
 def userDetails(request, id):
     User = get_user_model()
     users = User.objects.get(id=id)
-    form = AddUserForm(
-        initial={'first_name': users.first_name, 'last_name': users.last_name, 'username': users.username, 'password': users.password,
+    projects = Project.objects.filter(User=users)
+    business = Business.objects.filter(User=users)
+    form = EditUserForm(
+        initial={'first_name': users.first_name, 'last_name': users.last_name, 'username': users.username, 'Update_password': users.password,
                  'email': users.email, 'Role': (users.Role, Role(users.Role).name)})
-    return render(request, 'user/userDetails.html', {'form': form})
+    if request.method == 'POST':
+        u_form = EditUserForm(request.POST, instance=users)
+        print(u_form)
+        if u_form.is_valid():
+            cd = u_form.cleaned_data
+            users = u_form.save()
+            users.set_password(cd['Update_password'])
+            users.save()
+        return redirect('/Users/list/')
+    return render(request, 'user/userDetails.html', {'form': form, 'projects': projects, 'business': business})
