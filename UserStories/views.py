@@ -13,14 +13,15 @@ from .filters import UserStoriesFilter
 from json import dumps
 # Create your views here.
 
+personaObjects = list(Persona.objects.values_list('Name'))
+print(personaObjects)
+personaObjects = dumps(personaObjects)
+epicObjects = list(Epic.objects.values_list('versionName'))
+epicObjects = dumps(epicObjects)
+
 
 @login_required
 def userStories_list(request):
-    personaObjects = list(Persona.objects.values_list('Name'))
-    print(personaObjects)
-    personaObjects = dumps(personaObjects)
-    epicObjects = list(Epic.objects.values_list('versionName'))
-    epicObjects = dumps(epicObjects)
     persona = ""
     RAIDS = ""
     DevTask = ""
@@ -57,11 +58,6 @@ def userStories_list(request):
 @login_required
 @csrf_protect
 def add_userStory(request):
-    personaObjects = list(Persona.objects.values_list('Name'))
-    print(personaObjects)
-    personaObjects = dumps(personaObjects)
-    epicObjects = list(Epic.objects.values_list('versionName'))
-    epicObjects = dumps(epicObjects)
     platforms = Platform.objects.all()
     current_user = request.user
     print("dc")
@@ -110,10 +106,14 @@ def add_userStory(request):
         userStory.RAIDS.set(RaidsResult)
         userStory.DevelopmentTask.set(devResult)
         userStory.Estimates.set(estimates)
-    return render(request, 'userStories/addUserStory.html', {'platforms': platforms, 'userName': current_user.username, 'personaObjects': personaObjects, 'epicObjects': epicObjects})
+    return render(request, 'userStories/addUserStory.html', {'platforms': platforms, 'personaObjects': personaObjects, 'epicObjects': epicObjects})
 
 
 def userStoryDetails(request, id):
+    platforms = Platform.objects.all()
     User = get_user_model()
     users = UserStory.objects.get(id=id)
-    return render(request, 'userStories/userStoryDetails.html', {'userStory': users})
+    print()
+    platformIds = [i.Platform.id for i in users.Estimates.all()]
+    print(platformIds)
+    return render(request, 'userStories/userStoryDetails.html', {'platforms': platforms, 'userStory': users, 'personaObjects': personaObjects, 'platformIds': platformIds, 'epicObjects': epicObjects})

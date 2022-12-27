@@ -7,8 +7,8 @@
 <div>
     <h1 class="m-auto">UserStories</h1>
 </div>
-<a href="{% url 'addUserStory' %}" class="btn btn-success" aria-hidden="true"><i class="fa fa-plus text-white"
-        aria-hidden="true"></i>
+<a href="{% url 'addUserStory' %}" class="btn btn-success" aria-hidden="true">
+    Create New User Story
 </a>
 <div class="table-responsive p-0">
     <table class="table align-items-center mb-0">
@@ -90,6 +90,11 @@
                 <td class="align-middle text-center">
                     <a href="{% url 'userStoryDetails' user.id %}" class="btn btn-success" aria-hidden="true">
                         Details
+                    </a>
+                </td>
+                <td class="align-middle text-center">
+                    <a href="{% url 'userStoryDetails' user.id %}" class="btn btn-success" aria-hidden="true">
+                        Remove
                     </a>
                 </td>
             </tr>

@@ -275,3 +275,10 @@ img.user-detail {
     font-style:italic;
     color:#ccc;
 }
+
+textarea {
+    max-height: 20rem !important;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}

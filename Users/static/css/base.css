@@ -277,4 +277,12 @@ img.user-detail {
     font-style:italic;
     color:#ccc;
 }
-
+p{
+    display: inline;
+}
+.form-control1{
+  max-height: 20rem !important;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}

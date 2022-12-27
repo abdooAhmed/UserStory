@@ -9,11 +9,6 @@
     <div class="row" style="width:100% ;">
         <div class="col-3">
             <div class="form-group">
-                <label for="exampleInputEmail1">User Name</label>
-                <input type="text" name="VersionName" disabled value="{{userName}}" class="form-control"
-                    id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
-            </div>
-            <div class="form-group">
                 <label for="exampleInputEmail1" style="display: block;width: 100%;">PlatForm</label>
                 <select id="example-getting-started4" name="platforms" style="width: 100%;"
                     class="form-control form-select platform" multiple="multiple">
@@ -33,8 +28,9 @@
         </div>
     
     </div>
-    <div class="row no-gutters" id="UserStory" style="width:100% ;">
-        <div class="col-2 pl-5" style="height: 100%;">
+    <div class="container-fluid testimonial-group">
+    <div class="row no-gutters text-center flex-nowrap" id="UserStory">
+        <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10 mb-0">
                     <label for="exampleInputEmail1">Persona</label>
@@ -46,30 +42,30 @@
             <div style="width:100% ;" class="row">
                 <div class="form-group row">
                     <div class="col-10 m-0 p-0">
-                        <input type="text" list="personList" style="display: inline;" class="form-control Persona"
-                            id="myInput" aria-describedby="emailHelp" placeholder="Persona">
+                        <textarea type="text" id="Persona" name="Persona" list="personList" style="display: inline;" class="form-control Persona"
+                            id="myInput" aria-describedby="emailHelp" placeholder="Persona"></textarea>
                     </div>
                     <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
                         style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
             </div>
         </div>
-        <div class="form-group col-1 m-0" style="margin: 0;">
+        <div class="form-group m-0" style="margin: 0;min-width: 10rem;">
             <label for="exampleInputEmail1">Epic</label>
-            <input type="text" list="encodings" name="Epic" class="form-control input" id="epicInput"
-                aria-describedby="emailHelp" placeholder="Epic">
+            <textarea type="text" id="Epic" list="encodings" name="Epic" class="form-control input" id="epicInput"
+                aria-describedby="emailHelp" placeholder="Epic"></textarea>
         </div>
-        <div class="form-group col-1">
+        <div class="form-group" style="min-width: 10rem;">
             <label for="exampleInputEmail1">IWantTO</label>
-            <input type="text" name="IWantTO" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="IWantTO">
+            <textarea type="text" id="IWantTO" name="IWantTO" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="IWantTO"></textarea>
         </div>
-        <div class="form-group col-1">
+        <div class="form-group" style="min-width: 10rem;">
             <label for="exampleInputEmail1">SoThat</label>
-            <input type="text" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="SoThat">
+            <textarea type="text" id="SoThat" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="SoThat"></textarea>
         </div>
-        <div class="col-2" style="padding-left: 1.8rem;">
+        <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10 mb-0">
                     <label for="exampleInputEmail1">Dev Tasks</label>
@@ -80,14 +76,14 @@
             </div>
             <div style="width:100% ;" class="row">
                 <div class="form-group row">
-                    <input type="text" class="form-control Dev col-10" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Dev Tasks">
+                    <textarea type="text" id="DevTasks" class="form-control Dev col-10" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Dev Tasks"></textarea>
                     <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
                         style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
             </div>
         </div>
-        <div class="col-2" style="padding-left: 1.8rem;">
+        <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
             <div style="width:100% ;" class="row">
                 <div class="form-group col-10 mb-0">
                     <label for="exampleInputEmail1">R.A.I.DS</label>
@@ -98,20 +94,21 @@
             </div>
             <div style="width:100% ;" class="row">
                 <div class="form-group row">
-                    <input type="text" class="form-control Raids col-10" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="R.A.I.DS">
+                    <textarea type="text" id="R.A.I.DS" class="form-control Raids col-10" name="RAIDS" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
                     <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
                         style="display: flex;justify-content: center;align-items: center;"></i>
                 </div>
             </div>
-        </div>
-        <div class="form-group col-3" style="padding-left: .9rem;">
+        </div> 
+        <div class="form-group" style="padding-left: .9rem;min-width: 15rem;">
             <div style="width: 100%;" class="estimateDiv row no-gutters">
                 {% for e in platformIds %}
                 <input type="number" id="{{e}}" class="form-control estimate col-6" aria-describedby="emailHelp">
                 {% endfor %}
             </div>
         </div>
+    </div>
     </div>
     <div>
         <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -142,7 +139,7 @@
             <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
                 Modal Login Form</a>
         </div> -->
-        <button type="submit" class="col-1 btn btn-success ">Submit</button>
+        <button type="submit" class="col-1 btn btn-success ">Create</button>
         <button type="button" class="col-2 btn btn-success" data-toggle="modal" data-target="#modalLoginForm"
             >add to group</button>
     </div>

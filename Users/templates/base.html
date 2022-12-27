@@ -18,6 +18,26 @@
     </script>
     <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
         rel="stylesheet" type="text/css" />
+    <style>
+        .testimonial-group > .row {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.testimonial-group > .row > .col-sm-4 {
+  display: inline-block;
+  float: none;
+}
+
+/* Decorations */
+.col-sm-4 { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; }
+.col-sm-4:nth-child(3n+1) { background: #c69; }
+.col-sm-4:nth-child(3n+2) { background: #9c6; }
+.col-sm-4:nth-child(3n+3) { background: #69c; }
+        label{
+            display: block;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -99,6 +119,7 @@
         type="text/javascript">
         </script>
     <script>
+        
         $('#example-getting-started').multiselect({
                 buttonClass: 'form-select',
                 templates: {
@@ -221,6 +242,21 @@
                     e.preventDefault();
                 }
         });
+        $("textarea").keyup(function (e) {
+                var key = e.charCode || e.keyCode || 0;
+                if (key == 13) {
+                    e.preventDefault();
+                }
+                else{
+                    if(!$("#" + this.id + "").val()){
+                        this.style.height = 'auto';
+                    }
+                    else{
+                        $("#" + this.id + "").css("cssText", "height: " + this.scrollHeight + "px !important;");
+                    }
+                }
+        });
+        
 
         var keys = {};
 
@@ -270,6 +306,7 @@
         $('.platform').change(function () {
                 var list = $(".platform").val();
                 if($('.estimate').length){
+                    console.log($("#" + platfrom[index] + "").length)
                     for(var i=0;i< $('.estimate').length;i++){
                         var estimate = document.getElementsByClassName('estimate')[i];
                         if(!list.includes(estimate.id)){
@@ -281,7 +318,7 @@
                 list.forEach(i=>{
                     var currentPlatform = $('.platform option:selected').text();
                     platfrom = currentPlatform.split(',');
-                    if(!estimateList.includes(i)&& platfrom[index]){
+                    if(!estimateList.includes(i)&& platfrom[index] && !$("#" + platfrom[index] + "").length ){
                         $('.estimateDiv').append($('<div class="col-6 form-group" id="' + platfrom[index] + '"><label for="exampleInputEmail1">' + platfrom[index] +'</label><input type="number" id="' + i + '" class="form-control estimate" required name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
                     }
                     index ++;
