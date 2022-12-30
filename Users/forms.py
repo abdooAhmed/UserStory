@@ -3,12 +3,17 @@ from UserStoryApp.models import Role, User
 
 
 class AddUserForm(forms.Form):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
-    email = forms.CharField()
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'w-100'}))
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'w-100'}))
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'w-100'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'w-100'}))
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'w-100'}))
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'w-100'}))
     Role = forms.TypedChoiceField(choices=[(choice.value, choice.name)
                                            for choice in Role], widget=forms.Select(attrs={'class': 'form-control form-select'}))
 
@@ -29,12 +34,17 @@ class AddUserForm(forms.Form):
 
 
 class EditUserForm(forms.ModelForm):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    username = forms.CharField()
-    Update_password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
-    email = forms.CharField()
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'w-100'}))
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'w-100'}))
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'w-100'}))
+    Update_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'w-100'}))
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'w-100'}))
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'w-100'}))
     Role = forms.TypedChoiceField(choices=[(choice.value, choice.name)
                                            for choice in Role], widget=forms.Select(attrs={'class': 'form-control form-select'}))
 

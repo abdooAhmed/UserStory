@@ -15,21 +15,57 @@ def user_list(request):
     users = User.objects.all()
     my_filter = UsersFilter(request.GET, queryset=users)
     users = my_filter.qs
+    print(users)
+
+    roles = []
+    role = request.GET.get("Role") if request.GET.get(
+        "Role") else ""
+
+    if role:
+        for r in Role:
+            if role in r.name:
+                roles.append(r.value)
+        print(roles)
+        for r in roles:
+            print(r)
+            users = users.filter(Role=r)
+    # [roles.append(name) for name in dir(Role) if not name.startswith('_')]
+    # print(request.GET.get("Role"))
+    # roles = filter(lambda x: role in x, roles)
+    # roles = list(roles)
+    projectValue = request.GET.get("Project") if request.GET.get(
+        "Project") else ""
+    businessValue = request.GET.get("Business") if request.GET.get(
+        "Business") else ""
+    UsersObjects = []
     for u in users:
-        project = Project.objects.filter(User=u)
-        if len(project):
+        print(request.GET.get("Project"))
+        project = Project.objects.filter(
+            User=u)
+        if projectValue:
+            project = project.filter(name__contains=projectValue)
+        if len(project) and projectValue:
             u.project = project
-    for u in users:
+            UsersObjects.append(u)
+        elif not projectValue:
+            u.project = project
+            UsersObjects.append(u)
+    finalUserObjects = []
+    for u in UsersObjects:
         business = Business.objects.filter(User=u)
-        print(business)
-        if len(business):
+        if businessValue:
+            business = business.filter(name__contains=businessValue)
+        if len(business) and businessValue:
             u.business = business
-            print(u.business)
+            finalUserObjects.append(u)
+        elif not businessValue:
+            u.business = business
+            finalUserObjects.append(u)
         u.Role = Role(u.Role).name
-    return render(request, 'user/users.html', {'users': users, 'filter': my_filter})
+    return render(request, 'user/users.html', {'users': finalUserObjects, 'filter': my_filter, 'Role': role, 'Project': projectValue, 'Business': businessValue})
 
 
-@login_required
+@ login_required
 def add_user(request):
     if request.method == 'POST':
         print('done')

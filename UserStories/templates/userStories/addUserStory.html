@@ -7,7 +7,7 @@
 <form method="post" style="height: 100%;">
     {% csrf_token %}
     <div class="row" style="width:100% ;">
-        <div class="col-3">
+        <div class="col-4">
             <div class="form-group">
                 <label for="exampleInputEmail1" style="display: block;width: 100%;">PlatForm</label>
                 <select id="example-getting-started4" name="platforms" style="width: 100%;"
@@ -20,6 +20,8 @@
                     {% endif %}
                     {% endfor %}
                 </select>
+                <button type="button" class="col-2 btn btn-success fa fa-plus " data-toggle="modal" data-target="#modalLoginForm">
+                </button>
                 <!-- <select class="form-control form-select" required name="platform" style="display:block ;"
                                                 aria-label="Default select example">
                                                 
@@ -28,7 +30,7 @@
         </div>
     
     </div>
-    <div class="container-fluid testimonial-group">
+    <div class="container testimonial-group" style="overflow-x: hidden;">
     <div class="row no-gutters text-center flex-nowrap" id="UserStory">
         <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
             <div style="width:100% ;" class="row">

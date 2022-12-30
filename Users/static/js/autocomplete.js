@@ -125,10 +125,12 @@ function closeAllLists(elmnt) {
 
 document.addEventListener("click", function (e) {
     var x = document.getElementsByClassName("autocomplete-items")[0];
-    console.log(e.target);
+    var nodes = Array.from(e.target.childNodes);
+    var status = nodes.includes(currentinp)
     try {
-      if(e.target == currentinp)
+      if(e.target == currentinp || status)
       {
+        console.log(status);
         return false;
       }
       closeAllLists(e.target);

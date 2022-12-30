@@ -37,6 +37,9 @@
             display: block;
             width: 100%;
         }
+        .minWidth{
+    min-width: 8rem;
+}
     </style>
 </head>
 
@@ -109,6 +112,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -228,7 +232,7 @@
             $('form').submit();
         });
 
-        $('.filter').keypress(function () {
+        $('.filter').keydown(function (e) {
             var key = e.charCode || e.keyCode || 0;
             console.log(key);
             if (key == 13) {
@@ -257,6 +261,13 @@
                 }
         });
         
+        $('.Removefilter').on('click',async function(e){
+            $(this).parent('div').fadeOut('slow');
+            $(this).parent('div').remove();
+            setTimeout(function () {
+                $('form').submit();
+            }, 800);
+        });
 
         var keys = {};
 
@@ -288,9 +299,11 @@
                 $('.submit').trigger('click');
             });
         $(".group").on('click', function (e) {
+            console.log("dc");
                 var name = $(".groupName").attr("data-original-title");
                 $(".groupField").val(name);
-            });
+                $('form').submit();
+        });
         $('.business').change(function () {
             var projects = JSON.parse('{{project|safe}}');
             console.log(projects);
@@ -326,7 +339,9 @@
                 estimateList = list;
             });
         
-        
+        $('.RemoveUserStory').on('click',function(e){
+            $(this).parent('td').parent('tr').fadeOut('slow');
+        });
         $('.delUserStory').on('click', function (e) {
             e.target.closest('.parent').remove();
             });
@@ -367,16 +382,32 @@
                 autocomplete(document.getElementById("epicInput"), epicObjects);
             }
             if (JSON.parse('{{iWantTOObjects|safe}}')) {
-                var epicObjects = JSON.parse('{{iWantTOObjects|safe}}');
-                filterAutocomplete(document.getElementById("id_iWantTO"), epicObjects);
+                var iWantTOObjects = JSON.parse('{{iWantTOObjects|safe}}');
+                autocomplete(document.getElementById("iWantToInput"), iWantTOObjects);
             }
-            if (JSON.parse('{{epicObjects|safe}}')) {
-                var epicObjects = JSON.parse('{{epicObjects|safe}}');
-                filterAutocomplete(document.getElementById("epicFilter"), epicObjects);
+            if (JSON.parse('{{soThatObjects|safe}}')) {
+                var soThatObjects = JSON.parse('{{soThatObjects|safe}}');
+                autocomplete(document.getElementById("soThatInput"), soThatObjects);
             }
+            if (JSON.parse('{{devTasksObjects|safe}}')) {
+                var devTasksObjects = JSON.parse('{{devTasksObjects|safe}}');
+                autocomplete(document.getElementById("devTaskInput"), devTasksObjects);
+            }
+            if (JSON.parse('{{RAIDSObjects|safe}}')) {
+                var RAIDSObjects = JSON.parse('{{RAIDSObjects|safe}}');
+                autocomplete(document.getElementById("RAIDSInput"), RAIDSObjects);
+            }
+            // if (JSON.parse('{{iWantTOObjects|safe}}')) {
+            //     var epicObjects = JSON.parse('{{iWantTOObjects|safe}}');
+            //     filterAutocomplete(document.getElementById("id_iWantTO"), epicObjects);
+            // }
+            // if (JSON.parse('{{epicObjects|safe}}')) {
+            //     var epicObjects = JSON.parse('{{epicObjects|safe}}');
+            //     filterAutocomplete(document.getElementById("epicFilter"), epicObjects);
+            // }
         }
         catch (err) {
-            
+            alert("d");
         }
     </script>
 </body>

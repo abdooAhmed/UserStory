@@ -11,20 +11,22 @@
         <p><input type="submit" class="btn btn-success" value="Update User"></p>
     </form>
     <div class="col-4 mt-2 text-center"">
-        <h3>Businesses</h3>
-        <div class="text-center"">
-            {% for b in business %}
-            <h5>{{b.name}}</h5>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="col-4 mt-2 text-center"">
-            <h3>Projects</h3>
-            <div class=" text-center"">
-                    {% for p in projects %}
-                    <h5>{{p.name}}</h5>
-                    {% endfor %}
+        <div>
+            <h5>Businesses</h5>
+            <div class="text-center"">
+                {% for b in business %}
+                <strong>{{b.name}}</strong>
+                {% endfor %}
             </div>
+        </div>
+        <div class="mt-5">
+            <h5>Projects</h5>
+            <div class=" text-center"">
+                {% for p in projects %}
+                <strong>{{p.name}}</strong>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

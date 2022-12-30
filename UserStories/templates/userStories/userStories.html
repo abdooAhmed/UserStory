@@ -3,6 +3,9 @@
 {% block personaObjects %}{{personaObjects}}{% endblock %}
 {% block epicObjects %}{{epicObjects}}{% endblock %}
 {% block iWantTOObjects %}{{iWantTOObjects}}{% endblock %}
+{% block soThatObjects %}{{soThatObjects}}{% endblock %}
+{% block devTasksObjects %}{{devTasksObjects}}{% endblock %}
+{% block RAIDSObjects %}{{RAIDSObjects}}{% endblock %}
 {% block content %}
 <div>
     <h1 class="m-auto">UserStories</h1>
@@ -28,27 +31,86 @@
 
         <thead>
             <tr>
-                <form id="form" method="get">
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        <div><input type="text"
-                            name="Persona" class="form-control filter" id="myInput" value="{{form.persona}}" id="exampleInputEmail1"
-                            aria-describedby="emailHelp" placeholder="Description">
+                <form id="form" method="get" name="filter">
+                    <th class="minWidth text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        {% for persona in form.persona %}
+                        <div class="row no-gutters mb-1 ">
+                            <input type="text" name="Persona" class="form-control col-9" value="{{persona}}">
+                            <i class="col-3 btn btn-success fa fa-minus Removefilter"
+                                style="display: flex;justify-content: center;align-items: center;"></i>
+                        </div>
+                        {% endfor %}
+                        <div >
+                            <input type="text" name="Persona" class="form-control filter" id="myInput" 
+                                id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Description">
                         </div>
                     </th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    <th style="min-width: 8rem;" class="minWidth text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        {% for e in form.Epic %}
+                        <div class="row no-gutters mb-1 ">
+                            <input type="text" name="Epic" class="form-control col-9" value="{{e}}">
+                            <i class="col-3 btn btn-success fa fa-minus Removefilter"
+                                style="display: flex;justify-content: center;align-items: center;"></i>
+                        </div>
+                        {% endfor %}
                         <div>
-                        <input type="text" name="Epic" value="{{form.Epic}}" class="form-control filter" id="epicInput" aria-describedby="emailHelp"
+                        <input type="text" name="Epic" class="form-control filter p-1" id="epicInput" aria-describedby="emailHelp"
                             placeholder="Description">
                         </div>
                     </th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{filter.form.iWantTO}}</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{filter.form.soThat}}</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text"
-                        name="DevTask" value="{{form.DevTask}}" class="form-control filter" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="Description"></th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="RAIDS" value="{{form.RAIDS}}" class="form-control filter" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Description"></th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="Indicator" value="{{form.indicator}}" class="form-control groupField filter" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <th class="minWidth text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    {% for e in form.IWantTO %}
+                    <div class="row no-gutters mb-1 ">
+                        <input type="text" name="IWantTO" class="form-control col-9" value="{{e}}">
+                        <i class="col-3 btn btn-success fa fa-minus Removefilter"
+                            style="display: flex;justify-content: center;align-items: center;"></i>
+                    </div>
+                    {% endfor %}
+                   <div>
+                    <input type="text" name="IWantTO" class="form-control filter" id="iWantToInput" aria-describedby="emailHelp"
+                        placeholder="Description">
+                   </div>
+                </th>
+                <th class="minWidth text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    {% for e in form.SoThat %}
+                    <div class="row no-gutters mb-1 ">
+                        <input type="text" name="SoThat" class="form-control col-9" value="{{e}}">
+                        <i class="col-3 btn btn-success fa fa-minus Removefilter"
+                            style="display: flex;justify-content: center;align-items: center;"></i>
+                    </div>
+                    {% endfor %}
+                    <div>
+                        <input type="text" name="SoThat" class="form-control filter" id="soThatInput" aria-describedby="emailHelp"
+                            placeholder="Description">
+                    </div>
+                </th>
+                <th class="minWidth text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    {% for devTask in form.DevTask %}
+                    <div class="row no-gutters mb-1 ">
+                        <input type="text" name="DevTask" class="form-control col-9" value="{{devTask}}">
+                        <i class="col-3 btn btn-success fa fa-minus Removefilter"
+                            style="display: flex;justify-content: center;align-items: center;"></i>
+                    </div>
+                    {% endfor %}
+                    <div>
+                        <input type="text" name="DevTask" class="form-control filter" id="devTaskInput"
+                            aria-describedby="emailHelp" placeholder="Description">
+                    </div>
+                </th>
+                <th class="minWidth text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    {% for raids in form.RAIDS %}
+                    <div class="row no-gutters mb-1 ">
+                        <input type="text" name="RAIDS" class="form-control col-9" value="{{raids}}">
+                        <i class="col-3 btn btn-success fa fa-minus Removefilter"
+                            style="display: flex;justify-content: center;align-items: center;"></i>
+                    </div>
+                    {% endfor %}
+                    <div>
+                        <input type="text" name="RAIDS" class="form-control filter" id="RAIDSInput"
+                            aria-describedby="emailHelp" placeholder="Description">
+                    </div>    
+                </th>
+                <th class="minWidth text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="text" name="Indicator" value="{{form.indicator}}" class="form-control groupField filter" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Description"></th>
                 
                 </form>
@@ -93,9 +155,9 @@
                     </a>
                 </td>
                 <td class="align-middle text-center">
-                    <a href="{% url 'userStoryDetails' user.id %}" class="btn btn-success" aria-hidden="true">
+                    <button class="btn btn-success RemoveUserStory" aria-hidden="true">
                         Remove
-                    </a>
+                    </button>
                 </td>
             </tr>
             {% endfor %}

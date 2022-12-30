@@ -22,37 +22,83 @@ epicObjects = dumps(epicObjects)
 
 @login_required
 def userStories_list(request):
-    persona = ""
-    RAIDS = ""
-    DevTask = ""
+    persona = []
+    RAIDS = []
+    DevTask = []
     Indicator = ""
-    epic = ""
+    epic = []
+    soThat = []
+    iWantTO = []
     userStories = UserStory.objects.all()
     iWantTOObjects = [i.iWantTO for i in userStories]
     iWantTOObjects = dumps(iWantTOObjects)
-    my_filter = UserStoriesFilter(request.GET, queryset=userStories)
-    userStories = my_filter.qs
-    if request.GET.get("Persona"):
-        userStories = userStories.filter(
-            Persona__Name__contains=request.GET.get("Persona"))
-        persona = request.GET.get("Persona")
-    if request.GET.get("RAIDS"):
-        userStories = userStories.filter(
-            RAIDS__description__contains=request.GET.get("RAIDS"))
-        RAIDS = request.GET.get("RAIDS")
-    if request.GET.get("DevTask"):
-        userStories = userStories.filter(
-            DevelopmentTask__description__contains=request.GET.get("DevTask"))
-        DevTask = request.GET.get("DevTask")
+    soThatObjects = [i.soThat for i in userStories]
+    soThatObjects = dumps(soThatObjects)
+    devTasksObjects = []
+    for i in userStories:
+        for d in i.DevelopmentTask.all():
+            devTasksObjects.append(d.description)
+    devTasksObjects = dumps(devTasksObjects)
+    RAIDSObjects = []
+    for i in userStories:
+        for d in i.RAIDS.all():
+            RAIDSObjects.append(d.description)
+    RAIDSObjects = dumps(RAIDSObjects)
+
+    if request.GET.getlist("Persona"):
+        if request.GET.getlist("Persona")[0]:
+            persona = request.GET.getlist("Persona")
+            persona = list(filter(None, persona))
+            for p in persona:
+                userStories = userStories.filter(
+                    Persona__Name__contains=p)
+
+    if request.GET.getlist("RAIDS"):
+        if request.GET.getlist("RAIDS")[0]:
+            RAIDS = request.GET.getlist("RAIDS")
+            RAIDS = list(filter(None, RAIDS))
+            for r in RAIDS:
+                userStories = userStories.filter(
+                    RAIDS__description__contains=r)
+
+    if request.GET.getlist("DevTask"):
+        if request.GET.getlist("DevTask")[0]:
+            DevTask = request.GET.getlist("DevTask")
+            DevTask = list(filter(None, DevTask))
+            for d in DevTask:
+                userStories = userStories.filter(
+                    DevelopmentTask__description__contains=d)
+
     if request.GET.get("Indicator"):
         userStories = userStories.filter(
             US_Group__description__contains=request.GET.get("Indicator"))
         Indicator = request.GET.get("Indicator")
-    if request.GET.get("Epic"):
-        userStories = userStories.filter(
-            Epic__versionName__contains=request.GET.get("Epic"))
-        epic = request.GET.get("Epic")
-    return render(request, 'userStories/userStories.html', {'users': userStories, 'filter': my_filter, 'personaObjects': personaObjects, 'epicObjects': epicObjects, 'iWantTOObjects': iWantTOObjects, 'form': {'persona': persona, 'RAIDS': RAIDS, 'DevTask': DevTask, 'indicator': Indicator, 'Epic': epic}})
+
+    if request.GET.getlist("Epic"):
+        if request.GET.getlist("Epic")[0]:
+            epic = request.GET.getlist("Epic")
+            epic = list(filter(None, epic))
+            for e in epic:
+                userStories = userStories.filter(
+                    Epic__versionName__contains=e)
+
+    if request.GET.getlist("IWantTO"):
+        if request.GET.getlist("IWantTO")[0]:
+            iWantTO = request.GET.getlist("IWantTO")
+            iWantTO = list(filter(None, iWantTO))
+            for i in iWantTO:
+                userStories = userStories.filter(
+                    iWantTO__contains=i)
+
+    if request.GET.getlist("SoThat"):
+        if request.GET.getlist("SoThat")[0]:
+            soThat = request.GET.getlist("SoThat")
+            soThat = list(filter(None, soThat))
+            for i in soThat:
+                userStories = userStories.filter(
+                    soThat__contains=i)
+
+    return render(request, 'userStories/userStories.html', {'users': userStories, 'personaObjects': personaObjects, 'epicObjects': epicObjects, 'iWantTOObjects': iWantTOObjects, 'soThatObjects': soThatObjects, 'devTasksObjects': devTasksObjects, 'RAIDSObjects': RAIDSObjects, 'form': {'persona': persona, 'RAIDS': RAIDS, 'DevTask': DevTask, 'indicator': Indicator, 'Epic': epic, 'SoThat': soThat, 'IWantTO': iWantTO}})
 
 
 @login_required
