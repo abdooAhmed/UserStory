@@ -341,7 +341,19 @@
             });
         
         $('.RemoveUserStory').on('click',function(e){
-            $(this).parent('td').parent('tr').fadeOut('slow');
+            var element = $(this)
+            $.ajax({
+                url: "http://127.0.0.1:8000/Apis/removeUserStory/"+ this.id +"",
+                type: "get", //send it through get method
+                
+                success: function (response) {
+                    element.parent('td').parent('tr').fadeOut('slow');
+                },
+                error: function (xhr) {
+                    alert("Error happenedy");
+                    //Do Something to handle error
+                }
+            });
         });
         $('.delUserStory').on('click', function (e) {
             e.target.closest('.parent').remove();

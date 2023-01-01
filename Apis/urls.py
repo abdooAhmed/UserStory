@@ -3,5 +3,5 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('list/', views.get, name='del'),
+    path('removeUserStory/<int:id>', views.del_userStroy, name='del'),
 ]
