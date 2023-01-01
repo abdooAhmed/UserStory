@@ -31,7 +31,7 @@
 
         <thead>
             <tr>
-                <form id="form" method="get" name="filter">
+                <form id="form" method="get" name="filter" autocomplete="off">
                     <th class="minWidth text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         {% for persona in form.persona %}
                         <div class="row no-gutters mb-1 ">
@@ -41,7 +41,7 @@
                         </div>
                         {% endfor %}
                         <div >
-                            <input type="text" name="Persona" class="form-control filter" id="myInput" 
+                            <input type="text" name="Persona" class="form-control filter" id="personaInputfilter" 
                                 id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Description">
                         </div>
                     </th>
@@ -54,7 +54,7 @@
                         </div>
                         {% endfor %}
                         <div>
-                        <input type="text" name="Epic" class="form-control filter p-1" id="epicInput" aria-describedby="emailHelp"
+                        <input type="text" name="Epic" class="form-control filter p-1" id="epicInputfilter" aria-describedby="emailHelp"
                             placeholder="Description">
                         </div>
                     </th>

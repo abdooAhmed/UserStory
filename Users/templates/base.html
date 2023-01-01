@@ -123,7 +123,9 @@
         type="text/javascript">
         </script>
     <script>
-        
+        if($('form').attr('method') == "post"){
+            $('body').css('overflow-x', 'hidden');
+        }
         $('#example-getting-started').multiselect({
                 buttonClass: 'form-select',
                 templates: {
@@ -281,7 +283,6 @@
             }
             if (keys[13] && keys[16]) {
                 if ($('form')) {
-                    alert("dc");
                     var status = document.getElementById("status");
                     status.checked = true;
                     $('form').submit();
@@ -381,22 +382,6 @@
                 var epicObjects = JSON.parse('{{epicObjects|safe}}');
                 autocomplete(document.getElementById("epicInput"), epicObjects);
             }
-            if (JSON.parse('{{iWantTOObjects|safe}}')) {
-                var iWantTOObjects = JSON.parse('{{iWantTOObjects|safe}}');
-                autocomplete(document.getElementById("iWantToInput"), iWantTOObjects);
-            }
-            if (JSON.parse('{{soThatObjects|safe}}')) {
-                var soThatObjects = JSON.parse('{{soThatObjects|safe}}');
-                autocomplete(document.getElementById("soThatInput"), soThatObjects);
-            }
-            if (JSON.parse('{{devTasksObjects|safe}}')) {
-                var devTasksObjects = JSON.parse('{{devTasksObjects|safe}}');
-                autocomplete(document.getElementById("devTaskInput"), devTasksObjects);
-            }
-            if (JSON.parse('{{RAIDSObjects|safe}}')) {
-                var RAIDSObjects = JSON.parse('{{RAIDSObjects|safe}}');
-                autocomplete(document.getElementById("RAIDSInput"), RAIDSObjects);
-            }
             // if (JSON.parse('{{iWantTOObjects|safe}}')) {
             //     var epicObjects = JSON.parse('{{iWantTOObjects|safe}}');
             //     filterAutocomplete(document.getElementById("id_iWantTO"), epicObjects);
@@ -407,7 +392,34 @@
             // }
         }
         catch (err) {
-            alert("d");
+        }
+        try{
+            if (JSON.parse('{{personaObjects|safe}}')) {
+                var personaObjects = JSON.parse('{{personaObjects|safe}}');
+                filterAutocomplete(document.getElementById("personaInputfilter"), personaObjects);
+            }
+            if (JSON.parse('{{iWantTOObjects|safe}}')) {
+                var iWantTOObjects = JSON.parse('{{iWantTOObjects|safe}}');
+                filterAutocomplete(document.getElementById("iWantToInput"), iWantTOObjects);
+            }
+            if (JSON.parse('{{soThatObjects|safe}}')) {
+                var soThatObjects = JSON.parse('{{soThatObjects|safe}}');
+                filterAutocomplete(document.getElementById("soThatInput"), soThatObjects);
+            }
+            if (JSON.parse('{{devTasksObjects|safe}}')) {
+                var devTasksObjects = JSON.parse('{{devTasksObjects|safe}}');
+                filterAutocomplete(document.getElementById("devTaskInput"), devTasksObjects);
+            }
+            if (JSON.parse('{{RAIDSObjects|safe}}')) {
+                var RAIDSObjects = JSON.parse('{{RAIDSObjects|safe}}');
+                filterAutocomplete(document.getElementById("RAIDSInput"), RAIDSObjects);
+            }
+            if (JSON.parse('{{epicObjects|safe}}')) {
+                var epicObjects = JSON.parse('{{epicObjects|safe}}');
+                filterAutocomplete(document.getElementById("epicInputfilter"), epicObjects);
+            }
+        }
+        catch (err) {
         }
     </script>
 </body>
