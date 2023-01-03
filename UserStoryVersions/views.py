@@ -116,10 +116,11 @@ def add_userStoryVersions(request):
 
 
 def userStoryVersionDetails(request, id):
+    platforms = Platform.objects.all()
     User = get_user_model()
     userStoryVersion = UserStoryVersion.objects.get(id=id)
     userStory = UserStory.objects.filter(
-        userStoriesVersion=userStoryVersion)
+        userStoriesVersion=userStoryVersion).all()
     project = Project.objects.all()
     business = Business.objects.all()
     projects = []
@@ -128,6 +129,9 @@ def userStoryVersionDetails(request, id):
         projects.append({'id': p.id, 'name': p.name,
                         'business': p.Business.id})
     projectJson = dumps(projects)
-    print(userStoryVersion.Project.name)
+    platformIds = []
+    for user in userStory:
+        for e in user.Estimates.all():
+            platformIds.append(e.Platform.id)
     return render(request, 'userStoryVersions/userStoryVersionsDetails.html',
-                  {'userStoryVersion': userStoryVersion, 'userStories': userStory, 'persona': project, 'userName': current_user.username, 'project': projectJson, 'business': business})
+                  {'platformIds': platformIds, 'platforms': platforms, 'userStoryVersion': userStoryVersion, 'userStories': userStory, 'persona': project, 'userName': current_user.username, 'project': projectJson, 'business': business})

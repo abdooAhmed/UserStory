@@ -147,13 +147,13 @@
         $('#example-getting-started3').multiselect({
                 buttonClass: 'form-select',
                 templates: {
-                    button: '<button type="button" style="width: 15rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                    button: '<button type="button" style="width: 13rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 }
             });
         $('#example-getting-started4').multiselect({
                 buttonClass: 'form-select',
                 templates: {
-                    button: '<button type="button" style="width: 18.5rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                    button: '<button type="button" style="width: 17rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 }
             });
         function remove(e) {
@@ -331,8 +331,9 @@
                 var index = 0;
                 list.forEach(i=>{
                     var currentPlatform = $('.platform option:selected').text();
+                    var currentId = $('.platform option:selected').val();
                     platfrom = currentPlatform.split(',');
-                    if(!estimateList.includes(i)&& platfrom[index] && !$("#" + platfrom[index] + "").length ){
+                    if(!estimateList.includes(i)&& platfrom[index] && !$("#" + list[index] + "").length ){
                         $('.estimateDiv').append($('<div class="col-6 form-group" id="' + platfrom[index] + '"><label for="exampleInputEmail1">' + platfrom[index] +'</label><input type="number" id="' + i + '" class="form-control estimate" required name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
                     }
                     index ++;
@@ -356,7 +357,20 @@
             });
         });
         $('.delUserStory').on('click', function (e) {
-            e.target.closest('.parent').remove();
+            var element = $(this).closest('.parent');
+            console.log(element);
+            $.ajax({
+                url: "http://127.0.0.1:8000/Apis/removeUserStory/" + this.id + "",
+                type: "get", //send it through get method
+
+                success: function (response) {
+                    element.fadeOut('slow');
+                },
+                error: function (xhr) {
+                    alert("Error happenedy");
+                    //Do Something to handle error
+                }
+            });
             });
         $('[data-toggle="tooltip"]').tooltip();
         if (window.history.replaceState) {
