@@ -91,7 +91,6 @@ def __str__(self):
 class Project(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.TextField(blank=True)
-    status = models.BooleanField(default=True)
     Business = models.ForeignKey(Business, on_delete=models.CASCADE)
     User = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)

@@ -8,6 +8,5 @@ class MyModelChoiceField(forms.ModelChoiceField):
 
 
 class AddProjectsForm(forms.Form):
-    name = forms.CharField()
-    status = forms.BooleanField(required=False)
     business = MyModelChoiceField(queryset=Business.objects.all())
+    Name_of_Project = forms.CharField()
