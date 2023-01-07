@@ -4,7 +4,7 @@
 <div>
     <h1 class="m-auto">User Story Details</h1>
 </div>
-<form>
+<form method="post" style="height: 100%;width: 100%;">
     {% csrf_token %}
     <div class="row" style="width:100% ;">
         <div class="col-3">
@@ -28,118 +28,122 @@
         </div>
     
     </div>
-    <div class="container-fluid testimonial-group">
-    <div class="row no-gutters text-center flex-nowrap" id="UserStory">
-        <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
-            <div style="width:100% ;" class="row">
-                <div class="form-group col-10 mb-0">
-                    <label for="exampleInputEmail1">Persona</label>
-                </div>
-            </div>
-            <div class="PersonDiv">
-                {% for Persona in userStory.Persona.all %}
+    <div class="container testimonial-group" style="overflow-x: hidden;">
+        <div class="row no-gutters text-center flex-nowrap" id="UserStory">
+            <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
                 <div style="width:100% ;" class="row">
-                    <div class="form-group row">
-                        <textarea type="text" class="form-control1 col-10" id="exampleInputEmail1"
-                            aria-describedby="emailHelp" placeholder="Persona" style="max-height: 20rem !important;background-color: #fff;border: 1px solid #ced4da;border-radius: .25rem;">{{Persona.Name}}</textarea>
-                            <i class="col-2 m-auto btn btn-success fa fa-minus AddRaids"
-                                style="display: flex;justify-content: center;align-items: center;"></i>
+                    <div class="form-group col-10 mb-0">
+                        <label for="exampleInputEmail1">Persona</label>
                     </div>
                 </div>
-                {% endfor %}
-            </div>
-            <div style="width:100% ;" class="row">
-                <div class="form-group row">
-                    <div class="col-10 m-0 p-0">
-                        <textarea type="text" name="Persona" list="personList" style="max-height: 20rem !important;background-color: #fff;border: 1px solid #ced4da;border-radius: .25rem;"
-                            class="form-control1 Persona" id="myInput" aria-describedby="emailHelp" placeholder="Persona"></textarea>
-                    </div>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
-                </div>
-            </div>
-        </div>
-        <div class="form-group m-0" style="margin: 0;min-width: 10rem;">
-            <label for="exampleInputEmail1">Epic</label>
-            <textarea type="text" list="encodings" name="Epic" class="form-control1 input" id="epicInput"
-                aria-describedby="emailHelp" placeholder="Epic" style="max-height: 20rem !important;background-color: #fff;border: 1px solid #ced4da;border-radius: .25rem;">{{userStory.Epic.versionName}}</textarea>
-        </div>
-        <div class="form-group" style="min-width: 10rem;">
-            <label for="exampleInputEmail1">IWantTO</label>
-            <textarea type="text" name="IWantTO" class="form-control1" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="IWantTO" style="max-height: 20rem !important;background-color: #fff;border: 1px solid #ced4da;border-radius: .25rem;">{{userStory.iWantTO}}</textarea>
-        </div>
-        <div class="form-group" style="min-width: 10rem;">
-            <label for="exampleInputEmail1">SoThat</label>
-            <textarea type="text" name="SoThat" class="form-control1" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="SoThat" style="max-height: 20rem !important;background-color: #fff;border: 1px solid #ced4da;border-radius: .25rem;">{{userStory.soThat}}</textarea>
-        </div>
-        <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
-            <div style="width:100% ;" class="row">
-                <div class="form-group col-10 mb-0">
-                    <label for="exampleInputEmail1">Dev Tasks</label>
-                </div>
-            </div>
-            <div class="DKDiv">
-                {% for DevelopmentTask in userStory.DevelopmentTask.all %}
-                <div style="width:100% ;" class="row">
+                <div style="width: 100%;" class="row PersonDiv">
+                    {% for Persona in userStory.Persona.all %}
                     <div class="form-group row">
-                        <textarea type="text" class="form-control1 col-10" id="exampleInputEmail1"
-                            aria-describedby="emailHelp" placeholder="R.A.I.DS" style="max-height: 20rem !important;background-color: #fff;border: 1px solid #ced4da;border-radius: .25rem;">{{DevelopmentTask.description}}</textarea>
-                        <i class="col-2 m-auto btn btn-success fa fa-minus AddRaids"
+                        <div class="col-10 m-0 p-0">
+                            <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;"
+                                class="form-control Persona" id="myInput" aria-describedby="emailHelp"
+                                placeholder="Persona">{{Persona.Name}}</textarea>
+                        </div>
+                        <i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)"
                             style="display: flex;justify-content: center;align-items: center;"></i>
                     </div>
-                    
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-            <div style="width:100% ;" class="row">
-                <div class="form-group row">
-                    <textarea type="text" class="form-control1 Dev col-10" name="Dev" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="Dev Tasks" style="max-height: 20rem !important;background-color: #fff;border: 1px solid #ced4da;border-radius: .25rem;"></textarea>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
-                </div>
-            </div>
-        </div>
-        <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
-            <div style="width:100% ;" class="row">
-                <div class="form-group col-10 mb-0">
-                    <label for="exampleInputEmail1">R.A.I.DS</label>
-                </div>
-            </div>
-            <div class="RAIDSDiv">
-                {% for RAIDS in userStory.RAIDS.all %}
                 <div style="width:100% ;" class="row">
                     <div class="form-group row">
-                        <textarea type="text" class="form-control1 col-10" id="exampleInputEmail1"
-                            aria-describedby="emailHelp" placeholder="R.A.I.DS" style="max-height: 20rem !important;background-color: #fff;border: 1px solid #ced4da;border-radius: .25rem;">{{RAIDS.description}}</textarea>
-                        <i class="col-2 m-auto btn btn-success fa fa-minus AddRaids"
+                        <div class="col-10 m-0 p-0">
+                            <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;"
+                                class="form-control Persona" id="myInput" aria-describedby="emailHelp"
+                                placeholder="Persona"></textarea>
+                        </div>
+                        <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
                             style="display: flex;justify-content: center;align-items: center;"></i>
                     </div>
                 </div>
-                {% endfor %}
             </div>
-            <div style="width:100% ;" class="row">
-                <div class="form-group row">
-                    <textarea type="text" class="form-control1 Raids col-10" name="RAIDS" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="R.A.I.DS" style="max-height: 20rem !important;background-color: #fff;border: 1px solid #ced4da;border-radius: .25rem;"></textarea>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
+            <div class="form-group m-0" style="margin: 0;min-width: 10rem;">
+                <label for="exampleInputEmail1">Epic</label>
+                <textarea type="text" id="epicInput" list="encodings" name="Epic" class="form-control input" id="epicInput"
+                    aria-describedby="emailHelp" placeholder="Epic">{{userStory.Epic.versionName}}</textarea>
+            </div>
+            <div class="form-group" style="min-width: 10rem;">
+                <label for="exampleInputEmail1">IWantTO</label>
+                <textarea type="text" id="IWantTO" name="IWantTO" class="form-control" id="exampleInputEmail1"
+                    aria-describedby="emailHelp" placeholder="IWantTO">{{userStory.iWantTO}}</textarea>
+            </div>
+            <div class="form-group" style="min-width: 10rem;">
+                <label for="exampleInputEmail1">SoThat</label>
+                <textarea type="text" id="SoThat" name="SoThat" class="form-control" id="exampleInputEmail1"
+                    aria-describedby="emailHelp" placeholder="SoThat">{{userStory.soThat}}</textarea>
+            </div>
+            <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
+                <div style="width:100% ;" class="row">
+                    <div class="form-group col-10 mb-0">
+                        <label for="exampleInputEmail1">Dev Tasks</label>
+                    </div>
+                </div>
+                <div style="width: 100%;" class="row DKDiv">
+                    {% for DevelopmentTask in userStory.DevelopmentTask.all %}
+                    <div class="form-group row">
+                        <div class="col-10 m-0 p-0">
+                            <textarea type="text" id="DevTasks" class="form-control Dev" name="Dev" id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                                placeholder="Dev Tasks">{{DevelopmentTask.description}}</textarea>
+                        </div>
+                        <i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)"
+                            style="display: flex;justify-content: center;align-items: center;"></i>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div style="width:100% ;" class="row">
+                    <div class="form-group row">
+                        <textarea type="text" id="DevTasks" class="form-control Dev col-10" name="Dev"
+                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks"></textarea>
+                        <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
+                            style="display: flex;justify-content: center;align-items: center;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
+                <div style="width:100% ;" class="row">
+                    <div class="form-group col-10 mb-0">
+                        <label for="exampleInputEmail1">R.A.I.DS</label>
+                    </div>
+                </div>
+                <div style="width: 100%;" class="row RAIDSDiv">
+                    {% for RAIDS in userStory.RAIDS.all %}
+                    <div class="form-group row">
+                        <div class="col-10 m-0 p-0">
+                            <textarea type="text" id="R.A.I.DS" class="form-control Raids" name="RAIDS"
+                                id="exampleInputEmail1" aria-describedby="emailHelp"
+                                placeholder="R.A.I.DS">{{RAIDS.description}}</textarea>
+                        </div>
+                        <i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)"
+                            style="display: flex;justify-content: center;align-items: center;"></i>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div style="width:100% ;" class="row">
+                    <div class="form-group row">
+                        <textarea type="text" id="R.A.I.DS" class="form-control Raids col-10" name="RAIDS"
+                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
+                        <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
+                            style="display: flex;justify-content: center;align-items: center;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="padding-left: .9rem;min-width: 15rem;">
+                <div style="width: 100%;" class="estimateDiv row no-gutters text-center flex-nowrap">
+                    {% for e in userStory.Estimates.all %}
+                    <div class="col-6 form-group" id="nodejsreactjs">
+                        <label for="exampleInputEmail1">{{e.Platform.name}}</label><input type="number"
+                            id="{{e.Platform.id}}" class="form-control estimate" value="{{e.noOfHours}}" required=""
+                            name="estimate[]" placeholder="{{e.Platform.name}}" aria-describedby="emailHelp">
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        <div class="form-group" style="padding-left: .9rem;min-width: 15rem;">
-            <div style="width: 100%;" class="estimateDiv row no-gutters">
-                {% for e in userStory.Estimates.all %}
-                <div class="col-6 form-group" id="nodejs"><label for="exampleInputEmail1">{{e.Platform.name}}</label>
-                    <input type="number" id="{{e.Platform.id}}" class="form-control estimate" value="{{e.noOfHours}}"
-                        aria-describedby="emailHelp">
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
     </div>
     <div>
         <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

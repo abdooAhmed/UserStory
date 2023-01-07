@@ -33,6 +33,8 @@ def userStoryVersions_list(request):
 
 @login_required
 def add_userStoryVersions(request):
+    id = 0
+    totalEstimates = []
     personaObjects = list(Persona.objects.values_list('Name'))
     print(personaObjects)
     personaObjects = dumps(personaObjects)
@@ -62,14 +64,19 @@ def add_userStoryVersions(request):
             print(platformObject)
             estimates.append(
                 Estimates.objects.create(noOfHours=noOfHoursList[i], Platform=platformObject))
+
         personas = request.POST.getlist("Persona")
         print(personas)
         for p in personas:
+            if not bool(p.strip()):
+                continue
             persona.append(Persona.objects.create(
                 Name=p))
         devs = request.POST.getlist("Dev")
         devResult = []
         for dev in devs:
+            if not bool(dev.strip()):
+                continue
             devResult.append(DevelopmentTask.objects.create(description=dev))
         # estimates = request.POST.get("Estimates").splitlines()
         # for estimate in estimates:
@@ -77,6 +84,10 @@ def add_userStoryVersions(request):
         Raids = request.POST.getlist("RAIDS")
         RaidsResult = []
         for Raid in Raids:
+            print(Raid, "dc")
+            if not bool(Raid.strip()):
+                print("dc")
+                continue
             RaidsResult.append(RAIDS.objects.create(description=Raid))
         epic = Epic.objects.create(
             versionName=request.POST.get("Epic"))
@@ -85,8 +96,13 @@ def add_userStoryVersions(request):
         project = Project.objects.get(id=request.POST.get("project"))
         VersionName = request.POST.get("VersionName")
         VersionDescription = request.POST.get("VersionDescription")
-        userStoryVersion = UserStoryVersion.objects.create(
-            name=VersionName, description=VersionDescription, Project=project, User=current_user)
+        if int(request.POST.get("id")):
+            print(int(request.POST.get("id")))
+            userStoryVersion = UserStoryVersion.objects.get(
+                id=int(request.POST.get("id")))
+        else:
+            userStoryVersion = UserStoryVersion.objects.create(
+                name=VersionName, description=VersionDescription, Project=project, User=current_user)
         userStory = UserStory.objects.create(
             iWantTO=request.POST.get("IWantTO"),
             soThat=request.POST.get("SoThat"),
@@ -110,9 +126,22 @@ def add_userStoryVersions(request):
         platformIds = [{'id': i, 'name': Platform.objects.get(
             id=i).name} for i in platformIds]
         print(platformIds)
-        return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'platformIds': platformIds, 'userStories': userStories, 'userStoryVersion': userStoryVersion, 'business': business, 'personaObjects': personaObjects, 'epicObjects': epicObjects, 'project': projectJson})
+        id = userStoryVersion.id
+        for u in userStories:
+            for e in u.Estimates.all():
+                status = next(
+                    (True for i in totalEstimates if int(i['id']) == e.Platform.id), False)
+                if status:
+                    for estimate in totalEstimates:
+                        if estimate['id'] == e.Platform.id:
+                            estimate['hours'] = estimate['hours'] + e.noOfHours
+                else:
+                    totalEstimates.append(
+                        {'id': e.Platform.id, 'name': e.Platform.name, 'hours': e.noOfHours})
+        print(totalEstimates)
+        return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'id': id, 'totalEstimates': totalEstimates, 'persona': projects, 'platformIds': platformIds, 'userStories': userStories, 'userStoryVersion': userStoryVersion, 'business': business, 'personaObjects': personaObjects, 'epicObjects': epicObjects, 'project': projectJson})
     del userStories[:]
-    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business, 'personaObjects': personaObjects, 'epicObjects': epicObjects})
+    return render(request, 'userStoryVersions/addUserStoryVersion.html', {'platforms': platforms, 'id': id, 'totalEstimates': totalEstimates, 'persona': projects, 'userName': current_user.username, 'project': projectJson, 'business': business, 'personaObjects': personaObjects, 'epicObjects': epicObjects})
 
 
 def userStoryVersionDetails(request, id):
@@ -133,5 +162,17 @@ def userStoryVersionDetails(request, id):
     for user in userStory:
         for e in user.Estimates.all():
             platformIds.append(e.Platform.id)
+    totalEstimates = []
+    for u in userStory:
+        for e in u.Estimates.all():
+            status = next(
+                (True for i in totalEstimates if int(i['id']) == e.Platform.id), False)
+            if status:
+                for estimate in totalEstimates:
+                    if estimate['id'] == e.Platform.id:
+                        estimate['hours'] = estimate['hours'] + e.noOfHours
+            else:
+                totalEstimates.append(
+                    {'id': e.Platform.id, 'name': e.Platform.name, 'hours': e.noOfHours})
     return render(request, 'userStoryVersions/userStoryVersionsDetails.html',
-                  {'platformIds': platformIds, 'platforms': platforms, 'userStoryVersion': userStoryVersion, 'userStories': userStory, 'persona': project, 'userName': current_user.username, 'project': projectJson, 'business': business})
+                  {'totalEstimates': totalEstimates, 'platformIds': platformIds, 'platforms': platforms, 'userStoryVersion': userStoryVersion, 'userStories': userStory, 'persona': project, 'userName': current_user.username, 'project': projectJson, 'business': business})

@@ -107,6 +107,7 @@
     <script src="{% static "js/jquery.bootstrap.modal.forms.js" %}"></script>
     <script src="{% static "js/autocomplete.js" %}"></script>
     <script src="{% static "js/filterAutocomplete.js" %}"></script>
+    <script src="{% static "js/RelatedUserStories.js" %}"></script>
     <!-- You can alternatively load the minified version -->
     <script src="{% static "js/jquery.bootstrap.modal.forms.min.js" %}"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -230,6 +231,24 @@
                 }
         });
 
+
+        function TotalEstimates(e){
+            var currentTotal = $('p#t' + e.target.id + '').attr('data');
+            console.log(currentTotal);
+            var total = Number(e.target.value) + Number(currentTotal);
+            $('p#t' + e.target.id + '').children('span').text(total);
+        }
+
+        function UpdateTotalEstimates(e) {
+            var total = 0;
+            $('.estimate').each(function(i,obj){
+                if(e.target.id == obj.id){
+                   total = total + Number(obj.value); 
+                }
+            });
+            $('p#t' + e.target.id + '').children('span').text(total);
+        }
+        
         $('.filter').change(function(){
             $('form').submit();
         });
@@ -262,7 +281,15 @@
                     }
                 }
         });
-        
+        $('textarea').each(function(e, obj){
+            console.log($(obj));
+            if (!obj.value) {
+                this.style.height = 'auto';
+            }
+            else {
+                $(obj).css("cssText", "height: " + this.scrollHeight + "px !important;");
+            }
+        })
         $('.Removefilter').on('click',async function(e){
             $(this).parent('div').fadeOut('slow');
             $(this).parent('div').remove();
@@ -323,8 +350,12 @@
                     console.log($("#" + platfrom[index] + "").length)
                     for(var i=0;i< $('.estimate').length;i++){
                         var estimate = document.getElementsByClassName('estimate')[i];
+                        var id = estimate.id;
                         if(!list.includes(estimate.id)){
                             estimate.parentNode.remove();
+                            if(!$('#' + id + '').length){
+                                $('div#t' + id+ '').remove();
+                            }
                         }
                     }
                 }
@@ -333,14 +364,17 @@
                     var currentPlatform = $('.platform option:selected').text();
                     var currentId = $('.platform option:selected').val();
                     platfrom = currentPlatform.split(',');
-                    if(!estimateList.includes(i)&& platfrom[index] && !$("#" + list[index] + "").length ){
-                        $('.estimateDiv').append($('<div class="col-6 form-group" id="' + platfrom[index] + '"><label for="exampleInputEmail1">' + platfrom[index] +'</label><input type="number" id="' + i + '" class="form-control estimate" required name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
+                    if(!estimateList.includes(i)&& platfrom[index] && !$(".estimate#" + list[index] + "").length ){
+                        $('.estimateDiv').append($('<div class="col-6 form-group" id="' + platfrom[index] + '"><label for="exampleInputEmail1">' + platfrom[index] +'</label><input type="number" id="' + i + '" onkeyup="TotalEstimates(event)" class="form-control estimate" required name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
+                        var divWithId = $('div#t'+ i +'');
+                        if(!divWithId.length){
+                            $('.TotalEstimates').append($('<div class="mr-5" id="t' + i + '"><h6>' + platfrom[index] + '</h6><p id="t' + i + '" data="0"><span></span></p></div>'));
+                        }
                     }
                     index ++;
                 });
                 estimateList = list;
             });
-        
         $('.RemoveUserStory').on('click',function(e){
             var element = $(this)
             $.ajax({

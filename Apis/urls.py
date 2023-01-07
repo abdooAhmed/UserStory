@@ -4,4 +4,6 @@ from . import views
 
 urlpatterns = [
     path('removeUserStory/<int:id>', views.del_userStroy, name='del'),
+    path('relatedUserStory',
+         views.related_userStory, name='relatedUserStories')
 ]
