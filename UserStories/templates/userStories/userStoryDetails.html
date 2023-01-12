@@ -7,9 +7,9 @@
 <form method="post" style="height: 100%;width: 100%;">
     {% csrf_token %}
     <div class="row" style="width:100% ;">
-        <div class="col-3">
+        <div class="col-4">
             <div class="form-group">
-                <label for="exampleInputEmail1" style="display: block;width: 100%;">PlatForm</label>
+                <label for="exampleInputEmail1" style="display: block;width: 100%;">Platform</label>
                 <select id="example-getting-started4" name="platforms" style="width: 100%;"
                     class="form-control form-select platform" multiple="multiple">
                     {% for p in platforms %}
@@ -20,6 +20,8 @@
                     {% endif %}
                     {% endfor %}
                 </select>
+                <button type="button" class="col-2 btn btn-success fa fa-plus " data-toggle="modal" data-target="#modalPlatformForm">
+                </button>
                 <!-- <select class="form-control form-select" required name="platform" style="display:block ;"
                                                     aria-label="Default select example">
                                                     
@@ -179,4 +181,37 @@
             group</button>
     </div>
 </form>
+<div>
+    <form method="get">
+        {% csrf_token %}
+        <div class="modal fade" id="modalPlatformForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Add Platform</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="form-group ">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="text" name="Name" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" value="submit" name="Platform" class="btn btn-success">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="text-center">
+                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
+                            Modal Login Form</a>
+                    </div> -->
+    </form>
+</div>
 {% endblock %}

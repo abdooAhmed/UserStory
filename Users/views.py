@@ -6,11 +6,15 @@ from django.http import HttpResponseRedirect
 from UserStoryApp.models import User, Project, Business, Role
 from django.contrib.auth.decorators import login_required
 from .filter import UsersFilter
+from json import dumps
 # Create your views here.
 
 
 @login_required
 def user_list(request):
+    projectObject = []
+    businessObject = []
+    nameObject = []
     User = get_user_model()
     users = User.objects.all()
     my_filter = UsersFilter(request.GET, queryset=users)
@@ -50,6 +54,8 @@ def user_list(request):
         elif not projectValue:
             u.project = project
             UsersObjects.append(u)
+        [projectObject.append(i.name) for i in project]
+    projectObject = dumps(projectObject)
     finalUserObjects = []
     for u in UsersObjects:
         business = Business.objects.filter(User=u)
@@ -61,8 +67,12 @@ def user_list(request):
         elif not businessValue:
             u.business = business
             finalUserObjects.append(u)
+        [businessObject.append(i.name) for i in business]
         u.Role = Role(u.Role).name
-    return render(request, 'user/users.html', {'users': finalUserObjects, 'filter': my_filter, 'Role': role, 'Project': projectValue, 'Business': businessValue})
+    businessObject = dumps(businessObject)
+    [nameObject.append(i.username) for i in finalUserObjects]
+    nameObject = dumps(nameObject)
+    return render(request, 'user/users.html', {'users': finalUserObjects, 'filter': my_filter, 'projectObject': projectObject, 'businessObject': businessObject, 'nameObject': nameObject, 'Role': role, 'Project': projectValue, 'Business': businessValue})
 
 
 @ login_required

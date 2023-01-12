@@ -2,7 +2,7 @@
 {% block title %}Log-in{% endblock %}
 {% block content %}
 <div>
-    <h1 class="m-auto">Add UserStory</h1>
+    <h1 class="m-auto">Add Business</h1>
 </div>
 <form method="post">
     {% csrf_token %}
@@ -43,7 +43,7 @@
             {{form2.as_p}}
         </div>
     </div>
-    <button type="submit" class="btn btn-success" value="submit">Submit</button>
+    <button type="submit" class="btn btn-success" value="submit">Create</button>
 </form>
     <div>
         <form method="get">

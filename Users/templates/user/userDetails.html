@@ -2,7 +2,7 @@
 {% block title %}Update User{% endblock %}
 {% block content %}
 <div>
-    <h1 class="m-auto">Update User</h1>
+    <h1 class="m-auto">{{form.username.value}}’s Details</h1>
 </div>
 <div class="row">
     <form class="col-3" method="post">
@@ -10,20 +10,20 @@
         {% csrf_token %}
         <p><input type="submit" class="btn btn-success" value="Update User"></p>
     </form>
-    <div class="col-4 mt-2 text-center"">
+    <div class="col-4 mt-2 text-center">
         <div>
-            <h5>Businesses</h5>
+            <h1>Businesses</h1>
             <div class="text-center"">
                 {% for b in business %}
-                <strong>{{b.name}}</strong>
+                <a class="text-success" href="{% url 'BusinessDetails' b.id %}"><strong class="d-block">{{b.name}}</strong></a>
                 {% endfor %}
             </div>
         </div>
         <div class="mt-5">
-            <h5>Projects</h5>
+            <h1>Projects</h1>
             <div class=" text-center"">
                 {% for p in projects %}
-                <strong>{{p.name}}</strong>
+                <a class="text-success" href="{% url 'projectDetails' p.id %}"><strong class="d-block">{{p.name}}</strong></a>
                 {% endfor %}
             </div>
         </div>

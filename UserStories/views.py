@@ -1,7 +1,6 @@
-from django.shortcuts import render
 
 # Create your views here.
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
@@ -25,7 +24,7 @@ def userStories_list(request):
     persona = []
     RAIDS = []
     DevTask = []
-    Indicator = ""
+    Indicator = []
     epic = []
     soThat = []
     iWantTO = []
@@ -70,9 +69,11 @@ def userStories_list(request):
                     DevelopmentTask__description__contains=d)
 
     if request.GET.get("Indicator"):
-        userStories = userStories.filter(
-            US_Group__description__contains=request.GET.get("Indicator"))
-        Indicator = request.GET.get("Indicator")
+        Indicator = request.GET.getlist("Indicator")
+        Indicator = list(filter(None, Indicator))
+        for i in Indicator:
+            userStories = userStories.filter(
+                US_Group__description__contains=i)
 
     if request.GET.getlist("Epic"):
         if request.GET.getlist("Epic")[0]:
@@ -156,6 +157,12 @@ def add_userStory(request):
 
 
 def userStoryDetails(request, id):
+    if request.method == 'GET' and 'Platform' in request.GET:
+        print("here")
+        Platform.objects.create(name=request.GET.get("Name"))
+        print(request.GET.get("platform"))
+        param = str(id)
+        return redirect('/UserStories/userStoryDetails/'+param+'')
     platforms = Platform.objects.all()
     User = get_user_model()
     users = UserStory.objects.get(id=id)

@@ -5,7 +5,7 @@ from UserStoryApp.models import User
 
 class UsersFilter(django_filters.FilterSet):
     username = django_filters.CharFilter(lookup_expr='icontains', widget=forms.TextInput(attrs={
-        'placeholder': 'Search place', 'class': 'form-control filter'}))
+        'placeholder': 'Search place', 'id': 'nameInput', 'class': 'form-control filter'}))
 
     class Meta:
         model = User

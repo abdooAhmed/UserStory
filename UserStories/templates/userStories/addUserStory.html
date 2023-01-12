@@ -20,7 +20,7 @@
                     {% endif %}
                     {% endfor %}
                 </select>
-                <button type="button" class="col-2 btn btn-success fa fa-plus " data-toggle="modal" data-target="#modalLoginForm">
+                <button type="button" class="col-2 btn btn-success fa fa-plus " data-toggle="modal" data-target="#modalPlatformForm">
                 </button>
                 <!-- <select class="form-control form-select" required name="platform" style="display:block ;"
                                                 aria-label="Default select example">
@@ -43,12 +43,14 @@
             </div>
             <div style="width:100% ;" class="row">
                 <div class="form-group row">
-                    <div class="col-10 m-0 p-0">
+                    <div class="col-12 m-0 p-0">
                         <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;" class="form-control Persona"
                             id="myInput" aria-describedby="emailHelp" placeholder="Persona"></textarea>
                     </div>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddPersona"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
+                    <p class="m-auto AddPersona" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                        Add Another<i class="ml-1 text-danger fa fa-plus AddPersona"
+                            ></i>
+                    </p>
                 </div>
             </div>
         </div>
@@ -78,10 +80,13 @@
             </div>
             <div style="width:100% ;" class="row">
                 <div class="form-group row">
-                    <textarea type="text" id="DevTasks" class="form-control Dev col-10" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <textarea type="text" id="DevTasks" class="form-control Dev col-12" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Dev Tasks"></textarea>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddDev"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
+                    
+                    <p class="m-auto AddDev" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                        Add Another<i class="ml-1 text-danger fa fa-plus"
+                            ></i>
+                    </p>
                 </div>
             </div>
         </div>
@@ -96,10 +101,13 @@
             </div>
             <div style="width:100% ;" class="row">
                 <div class="form-group row">
-                    <textarea type="text" id="R.A.I.DS" class="form-control Raids col-10" name="RAIDS" id="exampleInputEmail1"
+                    <textarea type="text" id="R.A.I.DS" class="form-control Raids col-12" name="RAIDS" id="exampleInputEmail1"
                         aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
-                    <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
-                        style="display: flex;justify-content: center;align-items: center;"></i>
+                    <!-- <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
+                        style="display: flex;justify-content: center;align-items: center;"></i> -->
+                    <p class="m-auto AddRaids" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                        Add Another<i class="ml-1 text-danger fa fa-plus"></i>
+                    </p>
                 </div>
             </div>
         </div> 
@@ -164,4 +172,37 @@
         <textarea type="text" name="Estimates" class="form-control mt-2 h-25 EstimatesArea" cols="10"></textarea>
     </div> -->
 </form>
+<div>
+    <form method="get">
+        {% csrf_token %}
+        <div class="modal fade" id="modalPlatformForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Add Platform</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="form-group ">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="text" name="Name" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" value="submit" name="Platform" class="btn btn-success">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="text-center">
+                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
+                            Modal Login Form</a>
+                    </div> -->
+    </form>
+</div>
 {% endblock %}

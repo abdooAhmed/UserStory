@@ -65,6 +65,9 @@ class Business(models.Model):
     def get_categories(self):
         return "\n".join([f'{p.name} , ' for p in self.businessIndustry.all()])
 
+    def get_users(self):
+        return "\n".join([f'{p.username} , ' for p in self.User.all()])
+
     class Meta:
         db_table = "Business"
 

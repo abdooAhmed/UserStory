@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Log-in{% endblock %}
+{% block projectObject %}{{projectObject}}{% endblock %}
+{% block businessObject %}{{businessObject}}{% endblock %}
+{% block nameObject %}{{nameObject}}{% endblock %}
 {% block content %}
 <div>
     <h1 class="m-auto">Users</h1>
@@ -22,19 +25,21 @@
 
         <thead>
             <tr>
-                <form id="form" method="get">
+                <form id="form" method="get" autocomplete="off">
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        {{filter.form.username}}</th>
+                        
+                        {{filter.form.username}}
+                    </th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        <input type="text" name="Role" class="form-control filter" value="{{Role}}" id="exampleInputEmail1"
+                        <input type="text" name="Role" class="form-control filter" value="{{Role}}" id="roleInput"
                             aria-describedby="emailHelp" placeholder="Role">
                     </th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        <input type="text" name="Project" class="form-control filter" value="{{Project}}" id="exampleInputEmail1"
+                        <input type="text" name="Project" class="form-control filter" value="{{Project}}" id="projectInput"
                             aria-describedby="emailHelp" placeholder="Project">
                     </th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        <input type="text" name="Business" class="form-control filter" value="{{Business}}" id="exampleInputEmail1"
+                        <input type="text" name="Business" class="form-control filter" value="{{Business}}" id="businessInput"
                             aria-describedby="emailHelp" placeholder="Business">
                     </th>
                     <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">

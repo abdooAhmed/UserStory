@@ -40,6 +40,33 @@
         .minWidth{
     min-width: 8rem;
 }
+td div{
+    
+    white-space: pre-wrap;
+        white-space: -moz-pre-wrap !important;
+        white-space: -webkit-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: normal;
+        width: 15rem !important;
+}
+.Bigger{
+    
+    white-space: pre-wrap;
+        white-space: -moz-pre-wrap !important;
+        white-space: -webkit-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: normal;
+        width: 18rem !important;
+}
+
     </style>
 </head>
 
@@ -164,7 +191,7 @@
             var currentValue = $(".Raids").val()
             if(currentValue){
                 $(".Raids").val("")
-                $('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
+                $('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
             //elem.val(elem.val() + 'add this');
             }
         });
@@ -172,7 +199,7 @@
             var currentValue = $(".Dev").val()
             if(currentValue){
                 $(".Dev").val("")
-                $('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
+                $('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                 //elem.val(elem.val() + 'add this');
             }
             });
@@ -180,7 +207,7 @@
                 var currentValue = $(".Persona").val()
                 if(currentValue){
                     $(".Persona").val("")
-                    $('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
+                    $('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
                 //elem.val(elem.val() + 'add this');
                 }
             });
@@ -466,6 +493,7 @@
                 var soThatObjects = JSON.parse('{{soThatObjects|safe}}');
                 filterAutocomplete(document.getElementById("soThatInput"), soThatObjects);
             }
+            console.log(JSON.parse('["dcfvd", "abdooooahmed7@gmail.com", "abdooooahmed7@gmail.com", "abdooooahmed7@gmail.com", "sdcdsc", "", "fdvf", "", "scdsc", "", "fgbgfb", "", "dfvfdf", "", "wede", "", "dfvfvf", "", "fvfdvf",  "dfvfv", "", "dfvfdv", "", "fvfdvf",  "fdfvfd",  "fvfdf",  "dc",  "csddc",  "scdscds",  "dfv",  "scdc",  "scsdcds",  "dcds", "fvdv", "sdcd", "sdsdcss", "sdscd", "fvdf", "login", "fggbf", "cdsssdcddccdc", "sdcdsd"]'))
             if (JSON.parse('{{devTasksObjects|safe}}')) {
                 var devTasksObjects = JSON.parse('{{devTasksObjects|safe}}');
                 filterAutocomplete(document.getElementById("devTaskInput"), devTasksObjects);
@@ -481,6 +509,23 @@
         }
         catch (err) {
         }
+
+        try {
+                if (JSON.parse('{{projectObject|safe}}')) {
+                    var projectObject = JSON.parse('{{projectObject|safe}}');
+                    filterAutocomplete(document.getElementById("projectInput"), projectObject);
+                }
+                if (JSON.parse('{{businessObject|safe}}')) {
+                    var businessObject = JSON.parse('{{businessObject|safe}}');
+                    filterAutocomplete(document.getElementById("businessInput"), businessObject);
+                }
+                if (JSON.parse('{{nameObject|safe}}')) {
+                    var nameObject = JSON.parse('{{nameObject|safe}}');
+                    filterAutocomplete(document.getElementById("nameInput"), nameObject);
+                }
+            }
+            catch (err) {
+            }
     </script>
 </body>
     
