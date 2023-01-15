@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block title %}Details{% endblock %}
+{% block content %}
+<div class="mb-5">
+    <h1 class="m-auto">User Story Details</h1>
+</div>
+<div class="mb-5">
+    <h4>Creator</h4>
+    {{userStory.userStoriesVersion.User.username}}
+</div>
+<div class="container testimonial-group table-responsive p-0 mb-5" style="height: 30%;" id="UserStory">
+    <h2>User Story</h2>
+    <table class="table align-items-center mb-0">
+        <thead>
+            <tr>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User
+                    Acceptance
+                    Criteria</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="align-middle text-center">
+                    <div class="dropdown col-2">
+                        <button class="btn btn-transparent text-success p-0 show dropbtn fa fa-ellipsis-v"
+                            onclick="showmenu(event)" type="button" data-toggle="dropdown">
+                            <span class="caret"></span></button>
+                        <div class="dropdown-menu dropdown-conten"
+                            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(5px, 27px, 0px);"
+                            aria-labelledby="dropdownMenuButton" id="myDropdown">
+                            <a href="{% url 'Edit' userStory.id %}" class="dropdown-item"" aria-hidden="
+                                true">
+                                Edit
+                            </a>
+                            <a href="{% url 'userStories' %}" class="dropdown-item RemoveUserStory" id="{{userStory.id}}"
+                                aria-hidden=" true">
+                                Remove
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        {% if userStory.get_UsGroup %}
+                        <span class="text-secondary text-xs font-weight-bold mr-1 groupName" data-toggle="tooltip"
+                            title={{userStory.get_UsGroup}}>
+                            <i class="fa fa-check-circle text-success group" style="cursor: pointer;"></i>
+                        </span>
+                        <span class="text-secondary text-xs font-weight-bold">{{userStory.get_Persona}}</span>
+                        {% else %}
+                        <span class="text-secondary text-xs font-weight-bold ml-4">{{userStory.get_Persona}}</span>
+                        {% endif %}
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <div>
+                        {{userStory.Epic.versionName}}
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <div>
+                        <span class="text-secondary text-xs font-weight-bold">{{userStory.iWantTO}}</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <div>
+                        <span class="text-secondary text-xs font-weight-bold">{{userStory.soThat}}</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="Bigger">
+                        <span class="text-secondary text-xs font-weight-bold">{{userStory.get_DevTask}}</span>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <div class="Bigger">
+                        <span class="text-secondary text-xs font-weight-bold">{{userStory.get_RAIDS}}</span>
+                    </div>
+                </td>
+                <!-- <td class="align-middle text-center">
+                        <button class="btn btn-success RemoveUserStory" id="{{user.id}}" aria-hidden="true">
+                            Remove
+                        </button>
+                    </td> -->
+            </tr>
+        </tbody>
+
+
+    </table>
+</div>
+<div class="mb-5">
+    <h4>User Story Version</h4>
+    <table class="table align-items-center mb-0">
+        <thead>
+            <tr>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
+    
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">description
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.name}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span
+                        class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.description}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span
+                        class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.name}}</span>
+                </td>
+            </tr>
+        </tbody>
+    
+    
+    </table>
+</div>
+<div class="mb-5">
+    <h4>Project</h4>
+    <table class="table align-items-center mb-0">
+        <thead>
+            <tr>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project Name
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Business</th>
+    
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">no. of Versions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.name}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.Business.name}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.project}}</span>
+                </td>
+                
+            </tr>
+        </tbody>
+    
+    
+    </table>
+</div>
+<div class="mb-5">
+    <h4>Business</h4>
+    <table class="table align-items-center mb-0">
+        <thead>
+            <tr>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Business</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Industry</th>
+    
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.Business.name}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.Business.get_categories}}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.Business.get_users}}</span>
+                </td>
+            </tr>
+        </tbody>
+    
+    
+    </table>
+</div>
+<form method="post"></form>
+{% endblock %}

@@ -170,3 +170,12 @@ def userStoryDetails(request, id):
     platformIds = [i.Platform.id for i in users.Estimates.all()]
     print(platformIds)
     return render(request, 'userStories/userStoryDetails.html', {'platforms': platforms, 'userStory': users, 'personaObjects': personaObjects, 'platformIds': platformIds, 'epicObjects': epicObjects})
+
+
+def Details(request, id):
+    userStory = UserStory.objects.get(id=id)
+    platformIds = [i.Platform.id for i in userStory.Estimates.all()]
+    if userStory.userStoriesVersion:
+        userStory.userStoriesVersion.Project.project = len(
+            UserStoryVersion.objects.filter(Project=userStory.userStoriesVersion.Project).all())
+    return render(request, 'userStories/Details.html', {'userStory': userStory})

@@ -86,7 +86,7 @@ td div{
                         <a href="{% url 'users' %}"><span class="text-white fa fa-user mr-3"></span> Users</a>
                     </li>
                     <li class="active">
-                        <a href="{% url 'userStories' %}"><span class="text-white fa fa-address-book mr-3"></span> UserStories</a>
+                        <a href="{% url 'userStories' %}" id="userStory-link"><span class="text-white fa fa-address-book mr-3"></span> UserStories</a>
                     </li>
                     <li class="active">
                         <a href="{% url 'userStoryVersions' %}"><span class="text-white fa fa-address-card mr-3"></span> UserStoriesVersion</a>
@@ -191,7 +191,7 @@ td div{
             var currentValue = $(".Raids").val()
             if(currentValue){
                 $(".Raids").val("")
-                $('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
+                $('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
             //elem.val(elem.val() + 'add this');
             }
         });
@@ -199,7 +199,7 @@ td div{
             var currentValue = $(".Dev").val()
             if(currentValue){
                 $(".Dev").val("")
-                $('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
+                $('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                 //elem.val(elem.val() + 'add this');
             }
             });
@@ -207,7 +207,7 @@ td div{
                 var currentValue = $(".Persona").val()
                 if(currentValue){
                     $(".Persona").val("")
-                    $('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
+                    $('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
                 //elem.val(elem.val() + 'add this');
                 }
             });
@@ -228,7 +228,7 @@ td div{
                 var currentValue = $(".Persona").val()
                 if(currentValue){
                     $(".Persona").val("")
-                    $('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
+                    $('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
                 }
             }
         });
@@ -239,7 +239,7 @@ td div{
                     var currentValue = $(".Dev").val()
                     if(currentValue){
                         $(".Dev").val("")
-                        $('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
+                        $('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                         
                     }
                 }
@@ -252,7 +252,7 @@ td div{
                     if(currentValue){
                         console.log(currentValue);
                         $(".Raids").val("")
-                        $('<input type="text" class="form-control col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="form-group row"><i class="col-2 m-auto btn btn-success fa fa-minus" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
+                        $('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
                         
                     }
                 }
@@ -409,7 +409,7 @@ td div{
                 type: "get", //send it through get method
                 
                 success: function (response) {
-                    element.parent('td').parent('tr').fadeOut('slow');
+                    $('#userStory-link').click();
                 },
                 error: function (xhr) {
                     alert("Error happenedy");
