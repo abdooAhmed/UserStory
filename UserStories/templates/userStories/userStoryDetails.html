@@ -43,7 +43,7 @@
                     <div class="form-group row">
                         <div class="col-10 m-0 p-0">
                             <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;"
-                                class="form-control Persona" id="myInput" aria-describedby="emailHelp"
+                                class="form-control" id="myInput" aria-describedby="emailHelp"
                                 placeholder="Persona">{{Persona.Name}}</textarea>
                         </div>
                         <i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)"
@@ -89,12 +89,12 @@
                 <div style="width: 100%;" class="row DKDiv">
                     {% for DevelopmentTask in userStory.DevelopmentTask.all %}
                     <div class="w-100 form-group row">
-                        <div class="col-11 m-0 p-0">
-                            <textarea type="text" id="DevTasks" class="form-control Dev" name="Dev" id="exampleInputEmail1"
+                        <div class="col-10 m-0 p-0">
+                            <textarea type="text" id="DevTasks" class="form-control" name="Dev" id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="Dev Tasks">{{DevelopmentTask.description}}</textarea>
                         </div>
-                        <i class="col-1 m-auto text-danger fa fa-times" onclick="remove(this)"
+                        <i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)"
                             style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i>
                     </div>
                     {% endfor %}
@@ -118,12 +118,12 @@
                 <div style="width: 100%;" class="row RAIDSDiv">
                     {% for RAIDS in userStory.RAIDS.all %}
                     <div class="w-100 form-group row">
-                        <div class="col-11 m-0 p-0">
-                            <textarea type="text" id="R.A.I.DS" class="form-control Raids" name="RAIDS"
+                        <div class="col-10 m-0 p-0">
+                            <textarea type="text" id="R.A.I.DS" class="form-control" name="RAIDS"
                                 id="exampleInputEmail1" aria-describedby="emailHelp"
                                 placeholder="R.A.I.DS">{{RAIDS.description}}</textarea>
                         </div>
-                        <i class="col-1 m-auto text-danger fa fa-times" onclick="remove(this)"
+                        <i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)"
                             style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i>
                     </div>
                     {% endfor %}
