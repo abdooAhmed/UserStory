@@ -176,3 +176,27 @@ def userStoryVersionDetails(request, id):
                     {'id': e.Platform.id, 'name': e.Platform.name, 'hours': e.noOfHours})
     return render(request, 'userStoryVersions/userStoryVersionsDetails.html',
                   {'totalEstimates': totalEstimates, 'platformIds': platformIds, 'platforms': platforms, 'userStoryVersion': userStoryVersion, 'userStories': userStory, 'persona': project, 'userName': current_user.username, 'project': projectJson, 'business': business})
+
+
+def Details(request, id):
+    platforms = Platform.objects.all()
+    projects = Project.objects.all()
+    userStoryVersion = UserStoryVersion.objects.get(id=id)
+    userStory = UserStory.objects.filter(userStoriesVersion=userStoryVersion)
+    platformIds = []
+    selectedPlatforms = []
+    for u in userStory:
+        for i in u.Estimates.all():
+            platformIds.append(i.Platform.id)
+            # 0 if any(d['id'] ==
+            #          i.id for d in selectedPlatforms) else
+            if any(d['id'] == i.Platform.id for d in selectedPlatforms):
+                for d in selectedPlatforms:
+                    if d['id'] == i.Platform.id:
+                        d['estimate'] = d['estimate'] + i.noOfHours
+                        break
+            else:
+                selectedPlatforms.append(
+                    {'id': i.Platform.id, 'name': i.Platform.name, 'estimate': i.noOfHours})
+    print(selectedPlatforms)
+    return render(request, 'userStoryVersions/Details.html', {'userStories': userStory, 'persona': projects, 'userStoriesVersion': userStoryVersion, 'platformIds': platformIds, 'platforms': platforms, 'selectedPlatforms': selectedPlatforms})

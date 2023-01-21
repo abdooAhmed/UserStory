@@ -173,9 +173,60 @@ def userStoryDetails(request, id):
 
 
 def Details(request, id):
+    if request.method == 'POST':
+        userStory = UserStory.objects.get(id=id)
+        userStory.iWantTO = request.POST.get("IWantTO")
+        userStory.soThat = request.POST.get("SoThat")
+        newEpic = Epic.objects.create(
+            versionName=request.POST.get("Epic"))
+        epic = Epic.objects.get(id=userStory.Epic.id)
+        userStory.Epic = newEpic
+        epic.delete()
+        newPersona = []
+        personas = request.POST.getlist("Persona")
+        for p in personas:
+            if p:
+                newPersona.append(Persona.objects.create(
+                    Name=p))
+        userStory.save()
+        userStory.Persona.remove()
+        userStory.Persona.add(*newPersona)
+        userStory.save()
+        devs = request.POST.getlist("Dev")
+        newDevResult = []
+        for dev in devs:
+            if dev:
+                newDevResult.append(
+                    DevelopmentTask.objects.create(description=dev))
+        userStory.DevelopmentTask.remove()
+        userStory.DevelopmentTask.add(*newDevResult)
+        userStory.save()
+
+        Raids = request.POST.getlist("RAIDS")
+        newRaidsResult = []
+        for Raid in Raids:
+            if Raid:
+                newRaidsResult.append(RAIDS.objects.create(description=Raid))
+        userStory.RAIDS.remove()
+        userStory.RAIDS.add(*newRaidsResult)
+        userStory.save()
+
+        platformIds = request.POST.getlist("platforms")
+        platformIds = [eval(i) for i in platformIds]
+        noOfHoursList = request.POST.getlist("estimate[]")
+        estimates = []
+        for i in range(len(platformIds)):
+            platformObject = Platform.objects.get(id=platformIds[i])
+            print(platformObject)
+            estimates.append(
+                Estimates.objects.create(noOfHours=noOfHoursList[i], Platform=platformObject))
+        userStory.Estimates.remove()
+        userStory.Estimates.add(*estimates)
+        userStory.save()
+    platforms = Platform.objects.all()
     userStory = UserStory.objects.get(id=id)
     platformIds = [i.Platform.id for i in userStory.Estimates.all()]
     if userStory.userStoriesVersion:
         userStory.userStoriesVersion.Project.project = len(
             UserStoryVersion.objects.filter(Project=userStory.userStoriesVersion.Project).all())
-    return render(request, 'userStories/Details.html', {'userStory': userStory})
+    return render(request, 'userStories/Details.html', {'userStory': userStory, 'platformIds': platformIds, 'platforms': platforms})

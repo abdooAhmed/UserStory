@@ -4,6 +4,12 @@ function filterAutocomplete(inp, arr) {
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
   inp.addEventListener("focus",function(e){
+    if(e.target == currentinp)
+    {
+      return false;
+    }
+    closeAllLists(e.target);
+    console.log(e.target);
     console.log(this.value);
     if(this.value){
       return false;
@@ -11,7 +17,7 @@ function filterAutocomplete(inp, arr) {
     currentinp = e.target;
     a = document.createElement("DIV");
     a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
+    a.setAttribute("class", "autocomplete-filter");
     /*append the DIV element as a child of the autocomplete container:*/
     this.parentNode.appendChild(a);
     for (i = 0; i < arr.length; i++) {
@@ -45,7 +51,7 @@ function filterAutocomplete(inp, arr) {
       /*create a DIV element that will contain the items (values):*/
       a = document.createElement("DIV");
       a.setAttribute("id", this.id + "autocomplete-list");
-      a.setAttribute("class", "autocomplete-items");
+      a.setAttribute("class", "autocomplete-filter");
       /*append the DIV element as a child of the autocomplete container:*/
       this.parentNode.appendChild(a);
       /*for each item in the array...*/
@@ -119,7 +125,7 @@ function filterAutocomplete(inp, arr) {
 function closeAllLists(elmnt) {
     /*close all autocomplete lists in the document,
     except the one passed as an argument:*/
-    var x = document.getElementsByClassName("autocomplete-items");
+    var x = document.getElementsByClassName("autocomplete-filter");
     for (var i = 0; i < x.length; i++) {
       if (elmnt != x[i] && elmnt != currentinp) {
         x[i].parentNode.removeChild(x[i]);
@@ -128,11 +134,16 @@ function closeAllLists(elmnt) {
   }
 
 document.addEventListener("click", function (e) {
-    var x = document.getElementsByClassName("autocomplete-items")[0];
+   e.stopPropagation();
+    var x = document.getElementsByClassName("autocomplete-filter")[0];
+    var collection = document.getElementsByClassName('filter');
     var nodes = Array.from(e.target.childNodes);
     var status = nodes.includes(currentinp)
 
     try {
+      if(Array.from(document.activeElement.classList).includes('filter')){
+        return false;
+      }
       if(e.target == currentinp || status)
       {
         return false;

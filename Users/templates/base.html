@@ -53,6 +53,19 @@ td div{
         white-space: normal;
         width: 15rem !important;
 }
+td .editmenu{
+    width: 18rem !important;
+}
+td .twiceWidth{
+
+    width: 30rem !important;
+}
+td .lessWidth{
+    width: 8rem !important;
+}
+.rem-15{
+    width: 15rem !important;
+}
 .Bigger{
     
     white-space: pre-wrap;
@@ -66,7 +79,12 @@ td div{
         white-space: normal;
         width: 18rem !important;
 }
-
+.bg-gray{
+    background-color: #efefef;
+}
+.h-4rem{
+    height: 4rem !important
+}
     </style>
 </head>
 
@@ -120,7 +138,7 @@ td div{
                 </ul>
             </div>
         </nav>
-        <div id="content" class="p-4 p-md-5 pt-5">
+        <div id="content" class="container-fluid pl-4 pt-5">
             {% block content %}
             {% endblock %}
         </div>
@@ -396,35 +414,69 @@ td div{
         estimateList =[]
         var platfrom = ""
         $('.platform').change(function () {
+            if($('#userStoryDetailsHeader')){
                 var list = $(".platform").val();
-                if($('.estimate').length){
-                    console.log($("#" + platfrom[index] + "").length)
-                    for(var i=0;i< $('.estimate').length;i++){
+                if ($('.estimate').length) {
+                    for (var i = 0; i < $('.estimate').length; i++) {
                         var estimate = document.getElementsByClassName('estimate')[i];
                         var id = estimate.id;
-                        if(!list.includes(estimate.id)){
+                        if (!list.includes(estimate.id)) {
                             estimate.parentNode.remove();
-                            if(!$('#' + id + '').length){
-                                $('div#t' + id+ '').remove();
+                            if (!$('#' + id + '').length) {
+                                $('div#t' + id + '').remove();
                             }
                         }
                     }
                 }
                 var index = 0;
-                list.forEach(i=>{
+                list.forEach(i => {
                     var currentPlatform = $('.platform option:selected').text();
                     var currentId = $('.platform option:selected').val();
                     platfrom = currentPlatform.split(',');
-                    if(!estimateList.includes(i)&& platfrom[index] && !$(".estimate#" + list[index] + "").length ){
-                        $('.estimateDiv').append($('<div class="col-6 form-group" id="' + platfrom[index] + '"><label for="exampleInputEmail1">' + platfrom[index] +'</label><input type="number" id="' + i + '" onkeyup="TotalEstimates(event)" class="form-control estimate" required name="estimate[]" placeholder="'+ platfrom[index] +'" aria-describedby="emailHelp"></div>'));
-                        var divWithId = $('div#t'+ i +'');
-                        if(!divWithId.length){
+                    console.log(platfrom[index]);
+                    if (!estimateList.includes(i) && platfrom[index] && !$(".estimate#" + list[index] + "").length) {
+                        
+                        $('#userStoryDetailsHeader').append($('<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">' + platfrom[index] + '</th>'));
+                        $('.userStoryDetailsBody').append($('<td class=""><div class="form-group row lessWidth text-center" id ="nodejsreactjs"><input type="number" id="' + i + '" class="form-control estimate m-auto col-8" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div></td>'))
+                        // var divWithId = $('div#t' + i + '');
+                        // if (!divWithId.length) {
+                        //     $('.TotalEstimates').append($('<div class="mr-5" id="t' + i + '"><h6>' + platfrom[index] + '</h6><p id="t' + i + '" data="0"><span></span></p></div>'));
+                        // }
+                    }
+                    index++;
+                });
+            }
+            else{
+                var list = $(".platform").val();
+                if ($('.estimate').length) {
+                    console.log($("#" + platfrom[index] + "").length)
+                    for (var i = 0; i < $('.estimate').length; i++) {
+                        var estimate = document.getElementsByClassName('estimate')[i];
+                        var id = estimate.id;
+                        if (!list.includes(estimate.id)) {
+                            estimate.parentNode.remove();
+                            if (!$('#' + id + '').length) {
+                                $('div#t' + id + '').remove();
+                            }
+                        }
+                    }
+                }
+                var index = 0;
+                list.forEach(i => {
+                    var currentPlatform = $('.platform option:selected').text();
+                    var currentId = $('.platform option:selected').val();
+                    platfrom = currentPlatform.split(',');
+                    if (!estimateList.includes(i) && platfrom[index] && !$(".estimate#" + list[index] + "").length) {
+                        $('.estimateDiv').append($('<div class="col-6 form-group" id="' + platfrom[index] + '"><label for="exampleInputEmail1">' + platfrom[index] + '</label><input type="number" id="' + i + '" onkeyup="TotalEstimates(event)" class="form-control estimate" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div>'));
+                        var divWithId = $('div#t' + i + '');
+                        if (!divWithId.length) {
                             $('.TotalEstimates').append($('<div class="mr-5" id="t' + i + '"><h6>' + platfrom[index] + '</h6><p id="t' + i + '" data="0"><span></span></p></div>'));
                         }
                     }
-                    index ++;
+                    index++;
                 });
-                estimateList = list;
+            }
+            estimateList = list;
             });
         $('.RemoveUserStory').on('click',function(e){
             var element = $(this)
@@ -461,10 +513,39 @@ td div{
         if (window.history.replaceState) {
                 window.history.replaceState(null, null, window.location.href);
             }
-
         function showmenu(e) {
                 e.target.nextElementSibling.classList.toggle("show");
             }
+        $('#edit').on('click',function(e){
+            console.log(e.target.tagName);
+            $('.EditState').removeClass('d-none');
+            $('.ReadState').addClass('d-none'); 
+            $('textarea').css('height','auto');
+            
+        });
+        $('#read').on('click',function(e){
+            $('.ReadState').removeClass('d-none');
+            $('.EditState').addClass('d-none'); 
+        });
+        $('#submit').on('click',function(){
+            $('form').submit();
+        })
+        function edit(e){
+            console.log($('#' + e.target.id + '.EditState').attr('class'));
+            $('#'+ e.target.id +'.EditState').removeClass('d-none');
+            $('#' + e.target.id +'.ReadState').addClass('d-none');
+            $('textarea').css('height', 'auto');
+        }
+        function read(e){
+            $('#' + e.target.id + '.ReadState').removeClass('d-none');
+            $('#' + e.target.id + '.EditState').addClass('d-none'); 
+        }
+        function RemoveNewUserStory(e){
+            $('.newUserStory').addClass('d-none');
+        }
+        $('#addUserStory').on('click',function(){
+            $('.newUserStory').removeClass('d-none');
+        });
         window.onclick = function (event) {
                 if (!event.target.matches('.dropbtn')) {
                     var dropdowns = document.getElementById("myDropdown");
@@ -487,11 +568,23 @@ td div{
         {
             if (JSON.parse('{{personaObjects|safe}}')) {
                 var personaObjects = JSON.parse('{{personaObjects|safe}}');
-                autocomplete(document.getElementById("myInput"), personaObjects);
+                var objects = [];
+                personaObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                autocomplete(document.getElementById("myInput"), objects);
             }
             if (JSON.parse('{{epicObjects|safe}}')) {
                 var epicObjects = JSON.parse('{{epicObjects|safe}}');
-                autocomplete(document.getElementById("epicInput"), epicObjects);
+                var objects = [];
+                epicObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                autocomplete(document.getElementById("epicInput"), objects);
             }
             // if (JSON.parse('{{iWantTOObjects|safe}}')) {
             //     var epicObjects = JSON.parse('{{iWantTOObjects|safe}}');
@@ -507,28 +600,64 @@ td div{
         try{
             if (JSON.parse('{{personaObjects|safe}}')) {
                 var personaObjects = JSON.parse('{{personaObjects|safe}}');
-                filterAutocomplete(document.getElementById("personaInputfilter"), personaObjects);
+                var objects = [];
+                personaObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                filterAutocomplete(document.getElementById("personaInputfilter"), objects);
             }
             if (JSON.parse('{{iWantTOObjects|safe}}')) {
                 var iWantTOObjects = JSON.parse('{{iWantTOObjects|safe}}');
-                filterAutocomplete(document.getElementById("iWantToInput"), iWantTOObjects);
+                var objects = [];
+                iWantTOObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                filterAutocomplete(document.getElementById("iWantToInput"), objects);
             }
             if (JSON.parse('{{soThatObjects|safe}}')) {
                 var soThatObjects = JSON.parse('{{soThatObjects|safe}}');
-                filterAutocomplete(document.getElementById("soThatInput"), soThatObjects);
+                var objects = [];
+                soThatObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                filterAutocomplete(document.getElementById("soThatInput"), objects);
             }
             console.log(JSON.parse('["dcfvd", "abdooooahmed7@gmail.com", "abdooooahmed7@gmail.com", "abdooooahmed7@gmail.com", "sdcdsc", "", "fdvf", "", "scdsc", "", "fgbgfb", "", "dfvfdf", "", "wede", "", "dfvfvf", "", "fvfdvf",  "dfvfv", "", "dfvfdv", "", "fvfdvf",  "fdfvfd",  "fvfdf",  "dc",  "csddc",  "scdscds",  "dfv",  "scdc",  "scsdcds",  "dcds", "fvdv", "sdcd", "sdsdcss", "sdscd", "fvdf", "login", "fggbf", "cdsssdcddccdc", "sdcdsd"]'))
             if (JSON.parse('{{devTasksObjects|safe}}')) {
                 var devTasksObjects = JSON.parse('{{devTasksObjects|safe}}');
-                filterAutocomplete(document.getElementById("devTaskInput"), devTasksObjects);
+                var objects = [];
+                devTasksObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                filterAutocomplete(document.getElementById("devTaskInput"), objects);
             }
             if (JSON.parse('{{RAIDSObjects|safe}}')) {
                 var RAIDSObjects = JSON.parse('{{RAIDSObjects|safe}}');
-                filterAutocomplete(document.getElementById("RAIDSInput"), RAIDSObjects);
+                var objects = [];
+                RAIDSObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                filterAutocomplete(document.getElementById("RAIDSInput"), objects);
             }
             if (JSON.parse('{{epicObjects|safe}}')) {
                 var epicObjects = JSON.parse('{{epicObjects|safe}}');
-                filterAutocomplete(document.getElementById("epicInputfilter"), epicObjects);
+                var objects = [];
+                epicObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                filterAutocomplete(document.getElementById("epicInputfilter"), objects);
             }
         }
         catch (err) {
@@ -537,15 +666,33 @@ td div{
         try {
                 if (JSON.parse('{{projectObject|safe}}')) {
                     var projectObject = JSON.parse('{{projectObject|safe}}');
-                    filterAutocomplete(document.getElementById("projectInput"), projectObject);
+                    var objects = [];
+                    projectObject.forEach(element => {
+                        if (!objects.includes(element)) {
+                            objects.push(element);
+                        }
+                    });
+                    filterAutocomplete(document.getElementById("projectInput"), objects);
                 }
                 if (JSON.parse('{{businessObject|safe}}')) {
                     var businessObject = JSON.parse('{{businessObject|safe}}');
-                    filterAutocomplete(document.getElementById("businessInput"), businessObject);
+                    var objects = [];
+                    businessObject.forEach(element => {
+                        if (!objects.includes(element)) {
+                            objects.push(element);
+                        }
+                    });
+                    filterAutocomplete(document.getElementById("businessInput"), objects);
                 }
                 if (JSON.parse('{{nameObject|safe}}')) {
                     var nameObject = JSON.parse('{{nameObject|safe}}');
-                    filterAutocomplete(document.getElementById("nameInput"), nameObject);
+                    var objects = [];
+                    nameObject.forEach(element => {
+                        if (!objects.includes(element)) {
+                            objects.push(element);
+                        }
+                    });
+                    filterAutocomplete(document.getElementById("nameInput"), objects);
                 }
             }
             catch (err) {

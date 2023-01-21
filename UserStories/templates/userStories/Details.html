@@ -5,93 +5,269 @@
     <h1 class="m-auto">User Story Details</h1>
 </div>
 <div class="mb-5">
-    <h4>Creator</h4>
+    <div class="row ">
+        <h4>Creator</h4>
+        <button type="button" id="edit" class="col-1 ml-5 mr-5 btn btn-success ReadState">Edit</button>
+        <button type="submit" id="remove" class="col-1 ml-5 mr-5 btn btn-success ReadState">Remove</button>
+        <button type="submit" id="submit" class="col-1 ml-5 mr-5 btn btn-success d-none EditState">Save</button>
+        <button type="button" id="read" class="col-1 ml-5 mr-5 btn btn-success d-none EditState">Read</button>
+    </div>
     {{userStory.userStoriesVersion.User.username}}
 </div>
-<div class="container testimonial-group table-responsive p-0 mb-5" style="height: 30%;" id="UserStory">
+<form id="form" method="post" autocomplete="off">
+    {% csrf_token %}
+<div class="col-4 EditState d-none">
+    <div class="form-group">
+        <label for="exampleInputEmail1" style="display: block;width: 100%;">PlatForm</label>
+        <select id="example-getting-started4" name="platforms" style="width: 100%;"
+            class="form-control form-select platform" multiple="multiple">
+            {% for p in platforms %}
+            {% if p.id in platformIds %}
+            <option value="{{p.id}}" selected>{{p.name}},</option>
+            {% else %}
+            <option value="{{p.id}}">{{p.name}},</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        
+    </div>
+</div>
+<div class=" testimonial-group table-responsive p-0 mb-5" style="height: 30%;max-width: 79rem;" id="UserStory">
     <h2>User Story</h2>
     <table class="table align-items-center mb-0">
         <thead>
-            <tr>
+            <tr class="ReadState">
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
                 </th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User
-                    Acceptance
-                    Criteria</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">I Want TO</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">So That</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Acceptance Criteria
+                </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
+                {% for e in userStory.Estimates.all %}
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{e.Platform.name}}</th>
+                {% endfor %}
+            </tr>
+            <tr class="EditState d-none" id="userStoryDetailsHeader">
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">I Want TO</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">So That</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Acceptance Criteria</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
+                {% for e in userStory.Estimates.all %}
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{e.Platform.name}}</th>
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="align-middle text-center">
-                    <div class="dropdown col-2">
-                        <button class="btn btn-transparent text-success p-0 show dropbtn fa fa-ellipsis-v"
-                            onclick="showmenu(event)" type="button" data-toggle="dropdown">
-                            <span class="caret"></span></button>
-                        <div class="dropdown-menu dropdown-conten"
-                            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(5px, 27px, 0px);"
-                            aria-labelledby="dropdownMenuButton" id="myDropdown">
-                            <a href="{% url 'Edit' userStory.id %}" class="dropdown-item"" aria-hidden="
-                                true">
-                                Edit
-                            </a>
-                            <a href="{% url 'userStories' %}" class="dropdown-item RemoveUserStory" id="{{userStory.id}}"
-                                aria-hidden=" true">
-                                Remove
-                            </a>
+            <tr class="ReadState">
+                    <td class="">
+                        <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
+                            <div style="width: 100%;" class="row PersonDiv">
+                                {% for Persona in userStory.Persona.all %}
+                                <div class="form-group row">
+                                    <div class="col-12 m-0 p-0">
+                                        <textarea type="text" id="myInput" list="personList" style="display: inline;"
+                                            class="form-control bg-gray h-4rem" id="myInput" aria-describedby="emailHelp"
+                                            placeholder="Persona">{{Persona.Name}}</textarea>
+                                    </div>
+                                    
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
+                            <textarea type="text" id="epicInput" list="encodings"  class="form-control input bg-gray h-4rem"
+                                id="epicInput" aria-describedby="emailHelp"
+                                placeholder="Epic">{{userStory.Epic.versionName}}</textarea>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group" style="min-width: 15rem;">
+                            <textarea type="text" id="IWantTO"  class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="IWantTO">{{userStory.iWantTO}}</textarea>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group" style="min-width: 15rem;">
+                            <textarea type="text" id="SoThat"  class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="SoThat">{{userStory.soThat}}</textarea>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
+                            <div style="width: 100%;" class="row DKDiv">
+                                {% for DevelopmentTask in userStory.DevelopmentTask.all %}
+                                <div class="form-group row">
+                                    <div class="col-12 m-0 p-0">
+                                        <textarea type="text" id="DevTasks" class="form-control bg-gray h-4rem"  id="exampleInputEmail1"
+                                            aria-describedby="emailHelp"
+                                            placeholder="Dev Tasks">{{DevelopmentTask.description}}</textarea>
+                                    </div>
+                                    
+                                </div>
+                                {% endfor %}
+                            </div>
+                           
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
+                            <div style="width: 100%;" class="row RAIDSDiv">
+                                {% for RAIDS in userStory.RAIDS.all %}
+                                <div class="form-group row">
+                                    <div class="col-12 m-0 p-0">
+                                        <textarea type="text" id="R.A.I.DS" class="form-control bg-gray h-4rem" 
+                                            id="exampleInputEmail1" aria-describedby="emailHelp"
+                                            placeholder="R.A.I.DS">{{RAIDS.description}}</textarea>
+                                    </div>
+                                    
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                        </div>
+                    </td>
+                    
+                        {% for e in userStory.Estimates.all %}
+                        <td class="">
+                        <div class=" form-group row lessWidth text-center" style="height: 100%;">
+                            <input type="number" id="{{e.Platform.id}}" class="form-control estimate bg-gray m-auto col-8" value="{{e.noOfHours}}"
+                                required=""  placeholder="{{e.Platform.name}}" aria-describedby="emailHelp">
+                        </div>
+                        </td>
+                        {% endfor %}
+                    <td>
+
+                    </td> 
+            </tr>
+            <tr id="" class="EditState d-none userStoryDetailsBody"> 
+                <td class="">
+                    <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
+                        <div style="width: 100%;" class="row PersonDiv">
+                            {% for Persona in userStory.Persona.all %}
+                            <div class="form-group row">
+                                <div class="col-10 m-0 p-0">
+                                    <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;"
+                                        class="form-control h-4rem" id="myInput" aria-describedby="emailHelp"
+                                        placeholder="Persona">{{Persona.Name}}</textarea>
+                                </div>
+                                <i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)"
+                                    style="display: flex;justify-content: center;align-items: center;cursor: pointer;"> </i>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div style="width:100% ;" class="row">
+                            <div class="form-group row">
+                                <div class="col-12 m-0 p-0">
+                                    <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;"
+                                        class="form-control Persona h-4rem" id="myInput" aria-describedby="emailHelp"
+                                        placeholder="Persona"></textarea>
+                                </div>
+                                <p class="m-auto AddPersona"
+                                    style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                    Add Another<i class="ml-1 text-danger fa fa-plus AddPersona"></i>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        {% if userStory.get_UsGroup %}
-                        <span class="text-secondary text-xs font-weight-bold mr-1 groupName" data-toggle="tooltip"
-                            title={{userStory.get_UsGroup}}>
-                            <i class="fa fa-check-circle text-success group" style="cursor: pointer;"></i>
-                        </span>
-                        <span class="text-secondary text-xs font-weight-bold">{{userStory.get_Persona}}</span>
-                        {% else %}
-                        <span class="text-secondary text-xs font-weight-bold ml-4">{{userStory.get_Persona}}</span>
-                        {% endif %}
+                </td>
+                <td class="">
+                    <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
+                        <textarea type="text" id="epicInput" list="encodings" name="Epic" class="form-control input h-4rem" id="epicInput"
+                            aria-describedby="emailHelp" placeholder="Epic">{{userStory.Epic.versionName}}</textarea>
                     </div>
                 </td>
-                <td class="align-middle text-center">
-                    <div>
-                        {{userStory.Epic.versionName}}
+                <td class="">
+                    <div class="form-group" style="min-width: 15rem;">
+                        <textarea type="text" id="IWantTO" name="IWantTO" class="form-control h-4rem" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="IWantTO">{{userStory.iWantTO}}</textarea>
                     </div>
                 </td>
-                <td class="align-middle text-center">
-                    <div>
-                        <span class="text-secondary text-xs font-weight-bold">{{userStory.iWantTO}}</span>
+                <td class="">
+                    <div class="form-group" style="min-width: 15rem;">
+                        <textarea type="text" id="SoThat" name="SoThat" class="form-control h-4rem" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="SoThat">{{userStory.soThat}}</textarea>
                     </div>
                 </td>
-                <td class="align-middle text-center">
-                    <div>
-                        <span class="text-secondary text-xs font-weight-bold">{{userStory.soThat}}</span>
+                <td class="">
+                    <div class="form-group pl-5 twiceWidth" style="height: 100%;min-width: 15rem;">
+                        <div style="width: 100%;" class="row DKDiv twiceWidth">
+                            {% for DevelopmentTask in userStory.DevelopmentTask.all %}
+                            <div class="form-group row twiceWidth">
+                                <div class="col-10 m-0 p-0 twiceWidth">
+                                    <textarea type="text" id="DevTasks" class="form-control h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                        placeholder="Dev Tasks">{{DevelopmentTask.description}}</textarea>
+                                </div>
+                                <i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)"
+                                    style="display: flex;justify-content: center;align-items: center;cursor: pointer;"> </i>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div style="width:100% ;" class="row twiceWidth">
+                            <div class="form-group row twiceWidth">
+                                <div class="col-12 m-0 p-0 twiceWidth">
+                                    <textarea type="text" id="DevTasks" class="form-control Dev col-12 h-4rem" name="Dev" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="User Acceptance Criteria"></textarea>
+                                    <p class="m-auto AddDev" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                </div>
+                                <p class="m-auto AddDev" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                    Add Another<i class="ml-1 text-danger fa fa-plus"></i>
+                            </div>
+                        </div>
                     </div>
                 </td>
-                <td class="align-middle text-center">
-                    <div class="Bigger">
-                        <span class="text-secondary text-xs font-weight-bold">{{userStory.get_DevTask}}</span>
+                <td class="">
+                    <div class="form-group pl-5 twiceWidth" style="height: 100%;min-width: 15rem;">
+                        <div style="width: 100%;" class="row RAIDSDiv twiceWidth">
+                            {% for RAIDS in userStory.RAIDS.all %}
+                            <div class="form-group row twiceWidth">
+                                <div class="col-10 m-0 p-0 twiceWidth">
+                                    <textarea type="text" id="R.A.I.DS" class="form-control h-4rem" name="RAIDS" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="R.A.I.DS">{{RAIDS.description}}</textarea>
+                                </div>
+                                <i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)"
+                                    style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div style="width:100% ;" class="row twiceWidth">
+                            <div class="form-group row twiceWidth">
+                                <div class="col-12 m-0 p-0 twiceWidth">
+                                    <textarea type="text" id="R.A.I.DS" class="form-control Raids col-12 h-4rem" name="RAIDS" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
+                                    <p class="m-auto AddDev"
+                                        style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                </div>
+                                <p class="m-auto AddRaids" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                    Add Another<i class="ml-1 text-danger fa fa-plus"></i></p>
+                            </div>
+                        </div>
                     </div>
                 </td>
-                <td class="align-middle text-center">
-                    <div class="Bigger">
-                        <span class="text-secondary text-xs font-weight-bold">{{userStory.get_RAIDS}}</span>
-                    </div>
+                {% for e in userStory.Estimates.all %}
+                <td class="">
+                <div class=" form-group row lessWidth text-center" style="height: 100%;">
+                    <input type="number" id="{{e.Platform.id}}" class="form-control estimate m-auto col-10" value="{{e.noOfHours}}" required=""
+                        name="estimate[]" placeholder="{{e.Platform.name}}" aria-describedby="emailHelp">
+                </div>
                 </td>
-                <!-- <td class="align-middle text-center">
-                        <button class="btn btn-success RemoveUserStory" id="{{user.id}}" aria-hidden="true">
-                            Remove
-                        </button>
-                    </td> -->
+                {% endfor %}
+                
+                
             </tr>
         </tbody>
 
 
     </table>
 </div>
+</form>
 <div class="mb-5">
     <h4>User Story Version</h4>
     <table class="table align-items-center mb-0">
@@ -107,16 +283,23 @@
         </thead>
         <tbody>
             <tr>
-                <td class="align-middle text-center">
+                
+                <td class="align-middle text-center rem-15">
+                    <a class="d-block" href="{% url 'userStoryVersionDetails' userStory.userStoriesVersion.id %}">
                     <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.name}}</span>
+                    </a>
                 </td>
-                <td class="align-middle text-center">
+                <td class="align-middle text-center rem-15">
+                    <a class="d-block" href="{% url 'userStoryVersionDetails' userStory.userStoriesVersion.id %}">
                     <span
                         class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.description}}</span>
+                    </a>
                 </td>
-                <td class="align-middle text-center">
+                <td class="align-middle text-center rem-15">
+                    <a class="d-block" href="{% url 'userStoryVersionDetails' userStory.userStoriesVersion.id %}">
                     <span
                         class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.name}}</span>
+                    </a>
                 </td>
             </tr>
         </tbody>
@@ -139,14 +322,20 @@
         </thead>
         <tbody>
             <tr>
-                <td class="align-middle text-center">
+                <td class="align-middle text-center rem-15">
+                    <a class="d-block" href="{% url 'projectDetails' userStory.userStoriesVersion.Project.id %}">
                     <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.name}}</span>
+                    </a>
                 </td>
-                <td class="align-middle text-center">
+                <td class="align-middle text-center rem-15">
+                    <a class="d-block" href="{% url 'projectDetails' userStory.userStoriesVersion.Project.id %}">
                     <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.Business.name}}</span>
+                    </a>
                 </td>
-                <td class="align-middle text-center">
+                <td class="align-middle text-center rem-15">
+                    <a class="d-block" href="{% url 'projectDetails' userStory.userStoriesVersion.Project.id %}">
                     <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.project}}</span>
+                    </a>
                 </td>
                 
             </tr>
@@ -162,21 +351,26 @@
             <tr>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Business</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Industry</th>
-    
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="align-middle text-center">
+                <td class="align-middle text-center rem-15">
+                    <a class="d-block" href="{% url 'BusinessDetails' userStory.userStoriesVersion.Project.Business.id %}">
                     <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.Business.name}}</span>
+                    </a>
                 </td>
-                <td class="align-middle text-center">
+                <td class="align-middle text-center rem-15">
+                    <a class="d-block" href="{% url 'BusinessDetails' userStory.userStoriesVersion.Project.Business.id %}">
                     <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.Business.get_categories}}</span>
+                    </a>
                 </td>
-                <td class="align-middle text-center">
+                <td class="align-middle text-center rem-15">
+                    <a class="d-block" href="{% url 'BusinessDetails' userStory.userStoriesVersion.Project.Business.id %}">
                     <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.Project.Business.get_users}}</span>
+                    </a>
                 </td>
             </tr>
         </tbody>
@@ -184,5 +378,4 @@
     
     </table>
 </div>
-<form method="post"></form>
 {% endblock %}

@@ -6,6 +6,9 @@ urlpatterns = [
     path('list/', views.userStoryVersions_list, name='userStoryVersions'),
     path('addUserStoryVersion/', views.add_userStoryVersions,
          name='addUserStoryVersion'),
+    path('userStoryVersionEdit/<int:id>',
+         views.userStoryVersionDetails, name='userStoryVersionEdit'),
     path('userStoryVersionDetails/<int:id>',
-         views.userStoryVersionDetails, name='userStoryVersionDetails')
+         views.Details, name='userStoryVersionDetails')
+
 ]

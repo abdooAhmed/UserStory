@@ -13,10 +13,11 @@
 <a href="{% url 'addUserStory' %}" class="btn btn-success" aria-hidden="true">
     Create New User Story
 </a>
-<div class="container testimonial-group table-responsive p-0">
+<div class="testimonial-group table-responsive p-0" style="max-width: 76.5rem;">
     <table  class="table align-items-center mb-0">
         <thead>
             <tr>
+                <th></th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
                 </th>
@@ -31,6 +32,7 @@
 
         <thead>
             <tr>
+                <th></th>
                 <form id="form" method="get" name="filter" autocomplete="off">
                     <th class="minWidth text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         {% for persona in form.persona %}
@@ -131,6 +133,11 @@
             {% for user in users %}
                 <tr>
                 <td class="align-middle text-center">
+                    <a href="{% url 'userStoryDetails' user.id %}" class="btn btn-success" aria-hidden="true">
+                        Details
+                    </a>
+                </td>
+                <td class="align-middle text-center">
                     <div>
                     {% if user.get_UsGroup %}
                     <span class="text-secondary text-xs font-weight-bold mr-1 groupName" data-toggle="tooltip"
@@ -168,11 +175,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{user.get_RAIDS}}</span>
                     </div>
                 </td>
-                <td class="align-middle text-center">
-                    <a href="{% url 'userStoryDetails' user.id %}" class="btn btn-success" aria-hidden="true">
-                        Details
-                    </a>
-                </td>
+                
                 <!-- <td class="align-middle text-center">
                     <button class="btn btn-success RemoveUserStory" id="{{user.id}}" aria-hidden="true">
                         Remove

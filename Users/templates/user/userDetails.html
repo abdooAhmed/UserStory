@@ -10,18 +10,18 @@
         {% csrf_token %}
         <p><input type="submit" class="btn btn-success" value="Update User"></p>
     </form>
-    <div class="col-4 mt-2 text-center">
+    <div class="col-4 mt-2">
         <div>
-            <h1>Businesses</h1>
-            <div class="text-center"">
+            <strong>Businesses:</strong>
+            <div class="">
                 {% for b in business %}
                 <a class="text-success" href="{% url 'BusinessDetails' b.id %}"><strong class="d-block">{{b.name}}</strong></a>
                 {% endfor %}
             </div>
         </div>
         <div class="mt-5">
-            <h1>Projects</h1>
-            <div class=" text-center"">
+            <strong>Projects:</strong>
+            <div >
                 {% for p in projects %}
                 <a class="text-success" href="{% url 'projectDetails' p.id %}"><strong class="d-block">{{p.name}}</strong></a>
                 {% endfor %}

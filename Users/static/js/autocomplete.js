@@ -128,6 +128,9 @@ document.addEventListener("click", function (e) {
     var nodes = Array.from(e.target.childNodes);
     var status = nodes.includes(currentinp)
     try {
+      if(Array.from(currentinp.classList).includes('filter')){
+        return false;
+      }
       if(e.target == currentinp || status)
       {
         console.log(status);

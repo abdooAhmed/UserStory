@@ -54,23 +54,28 @@
         <div class="col-3">
             {{form2.as_p}}
         </div>
-        <div class="col-3 text-center">
-            <h5>
+        <div class="col-3">
+            <strong>
                 UserStoryVersions
-            </h5>
-            <div class=" text-center">
+            </strong>
+            <div>
                 {% for p in userStoryVersions %}
-                <strong class="d-block">{{p.name}}</strong>
+                <div>
+                <a class="text-success " style="display: inline-block;" href="{% url 'userStoryVersionDetails' p.id %}"><strong class="d-block">{{p.name}}</strong></a>
+                </div>
                 {% endfor %}
             </div>
         </div> 
-        <div class="col-2 text-center">
-            <h5>
+        <div class="col-2">
+            <strong>
                 Projects
-            </h5>
-            <div class=" text-center">
+            </strong>
+            <div >
                 {% for p in projects %}
-                <strong class="d-block">{{p.name}}</strong>
+                <div>
+                <!-- <strong class="d-block">{{p.name}}</strong> -->
+                <a class="text-success" style="display: inline-block;" href="{% url 'projectDetails' p.id %}"><strong class="d-block">{{p.name}}</strong></a>
+                </div>
                 {% endfor %}
             </div>
         </div>
