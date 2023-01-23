@@ -180,7 +180,9 @@ def userStoryVersionDetails(request, id):
 
 def Details(request, id):
     personaObjects = list(Persona.objects.values_list('Name'))
+    print(personaObjects)
     personaObjects = dumps(personaObjects)
+
     epicObjects = list(Epic.objects.values_list('versionName'))
     epicObjects = dumps(epicObjects)
     platforms = Platform.objects.all()

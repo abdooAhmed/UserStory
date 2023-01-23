@@ -212,7 +212,7 @@ class UserStory(models.Model):
     Estimates = models.ManyToManyField(Estimates)
     US_Group = models.ForeignKey(
         US_Group, on_delete=models.CASCADE, blank=True, null=True)
-    Epic = models.ForeignKey(Epic, on_delete=models.CASCADE)
+    Epic = models.ForeignKey(Epic, on_delete=models.CASCADE, null=True)
     platforms = []
 
     class Meta:

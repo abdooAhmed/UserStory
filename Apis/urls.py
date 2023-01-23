@@ -14,7 +14,10 @@ urlpatterns = [
     path('addRaids/<int:id>', views.addRaids, name='addRaids'),
     path('editUserStory/<int:id>', views.editUserStory, name='editUserStory'),
     path('editEstimate/<int:id>', views.editEstimate, name='editEstimate'),
-    path('addEstimate/<int:id>', views.addEstimate, name='addEstimate')
-
-
+    path('addEstimate/<int:id>', views.addEstimate, name='addEstimate'),
+    path('editProject/<int:id>', views.editProject, name='editProject'),
+    path('editUserStoryVersion/<int:id>',
+         views.editUserStoryVersion, name='editUserStoryVersion'),
+    path('addUserStory/<int:id>',
+         views.addUserStory, name='addUserStory')
 ]

@@ -154,6 +154,7 @@ td .lessWidth{
     <script src="{% static "js/filterAutocomplete.js" %}"></script>
     <script src="{% static "js/RelatedUserStories.js" %}"></script>
     <script src="{% static "js/editUserStory.js" %}"></script>
+    <script src="{% static "js/editUserStoryVersion.js" %}"></script>
     <!-- You can alternatively load the minified version -->
     <script src="{% static "js/jquery.bootstrap.modal.forms.min.js" %}"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -212,6 +213,23 @@ td .lessWidth{
         function remove(e) {
             e.parentNode.remove();
         }
+
+        function removeRow(e){
+            var id = e.id;
+            $.ajax({
+                url: "http://127.0.0.1:8000/Apis/removeUserStory/" + id + "",
+                type: "get", //send it through get method
+
+                success: function (response) {
+                    $(e).closest('tr').fadeOut('slow');
+                },
+                error: function (xhr) {
+                    alert("Error happenedy");
+                    //Do Something to handle error
+                }
+            });
+        }
+
         $(".AddRaids").on('click', function (e) {
             var currentValue = $(".Raids").val()
             if(currentValue){
@@ -226,7 +244,8 @@ td .lessWidth{
             else if (Array.from(e.target.classList).includes('details')){
                 $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
-                $('<div class="col-12 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                 form.appendTo($('.RAIDSDiv'));
             }
         });
@@ -244,7 +263,8 @@ td .lessWidth{
             else if (Array.from(e.target.classList).includes('details')) {
                 $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
-                $('<div class="col-12 m-0 p-0"><textarea type="text" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                 form.appendTo($(this).prev());
             }
         });
@@ -262,7 +282,8 @@ td .lessWidth{
                 else if(Array.from(e.target.classList).includes('details')){
                     $(".Persona").val("")
                     var form = $('<div class=" form-group row"></div>')
-                    $('<div class="col-12 m-0 p-0"><textarea type="text" onchange="addPersona(event, this)" class="form-control updatePersona bg-gray h-4rem" data-id="0"  name="Persona" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                    $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                    $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addPersona(event, this)" class="form-control updatePersona bg-gray h-4rem" data-id="0"  name="Persona" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                     form.appendTo($(this).prev());
                 }
             });
@@ -365,6 +386,12 @@ td .lessWidth{
                 var key = e.charCode || e.keyCode || 0;
                 if (key == 13) {
                     e.preventDefault();
+                    if (!$("#" + this.id + "").val()) {
+                        this.style.height = 'auto';
+                    }
+                    else {
+                        $("#" + this.id + "").css("cssText", "height: " + this.scrollHeight + "px !important;");
+                    }
                 }
                 else{
                     if(!$("#" + this.id + "").val()){
@@ -589,8 +616,23 @@ td .lessWidth{
         function RemoveNewUserStory(e){
             $('.newUserStory').addClass('d-none');
         }
-        $('#addUserStory').on('click',function(){
-            $('.newUserStory').removeClass('d-none');
+        $('#addUserStory').on('click',function(e){
+            var userStoryVersionId = $(this).attr('data-id');
+            $.ajax({
+                url: "" + window.location.origin + "/Apis/addUserStory/" + userStoryVersionId + "",
+                type: "GET", //send it through get method
+                contentType: 'application/json',
+                success: function (response) {
+                    console.log(response)
+                    $('.newUserStory').attr("id", response['id']);
+                    $('.newUserStory').removeClass('d-none');
+                },
+                error: function (xhr) {
+                    alert("Error happenedy");
+                    //Do Something to handle error
+                }
+            });
+            
         });
         window.onclick = function (event) {
                 if (!event.target.matches('.dropbtn')) {
@@ -609,11 +651,13 @@ td .lessWidth{
                     // }
                 }
             }  // Close the dropdown if the user clicks outside of 
+        
         try
         {
-            
-            if (JSON.parse('{{personaObjects|safe}}')) {
-                var personaObjects = JSON.parse('{{personaObjects|safe}}');
+            var persona = '{{personaObjects|safe}}'.replace(/\n/g, "\\n")
+            var epic = '{{epicObjects|safe}}'.replace(/\n/g, "\\n")
+            if (JSON.parse(persona)) {
+                var personaObjects = JSON.parse(persona);
                 var objects = [];
                 personaObjects.forEach(element => {
                     if (!objects.includes(element)) {
@@ -622,8 +666,8 @@ td .lessWidth{
                 });
                 autocomplete(document.getElementById("personaInput"), objects);
             }
-            if (JSON.parse('{{epicObjects|safe}}')) {
-                var epicObjects = JSON.parse('{{epicObjects|safe}}');
+            if (JSON.parse(epic)) {
+                var epicObjects = JSON.parse(epic);
                 var objects = [];
                 epicObjects.forEach(element => {
                     if (!objects.includes(element)) {
@@ -638,8 +682,9 @@ td .lessWidth{
         }
         try 
         {
-            if (JSON.parse('{{personaObjects|safe}}')) {
-                var personaObjects = JSON.parse('{{personaObjects|safe}}');
+            var persona = '{{personaObjects|safe}}'.replace(/\n/g, "\\n")
+            if (JSON.parse(persona)) {
+                var personaObjects = JSON.parse(persona);
                 var objects = [];
                 personaObjects.forEach(element => {
                     if (!objects.includes(element)) {
@@ -670,8 +715,9 @@ td .lessWidth{
         catch (err) {
         }
         try{
-            if (JSON.parse('{{personaObjects|safe}}')) {
-                var personaObjects = JSON.parse('{{personaObjects|safe}}');
+            var persona = '{{personaObjects|safe}}'.replace(/\n/g, "\\n")
+            if (JSON.parse(persona)) {
+                var personaObjects = JSON.parse(persona);
                 var objects = [];
                 personaObjects.forEach(element => {
                     if (!objects.includes(element)) {

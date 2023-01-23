@@ -1,4 +1,4 @@
-from UserStoryApp.models import UserStory, Persona, DevelopmentTask, RAIDS, Epic, Estimates, Platform
+from UserStoryApp.models import UserStory, UserStoryVersion, Persona, DevelopmentTask, RAIDS, Epic, Estimates, Platform, Project
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.http import JsonResponse
@@ -163,3 +163,43 @@ def addEstimate(request, id):
         userStory.Estimates.add(estimate)
         userStory.save()
     return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def editProject(request, id):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        project = Project.objects.get(id=data['projectId'])
+        UserStoryVersion.objects.update_or_create(
+            id=id,
+            defaults={'Project': project},
+        )
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def editUserStoryVersion(request, id):
+    print("dc")
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        if data['name'] == 'VersionName':
+            obj, created = UserStoryVersion.objects.update_or_create(
+                id=id,
+                defaults={'name': data['value']},
+            )
+        elif data['name'] == 'VersionDescription':
+            UserStoryVersion.objects.update_or_create(
+                id=id,
+                defaults={'description': data['value']},
+            )
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def addUserStory(request, id):
+    userStoryVersion = UserStoryVersion.objects.get(id=id)
+    print(id)
+    userStory = UserStory.objects.create(
+        iWantTO="",
+        soThat="",
+        priority="",
+        userStoriesVersion=userStoryVersion)
+    print(userStory.id)
+    return JsonResponse({'id': userStory.id}, safe=False)

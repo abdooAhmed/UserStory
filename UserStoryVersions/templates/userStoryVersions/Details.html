@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Project</label>
-            <select class="form-control form-select project" name="project" style="display:block ;"
+            <select class="form-control form-select updateProject project" id="{{userStoriesVersion.id}}" name="project" style="display:block ;"
                 aria-label="Default select example">
                 <option value="0" selected>Open this select menu</option>
                 {% for p in persona %}
@@ -45,12 +45,12 @@
     <div class="col-3">
         <div class="form-group">
             <label for="exampleInputEmail1">Version Name</label>
-            <input type="text" name="VersionName" value="{{userStoriesVersion.name}}" class="form-control"
+            <input type="text" name="VersionName" id="{{userStoriesVersion.id}}" value="{{userStoriesVersion.name}}" class="form-control updateVersion"
                 id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Version Description</label>
-            <input type="text" name="VersionDescription" value="{{userStoriesVersion.description}}" class="form-control"
+            <input type="text" name="VersionDescription" id="{{userStoriesVersion.id}}" value="{{userStoriesVersion.description}}" class="form-control updateVersion"
                 id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Description">
         </div>
     </div>
@@ -87,7 +87,8 @@
     
     <table class="table align-items-center mb-0">
         <thead>
-            <tr id="userStoryDetailsHeader">  
+            <tr id="userStoryDetailsHeader"> 
+                <th></th> 
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
                 </th>
@@ -104,6 +105,8 @@
         <tbody>
             {% for userStory in userStories %}
             <tr class="ReadState userStoryDetailsBody" style="border-bottom:2px solid #dee2e6 ;" id="{{userStory.id}}">
+                <td class="align-middle text-center"><i id="{{userStory.id}}" class="col-2 m-auto text-danger fa fa-times" onclick="removeRow(this)"
+                    style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></td>
                 <form id="form" method="post" name="filter" autocomplete="off">
                     <td class="">
                         <div class="row editmenu">
@@ -215,7 +218,8 @@
             
             {% endfor %}
             <tr class="newUserStory d-none">
-                <form id="form" method="post" name="newUserStory" autocomplete="off">
+                <td></td>
+                <formy method="post" autocomplete="off">
                     <td class="">
                         <div class="row editmenu">
                             <div class="dropdown col-1">
@@ -241,8 +245,8 @@
                                 <div style="width:100% ;" class="row">
                                     <div class="form-group row">
                                         <div class="col-12 m-0 p-0">
-                                            <textarea type="text" id="personaInput" name="Persona" list="personList" style="display: inline;"
-                                                class="form-control suggested Persona h-4rem" id="myInput" aria-describedby="emailHelp"
+                                            <textarea type="text" id="personaInput" onchange="addPersona(event, this)" name="Persona" list="personList" style="display: inline;"
+                                                class="form-control addUserStory suggested Persona h-4rem" id="myInput" aria-describedby="emailHelp"
                                                 placeholder="Persona"></textarea>
                                         </div>
                                         <p class="m-auto AddPersona"
@@ -256,19 +260,19 @@
                     </td>
                     <td class="">
                         <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
-                            <textarea type="text" id="epicInputDetails" list="encodings" name="Epic" class="form-control suggested input h-4rem"
+                            <textarea type="text" id="epicInputDetails" list="encodings" name="Epic" class="form-control updateUserStory suggested input h-4rem"
                                 id="epicInput" aria-describedby="emailHelp" placeholder="Epic"></textarea>
                         </div>
                     </td>
                     <td class="">
                         <div class="form-group" style="min-width: 15rem;">
-                            <textarea type="text" id="IWantTO" name="IWantTO" class="form-control h-4rem" id="exampleInputEmail1"
+                            <textarea type="text" id="IWantTO" name="IWantTO" class="form-control updateUserStory h-4rem" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="IWantTO"></textarea>
                         </div>
                     </td>
                     <td class="">
                         <div class="form-group" style="min-width: 15rem;">
-                            <textarea type="text" id="SoThat" name="SoThat" class="form-control h-4rem" id="exampleInputEmail1"
+                            <textarea type="text" id="SoThat" name="SoThat" class="form-control updateUserStory h-4rem" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="SoThat"></textarea>
                         </div>
                     </td>
@@ -280,7 +284,7 @@
                             <div style="width:100% ;" class="row twiceWidth">
                                 <div class="form-group row twiceWidth">
                                     <div class="col-12 m-0 p-0 twiceWidth">
-                                        <textarea type="text" id="DevTasks" class="form-control Dev col-12 h-4rem" name="Dev"
+                                        <textarea type="text" id="DevTasks" onchange="addDevTask(event, this)" class="form-control  Dev col-12 h-4rem" name="Dev"
                                             id="exampleInputEmail1" aria-describedby="emailHelp"
                                             placeholder="User Acceptance Criteria"></textarea>
                                         
@@ -300,7 +304,7 @@
                             <div style="width:100% ;" class="row twiceWidth">
                                 <div class="form-group row twiceWidth">
                                     <div class="col-12 m-0 p-0 twiceWidth">
-                                        <textarea type="text" id="R.A.I.DS" class="form-control Raids col-12 h-4rem" name="RAIDS"
+                                        <textarea type="text" id="R.A.I.DS" onchange="addRaids(event, this)" class="form-control Raids col-12 h-4rem" name="RAIDS"
                                             id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
                                         <p class="m-auto AddDev"
                                             style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
@@ -312,10 +316,16 @@
                             </div>
                         </div>
                     </td>
+                    <td>
+                        <div class="form-group" style="min-width: 15rem;">
+                            <input type="text" name="Priority" class="form-control"
+                                id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Priority">
+                        </div>
+                    </td>
                     {% for e in selectedPlatforms %}
                     <td class="">
                         <div class=" form-group row lessWidth text-center" style="height: 100%;">
-                            <input type="number" id="{{e.id}}" class="form-control estimate m-auto col-8"
+                            <input type="number" id="{{e.id}}" onchange="addEstimate(event,this)" class="form-control addUserStory estimate m-auto col-8"
                                  required="" name="estimate[]" placeholder="{{e.name}}"
                                 aria-describedby="emailHelp">
                         </div>
@@ -331,7 +341,7 @@
 </div>
 <div class="row" style="min-height: 15rem;">
 <div class="col-4">
-<button type="button" id="addUserStory" class="col-4 ml-5 mr-5 btn btn-success ">Add User Story</button>
+<button type="button" id="addUserStory" data-id="{{userStoriesVersion.id}}" class="col-4 ml-5 mr-5 btn btn-success ">Add User Story</button>
 </div>
 <div class="row col-8">
     <div class="form-group col-3">
