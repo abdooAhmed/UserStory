@@ -1,8 +1,10 @@
-from UserStoryApp.models import UserStory, Persona
+from UserStoryApp.models import UserStory, Persona, DevelopmentTask, RAIDS, Epic, Estimates, Platform
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.http import JsonResponse
 from json import dumps
+import json
+from django.http import QueryDict
 # Create your views here.
 
 
@@ -46,3 +48,118 @@ def related_userStory(request):
              'RAIDS': RAIDS, 'devTask': DevelopmentTask, 'epic': epicObject})
     dataObject = dumps(dataObject)
     return JsonResponse(dataObject, safe=False)
+
+
+def editPersona(request, id):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        persona = Persona.objects.get(id=id)
+        # persona.Name = request.
+        print(persona)
+        print(data['persona'])
+        persona.Name = data['persona']
+        persona.save()
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def addPersona(request, id):
+    if request.method == 'POST':
+        userStory = UserStory.objects.get(id=id)
+        data = json.loads(request.body)
+        persona = Persona.objects.create(
+            Name=data['persona'])
+        # persona.Name = request.
+        userStory.Persona.add(persona)
+        userStory.save()
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def editDevTask(request, id):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        devTask = DevelopmentTask.objects.get(id=id)
+        # persona.Name = request.
+        devTask.description = data['devTask']
+        devTask.save()
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def addDevTask(request, id):
+    if request.method == 'POST':
+        userStory = UserStory.objects.get(id=id)
+        data = json.loads(request.body)
+        devTask = DevelopmentTask.objects.create(
+            description=data['devTask'])
+        # persona.Name = request.
+        userStory.DevelopmentTask.add(devTask)
+        userStory.save()
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def editRaids(request, id):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        raids = RAIDS.objects.get(id=id)
+        # persona.Name = request.
+        raids.description = data['raids']
+        raids.save()
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def addRaids(request, id):
+    if request.method == 'POST':
+        userStory = UserStory.objects.get(id=id)
+        data = json.loads(request.body)
+        raids = RAIDS.objects.create(
+            description=data['raids'])
+        # persona.Name = request.
+        userStory.RAIDS.add(raids)
+        userStory.save()
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def editUserStory(request, id):
+    print("dc")
+    if request.method == 'PUT':
+        userStory = UserStory.objects.get(id=id)
+        data = json.loads(request.body)
+        if data['name'] == 'epic':
+            newEpic = Epic.objects.create(
+                versionName=data['value'])
+            epic = Epic.objects.get(id=userStory.Epic.id)
+            obj, created = UserStory.objects.update_or_create(
+                id=id,
+                defaults={'Epic': newEpic},
+            )
+            epic.delete()
+        elif data['name'] == 'iWantTo':
+            UserStory.objects.update_or_create(
+                id=id,
+                defaults={'iWantTO': data['value']},
+            )
+        elif data['name'] == 'soThat':
+            UserStory.objects.update_or_create(
+                id=id,
+                defaults={'soThat': data['value']},
+            )
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def editEstimate(request, id):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        Estimates.objects.update_or_create(
+            id=id, defaults={'noOfHours': data['estimate']})
+    return JsonResponse({'dataObject': 'dc'}, safe=False)
+
+
+def addEstimate(request, id):
+    if request.method == 'POST':
+        userStory = UserStory.objects.get(id=id)
+        data = json.loads(request.body)
+        platformObject = Platform.objects.get(id=data['id'])
+        estimate = Estimates.objects.create(
+            noOfHours=data['estimate'], Platform=platformObject)
+        userStory.Estimates.add(estimate)
+        userStory.save()
+    return JsonResponse({'dataObject': 'dc'}, safe=False)

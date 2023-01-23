@@ -179,24 +179,36 @@ def userStoryVersionDetails(request, id):
 
 
 def Details(request, id):
+    personaObjects = list(Persona.objects.values_list('Name'))
+    personaObjects = dumps(personaObjects)
+    epicObjects = list(Epic.objects.values_list('versionName'))
+    epicObjects = dumps(epicObjects)
     platforms = Platform.objects.all()
     projects = Project.objects.all()
     userStoryVersion = UserStoryVersion.objects.get(id=id)
     userStory = UserStory.objects.filter(userStoriesVersion=userStoryVersion)
     platformIds = []
     selectedPlatforms = []
+    allEstimate = []
     for u in userStory:
         for i in u.Estimates.all():
-            platformIds.append(i.Platform.id)
+            allEstimate.append(i.Platform.id)
             # 0 if any(d['id'] ==
             #          i.id for d in selectedPlatforms) else
             if any(d['id'] == i.Platform.id for d in selectedPlatforms):
                 for d in selectedPlatforms:
                     if d['id'] == i.Platform.id:
                         d['estimate'] = d['estimate'] + i.noOfHours
+                        d['priority'].append(
+                            {'name': u.priority, 'estimate': i.noOfHours})
                         break
             else:
+
+                platformIds.append(i.Platform.id)
                 selectedPlatforms.append(
-                    {'id': i.Platform.id, 'name': i.Platform.name, 'estimate': i.noOfHours})
-    print(selectedPlatforms)
-    return render(request, 'userStoryVersions/Details.html', {'userStories': userStory, 'persona': projects, 'userStoriesVersion': userStoryVersion, 'platformIds': platformIds, 'platforms': platforms, 'selectedPlatforms': selectedPlatforms})
+                    {'id': i.Platform.id, 'name': i.Platform.name, 'priority': [{'name': u.priority, 'estimate': i.noOfHours}], 'estimate': i.noOfHours})
+
+        u.platforms = allEstimate
+        allEstimate = []
+
+    return render(request, 'userStoryVersions/Details.html', {'userStories': userStory, 'persona': projects, 'personaObjects': personaObjects, 'epicObjects': epicObjects, 'userStoriesVersion': userStoryVersion, 'platformIds': platformIds, 'platforms': platforms, 'selectedPlatforms': selectedPlatforms, 'jsonSelectedPlatforms': dumps(selectedPlatforms)})

@@ -5,5 +5,16 @@ from . import views
 urlpatterns = [
     path('removeUserStory/<int:id>', views.del_userStroy, name='del'),
     path('relatedUserStory',
-         views.related_userStory, name='relatedUserStories')
+         views.related_userStory, name='relatedUserStories'),
+    path('editPersona/<int:id>', views.editPersona, name='editPersona'),
+    path('addPersona/<int:id>', views.addPersona, name='editPersona'),
+    path('addDevTask/<int:id>', views.addDevTask, name='editPersona'),
+    path('editDevTask/<int:id>', views.editDevTask, name='editDevTask'),
+    path('editRaids/<int:id>', views.editRaids, name='editRaids'),
+    path('addRaids/<int:id>', views.addRaids, name='addRaids'),
+    path('editUserStory/<int:id>', views.editUserStory, name='editUserStory'),
+    path('editEstimate/<int:id>', views.editEstimate, name='editEstimate'),
+    path('addEstimate/<int:id>', views.addEstimate, name='addEstimate')
+
+
 ]

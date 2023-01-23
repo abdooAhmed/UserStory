@@ -213,6 +213,7 @@ class UserStory(models.Model):
     US_Group = models.ForeignKey(
         US_Group, on_delete=models.CASCADE, blank=True, null=True)
     Epic = models.ForeignKey(Epic, on_delete=models.CASCADE)
+    platforms = []
 
     class Meta:
         db_table = "UserStory"

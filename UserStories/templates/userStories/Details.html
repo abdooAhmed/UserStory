@@ -3,20 +3,18 @@
 {% block content %}
 <div class="mb-5">
     <h1 class="m-auto">User Story Details</h1>
+    
 </div>
 <div class="mb-5">
     <div class="row ">
         <h4>Creator</h4>
-        <button type="button" id="edit" class="col-1 ml-5 mr-5 btn btn-success ReadState">Edit</button>
-        <button type="submit" id="remove" class="col-1 ml-5 mr-5 btn btn-success ReadState">Remove</button>
-        <button type="submit" id="submit" class="col-1 ml-5 mr-5 btn btn-success d-none EditState">Save</button>
-        <button type="button" id="read" class="col-1 ml-5 mr-5 btn btn-success d-none EditState">Read</button>
+        
     </div>
     {{userStory.userStoriesVersion.User.username}}
 </div>
 <form id="form" method="post" autocomplete="off">
     {% csrf_token %}
-<div class="col-4 EditState d-none">
+<div class="col-4">
     <div class="form-group">
         <label for="exampleInputEmail1" style="display: block;width: 100%;">PlatForm</label>
         <select id="example-getting-started4" name="platforms" style="width: 100%;"
@@ -36,7 +34,7 @@
     <h2>User Story</h2>
     <table class="table align-items-center mb-0">
         <thead>
-            <tr class="ReadState">
+            <tr class="ReadState" id="userStoryDetailsHeader">
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
                 </th>
@@ -49,7 +47,7 @@
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{e.Platform.name}}</th>
                 {% endfor %}
             </tr>
-            <tr class="EditState d-none" id="userStoryDetailsHeader">
+            <tr class="EditState d-none" >
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
                 </th>
@@ -63,40 +61,42 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="ReadState">
+            <tr id="{{userStory.id}}" class="ReadState userStoryDetailsBody">
                     <td class="">
                         <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
+                            
                             <div style="width: 100%;" class="row PersonDiv">
                                 {% for Persona in userStory.Persona.all %}
                                 <div class="form-group row">
                                     <div class="col-12 m-0 p-0">
                                         <textarea type="text" id="myInput" list="personList" style="display: inline;"
-                                            class="form-control bg-gray h-4rem" id="myInput" aria-describedby="emailHelp"
+                                            class="form-control updatePersona bg-gray h-4rem" data-id="{{Persona.id}}" id="myInput" aria-describedby="emailHelp"
                                             placeholder="Persona">{{Persona.Name}}</textarea>
                                     </div>
-                                    
                                 </div>
                                 {% endfor %}
+                                
                             </div>
-                            
+                            <p class="m-auto AddPersona details" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                Add Another<i class="ml-1 text-danger fa fa-plus AddPersona"></i></p>
                         </div>
                     </td>
                     <td class="">
                         <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
-                            <textarea type="text" id="epicInput" list="encodings"  class="form-control input bg-gray h-4rem"
+                            <textarea type="text" id="epicInput" data-name="epic" list="encodings"  class="form-control updateUserStory input bg-gray h-4rem"
                                 id="epicInput" aria-describedby="emailHelp"
                                 placeholder="Epic">{{userStory.Epic.versionName}}</textarea>
                         </div>
                     </td>
                     <td class="">
                         <div class="form-group" style="min-width: 15rem;">
-                            <textarea type="text" id="IWantTO"  class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                            <textarea type="text" id="IWantTO" data-name="iWantTo" class="form-control bg-gray updateUserStory h-4rem" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="IWantTO">{{userStory.iWantTO}}</textarea>
                         </div>
                     </td>
                     <td class="">
                         <div class="form-group" style="min-width: 15rem;">
-                            <textarea type="text" id="SoThat"  class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                            <textarea type="text" id="SoThat" data-name="soThat"  class="form-control bg-gray updateUserStory h-4rem" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="SoThat">{{userStory.soThat}}</textarea>
                         </div>
                     </td>
@@ -106,7 +106,7 @@
                                 {% for DevelopmentTask in userStory.DevelopmentTask.all %}
                                 <div class="form-group row">
                                     <div class="col-12 m-0 p-0">
-                                        <textarea type="text" id="DevTasks" class="form-control bg-gray h-4rem"  id="exampleInputEmail1"
+                                        <textarea type="text" id="DevTasks" data-id="{{DevelopmentTask.id}}" class="form-control updateDevTask bg-gray h-4rem"  id="exampleInputEmail1"
                                             aria-describedby="emailHelp"
                                             placeholder="Dev Tasks">{{DevelopmentTask.description}}</textarea>
                                     </div>
@@ -114,7 +114,8 @@
                                 </div>
                                 {% endfor %}
                             </div>
-                           
+                            <p class="m-auto AddDev details" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                Add Another<i class="ml-1 text-danger fa fa-plus"></i></p>
                         </div>
                     </td>
                     <td class="">
@@ -123,7 +124,7 @@
                                 {% for RAIDS in userStory.RAIDS.all %}
                                 <div class="form-group row">
                                     <div class="col-12 m-0 p-0">
-                                        <textarea type="text" id="R.A.I.DS" class="form-control bg-gray h-4rem" 
+                                        <textarea type="text" data-id="{{RAIDS.id}}" id="R.A.I.DS" class="form-control updateRaids bg-gray h-4rem" 
                                             id="exampleInputEmail1" aria-describedby="emailHelp"
                                             placeholder="R.A.I.DS">{{RAIDS.description}}</textarea>
                                     </div>
@@ -131,21 +132,20 @@
                                 </div>
                                 {% endfor %}
                             </div>
-                            
+                            <p class="m-auto AddRaids details" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                Add Another<i class="ml-1 text-danger fa fa-plus"></i></p>
                         </div>
                     </td>
                     
                         {% for e in userStory.Estimates.all %}
                         <td class="">
                         <div class=" form-group row lessWidth text-center" style="height: 100%;">
-                            <input type="number" id="{{e.Platform.id}}" class="form-control estimate bg-gray m-auto col-8" value="{{e.noOfHours}}"
-                                required=""  placeholder="{{e.Platform.name}}" aria-describedby="emailHelp">
+                            <input type="number" id="{{e.Platform.id}}" class="form-control estimate updateEstimate bg-gray m-auto col-8" value="{{e.noOfHours}}"
+                                required="" data-id="{{e.id}}" placeholder="{{e.Platform.name}}" aria-describedby="emailHelp">
                         </div>
                         </td>
                         {% endfor %}
-                    <td>
-
-                    </td> 
+                    
             </tr>
             <tr id="" class="EditState d-none userStoryDetailsBody"> 
                 <td class="">

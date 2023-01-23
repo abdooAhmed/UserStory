@@ -153,6 +153,7 @@ td .lessWidth{
     <script src="{% static "js/autocomplete.js" %}"></script>
     <script src="{% static "js/filterAutocomplete.js" %}"></script>
     <script src="{% static "js/RelatedUserStories.js" %}"></script>
+    <script src="{% static "js/editUserStory.js" %}"></script>
     <!-- You can alternatively load the minified version -->
     <script src="{% static "js/jquery.bootstrap.modal.forms.min.js" %}"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -202,6 +203,12 @@ td .lessWidth{
                     button: '<button type="button" style="width: 17rem;" class="multiselect dropdown-toggle form-control" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 }
             });
+        $('#example-getting-started5').multiselect({
+                buttonClass: 'form-select',
+                templates: {
+                    button: '<button type="button"  class="multiselect dropdown-toggle form-control w-100" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                }
+            });
         function remove(e) {
             e.parentNode.remove();
         }
@@ -216,6 +223,12 @@ td .lessWidth{
                 //$('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
             //elem.val(elem.val() + 'add this');
             }
+            else if (Array.from(e.target.classList).includes('details')){
+                $(".Raids").val("")
+                var form = $('<div class="w-100 form-group row"></div>')
+                $('<div class="col-12 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                form.appendTo($('.RAIDSDiv'));
+            }
         });
         $(".AddDev").on('click', function (e) {
             var currentValue = $(".Dev").val()
@@ -224,11 +237,17 @@ td .lessWidth{
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
-                form.prependTo($('.DKDiv'));
+                form.prependTo($(this).prev());
                 //$('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                 //elem.val(elem.val() + 'add this');
             }
-            });
+            else if (Array.from(e.target.classList).includes('details')) {
+                $(".Dev").val("")
+                var form = $('<div class="w-100 form-group row"></div>')
+                $('<div class="col-12 m-0 p-0"><textarea type="text" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                form.appendTo($(this).prev());
+            }
+        });
         $(".AddPersona").on('click', function (e) {
                 var currentValue = $(".Persona").val()
                 if(currentValue){
@@ -239,6 +258,12 @@ td .lessWidth{
                     form.prependTo($('.PersonDiv'));
                     //$('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
                 //elem.val(elem.val() + 'add this');
+                }
+                else if(Array.from(e.target.classList).includes('details')){
+                    $(".Persona").val("")
+                    var form = $('<div class=" form-group row"></div>')
+                    $('<div class="col-12 m-0 p-0"><textarea type="text" onchange="addPersona(event, this)" class="form-control updatePersona bg-gray h-4rem" data-id="0"  name="Persona" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                    form.appendTo($(this).prev());
                 }
             });
         $(".AddEstimates").on('click', function (e) {
@@ -437,7 +462,7 @@ td .lessWidth{
                     if (!estimateList.includes(i) && platfrom[index] && !$(".estimate#" + list[index] + "").length) {
                         
                         $('#userStoryDetailsHeader').append($('<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">' + platfrom[index] + '</th>'));
-                        $('.userStoryDetailsBody').append($('<td class=""><div class="form-group row lessWidth text-center" id ="nodejsreactjs"><input type="number" id="' + i + '" class="form-control estimate m-auto col-8" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div></td>'))
+                        $('.userStoryDetailsBody').append($('<td class=""><div class="form-group row lessWidth text-center" id ="nodejsreactjs"><input type="number" onchange="addEstimate(event,this)" id="' + i + '" class="form-control estimate bg-gray m-auto col-8" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div></td>'))
                         // var divWithId = $('div#t' + i + '');
                         // if (!divWithId.length) {
                         //     $('.TotalEstimates').append($('<div class="mr-5" id="t' + i + '"><h6>' + platfrom[index] + '</h6><p id="t' + i + '" data="0"><span></span></p></div>'));
@@ -477,7 +502,28 @@ td .lessWidth{
                 });
             }
             estimateList = list;
-            });
+        });
+        
+        $('.selectPriority').change(function () {
+            var selectedPlatforms = JSON.parse('{{jsonSelectedPlatforms|safe}}');
+            var list = $(this).val();
+            var table = $('.sumEstimatesTable');
+            table.empty();
+            console.log(list);
+            for(var i = 0 ;i< selectedPlatforms.length;i++){
+                var total = 0;
+                var name = selectedPlatforms[i].name
+                for (var index = 0; index < selectedPlatforms[i].priority.length; index++) {
+                    if(list.includes(selectedPlatforms[i].priority[index].name))
+                    {
+                        total = total + selectedPlatforms[i].priority[index].estimate;
+                    }
+                }
+                console.log(name);
+                console.log(total);
+                table.append($('<tr><td>'+ name +'</td><td>'+ total +'</td></tr>'));
+            }
+        });
         $('.RemoveUserStory').on('click',function(e){
             var element = $(this)
             $.ajax({
@@ -563,7 +609,33 @@ td .lessWidth{
                     // }
                 }
             }  // Close the dropdown if the user clicks outside of 
-        
+        try
+        {
+            
+            if (JSON.parse('{{personaObjects|safe}}')) {
+                var personaObjects = JSON.parse('{{personaObjects|safe}}');
+                var objects = [];
+                personaObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                autocomplete(document.getElementById("personaInput"), objects);
+            }
+            if (JSON.parse('{{epicObjects|safe}}')) {
+                var epicObjects = JSON.parse('{{epicObjects|safe}}');
+                var objects = [];
+                epicObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                autocomplete(document.getElementById("epicInputDetails"), objects);
+            }
+            
+        }
+         catch (err) {
+        }
         try 
         {
             if (JSON.parse('{{personaObjects|safe}}')) {
