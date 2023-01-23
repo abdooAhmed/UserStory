@@ -338,10 +338,8 @@
         <label for="exampleInputEmail1" style="display: block;width: 100%;">Priority</label>
         <select id="example-getting-started5" name="platforms" style="width: 100%;"
             class="form-control form-select selectPriority" multiple="multiple">
-            {% for e in selectedPlatforms %}
-            {% for i in e.priority %}
-            <option value="{{i.name}}">{{i.name}}</option>
-            {% endfor %}
+            {% for e in priority %}
+            <option value="{{e}}">{{e}}</option>
             {% endfor %}
         </select>
         <!-- <select class="form-control form-select" required name="platform" style="display:block ;"

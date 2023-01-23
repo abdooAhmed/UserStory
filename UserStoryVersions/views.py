@@ -190,6 +190,7 @@ def Details(request, id):
     platformIds = []
     selectedPlatforms = []
     allEstimate = []
+    priority = []
     for u in userStory:
         for i in u.Estimates.all():
             allEstimate.append(i.Platform.id)
@@ -210,5 +211,6 @@ def Details(request, id):
 
         u.platforms = allEstimate
         allEstimate = []
-
-    return render(request, 'userStoryVersions/Details.html', {'userStories': userStory, 'persona': projects, 'personaObjects': personaObjects, 'epicObjects': epicObjects, 'userStoriesVersion': userStoryVersion, 'platformIds': platformIds, 'platforms': platforms, 'selectedPlatforms': selectedPlatforms, 'jsonSelectedPlatforms': dumps(selectedPlatforms)})
+        priority.append(u.priority)
+    print(selectedPlatforms)
+    return render(request, 'userStoryVersions/Details.html', {'userStories': userStory, 'priority': priority, 'persona': projects, 'personaObjects': personaObjects, 'epicObjects': epicObjects, 'userStoriesVersion': userStoryVersion, 'platformIds': platformIds, 'platforms': platforms, 'selectedPlatforms': selectedPlatforms, 'jsonSelectedPlatforms': dumps(selectedPlatforms)})
