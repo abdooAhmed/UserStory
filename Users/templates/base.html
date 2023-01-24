@@ -466,7 +466,7 @@ td .lessWidth{
         estimateList =[]
         var platfrom = ""
         $('.platform').change(function () {
-            if($('#userStoryDetailsHeader')){
+            if($('#userStoryDetailsHeader').length){
                 var list = $(".platform").val();
                 if ($('.estimate').length) {
                     for (var i = 0; i < $('.estimate').length; i++) {
