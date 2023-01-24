@@ -52,7 +52,7 @@
         <div class="col-3">
             <div class="form-group">
                 <label for="exampleInputEmail1">User Name</label>
-                <input type="text" name="VersionName" disabled value="{{userName}}" class="form-control"
+                <input type="text" name="UserName" disabled value="{{userName}}" class="form-control"
                     id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
             </div>
             <div class="form-group">
@@ -76,178 +76,34 @@
         </div>
         
     </div>
-    <div>
-        {% for u in userStories %}
-        <div class="container testimonial-group" style="overflow-x: hidden;">
-        <div class="row no-gutters text-center flex-nowrap parent" id="UserStory" style="width:100% ;">
-            <div class="col-2" style="height: 100%;min-width: 15.4rem;">
-                <div class="row m-0" style="width:100% ;">
-                    <div class="dropdown col-2">
-                        <button class="btn btn-transparent text-success p-0 show dropbtn fa fa-ellipsis-v"
-                            onclick="showmenu(event)" type="button" data-toggle="dropdown">
-                            <span class="caret"></span></button>
-                        <div class="dropdown-menu dropdown-conten"
-                            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(5px, 27px, 0px);"
-                            aria-labelledby="dropdownMenuButton" id="myDropdown">
-                            <a href="{% url 'userStoryDetails' u.id %}" class="dropdown-item"" aria-hidden=" true">
-                                Details
-                            </a>
-                            <button type="button" class="dropdown-item delUserStory" id="{{u.id}}" aria-hidden=" true">
-                                Remove
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-10 m-0 p-0">
-                        <label for="exampleInputEmail1">Persona</label>
-                        {% for d in u.Persona.all %}
-                        <textarea type="text" id="myInput" list="personList" style="display: inline;"
-                            class="form-control Persona" aria-describedby="emailHelp"
-                            placeholder="Persona">{{d.Name}}</textarea>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group m-0" style="margin: 0;min-width: 10rem;">
-                <label for="exampleInputEmail1">Epic</label>
-                <textarea type="text" class="form-control input" aria-describedby="emailHelp"
-                    placeholder="Epic">{{u.Epic.versionName}}</textarea>
-            </div>
-            <div class="form-group" style="min-width: 10rem;">
-                <label for="exampleInputEmail1">IWantTO</label>
-                <textarea type="text" class="form-control" aria-describedby="emailHelp"
-                    placeholder="IWantTO">{{u.iWantTO}}</textarea>
-            </div>
-            <div class="form-group" style="min-width: 10rem;">
-                <label for="exampleInputEmail1">SoThat</label>
-                <textarea type="text" class="form-control" placeholder="SoThat">{{u.soThat}}</textarea>
-            </div>
-            <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
-                <label for="exampleInputEmail1">Dev Tasks</label>
-                {% for d in u.DevelopmentTask.all %}
-                <textarea type="text" class="form-control Dev col-10" placeholder="Dev Tasks">{{d.description}}</textarea>
-                {% endfor %}
-            </div>
-            <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
-                <label for="exampleInputEmail1">R.A.I.DS</label>
-                {% for d in u.RAIDS.all %}
-                <textarea type="text" class="form-control Raids col-10">{{d.description}}</textarea>
-                {% endfor %}
-            </div>
-            <div class="form-group" style="padding-left: .4rem;min-width: 10rem;">
-                <div class="row">
-                    <label for="exampleInputEmail1">Priority</label>
-                    <input type="text" value="{{u.priority}}" class="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="Priority">
-                </div>
-            </div>
-            <div class="form-group col-2" style="padding-left: .9rem;">
-                <div style="width: 100%;" class="row no-gutters">
-                    {% for e in u.Estimates.all %}
-                    <div class="col-6 form-group" id="nodejs"><label for="exampleInputEmail1">{{e.Platform.name}}</label>
-                        <input type="number" id="{{e.Platform.id}}" class="form-control" value="{{e.noOfHours}}"
-                            aria-describedby="emailHelp">
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        </div>
-        {% endfor %}
-        <div class="container testimonial-group" style="overflow-x: hidden;">
-            <div class="row no-gutters text-center flex-nowrap" id="UserStory">
-                <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
-                    <div style="width:100% ;" class="row">
-                        <div class="form-group col-10 mb-0">
-                            <label for="exampleInputEmail1">Persona</label>
-                        </div>
-                    </div>
-                    <div class="PersonDiv">
-        
-                    </div>
-                    <div style="width:100% ;" class="row">
-                        <div class="form-group row">
-                            <div class="col-12 m-0 p-0">
-                                <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;"
-                                    class="form-control Persona PersonaRelated" id="myInput" aria-describedby="emailHelp"
-                                    placeholder="Persona"></textarea>
-                            </div>
-                            <p class="m-auto AddPersona" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
-                                Add Another<i class="ml-1 text-danger fa fa-plus AddPersona"></i>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group m-0" style="margin: 0;min-width: 10rem;">
-                    <label for="exampleInputEmail1">Epic</label>
-                    <textarea type="text" id="epicInput" list="encodings" name="Epic" class="form-control input EpicRelated" id="epicInput"
-                        aria-describedby="emailHelp" placeholder="Epic"></textarea>
-                </div>
-                <div class="form-group" style="min-width: 10rem;">
-                    <label for="exampleInputEmail1">IWantTO</label>
-                    <textarea type="text" id="IWantTO" name="IWantTO" class="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="IWantTO"></textarea>
-                </div>
-                <div class="form-group" style="min-width: 10rem;">
-                    <label for="exampleInputEmail1">SoThat</label>
-                    <textarea type="text" id="SoThat" name="SoThat" class="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="SoThat"></textarea>
-                </div>
-                <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
-                    <div style="width:100% ;" class="row">
-                        <div class="form-group col-10 mb-0">
-                            <label for="exampleInputEmail1">User Acceptance Criteria</label>
-                        </div>
-                    </div>
-                    <div class="DKDiv">
-        
-                    </div>
-                    <div style="width:100% ;" class="row">
-                        <div class="form-group row">
-                            <textarea type="text" id="DevTasks" class="form-control Dev col-12" name="Dev"
-                                id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks"></textarea>
-                            <p class="m-auto AddDev" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
-                                Add Another<i class="ml-1 text-danger fa fa-plus"></i>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group" style="padding-left: 1.8rem;min-width: 15rem;">
-                    <div style="width:100% ;" class="row">
-                        <div class="form-group col-10 mb-0">
-                            <label for="exampleInputEmail1">R.A.I.DS</label>
-                        </div>
-                    </div>
-                    <div class="RAIDSDiv">
-        
-                    </div>
-                    <div style="width:100% ;" class="row">
-                        <div class="form-group row">
-                            <textarea type="text" id="R.A.I.DS" class="form-control Raids col-12" name="RAIDS"
-                                id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
-                            <p class="m-auto AddRaids" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
-                                Add Another<i class="ml-1 text-danger fa fa-plus"></i>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group" style="padding-left: .9rem;min-width: 10rem;">
-                    <div class="row">
-                        <label for="exampleInputEmail1">Priority</label>
-                        <input type="text" name="Priority" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Priority">
-                        <input type="checkbox" name="AddAnother" id="status" style="display: none;">
-                    </div>
-                </div>
-                <div class="form-group" style="padding-left: .9rem;min-width: 15rem;">
-                    <div style="width: 100%;" class="estimateDiv row no-gutters">
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class=" testimonial-group table-responsive mb-5" style="max-width: 79rem;" id="UserStory">
+    
+        <table class="table align-items-center mb-0">
+            <thead>
+                <tr id="userStoryDetailsHeader">
+                    <th></th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">I Want TO
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">So That</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User
+                        Acceptance Criteria</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Priority
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                
+            </tbody>
+    
+    
+        </table>
     </div>
     <div class="mb-3">
-        <button type="button" class="col-2 btn btn-success AddUserStory">add another
+        <button type="button" id="addUserStory" class="col-2 btn btn-success">add another
             UserStory</button>
         <button type="submit" class="col-1 btn btn-success submit">Create</button>
     </div>

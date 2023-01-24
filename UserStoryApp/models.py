@@ -111,7 +111,8 @@ class UserStoryVersion(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.TextField(blank=True)
     description = models.TextField(blank=True)
-    Project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    Project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, blank=True, null=True)
     User = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
 

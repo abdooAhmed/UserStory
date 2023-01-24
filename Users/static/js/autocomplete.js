@@ -9,9 +9,7 @@ function autocomplete(inp, arr) {
       return false;
     }
     closeAllLists(e.target);
-    if(this.value){
-      return false;
-    }
+    
     currentinp = e.target;
     a = document.createElement("DIV");
     a.setAttribute("id", this.id + "autocomplete-list");
@@ -30,6 +28,8 @@ function autocomplete(inp, arr) {
           b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
+              var event = new Event('change');
+              inp.dispatchEvent(event);
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
@@ -143,6 +143,7 @@ document.addEventListener("click", function (e) {
         console.log(status);
         return false;
       }
+      currentinp = undefined;
       closeAllLists(e.target);
     }
     catch(err) {

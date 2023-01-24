@@ -19,5 +19,8 @@ urlpatterns = [
     path('editUserStoryVersion/<int:id>',
          views.editUserStoryVersion, name='editUserStoryVersion'),
     path('addUserStory/<int:id>',
-         views.addUserStory, name='addUserStory')
+         views.addUserStory, name='addUserStory'),
+    path('getAllfilters', views.getAllfilters, name='getAllfilters'),
+    path('addUserStory',
+         views.addNewUserStory, name='addUserStory')
 ]

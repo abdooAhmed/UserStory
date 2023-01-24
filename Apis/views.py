@@ -1,4 +1,4 @@
-from UserStoryApp.models import UserStory, UserStoryVersion, Persona, DevelopmentTask, RAIDS, Epic, Estimates, Platform, Project
+from UserStoryApp.models import UserStory, UserStoryVersion, Business, Persona, User, DevelopmentTask, RAIDS, Epic, Estimates, Platform, Project
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.http import JsonResponse
@@ -126,12 +126,16 @@ def editUserStory(request, id):
         if data['name'] == 'epic':
             newEpic = Epic.objects.create(
                 versionName=data['value'])
-            epic = Epic.objects.get(id=userStory.Epic.id)
+            try:
+                epic = Epic.objects.get(id=userStory.Epic.id)
+                epic.delete()
+            except:
+                pass
             obj, created = UserStory.objects.update_or_create(
                 id=id,
                 defaults={'Epic': newEpic},
             )
-            epic.delete()
+
         elif data['name'] == 'iWantTo':
             UserStory.objects.update_or_create(
                 id=id,
@@ -142,6 +146,12 @@ def editUserStory(request, id):
                 id=id,
                 defaults={'soThat': data['value']},
             )
+        elif data['name'] == 'Priority':
+            obj, created = UserStory.objects.update_or_create(
+                id=id,
+                defaults={'priority': data['value']},
+            )
+            print(obj.priority)
     return JsonResponse({'dataObject': 'dc'}, safe=False)
 
 
@@ -203,3 +213,36 @@ def addUserStory(request, id):
         userStoriesVersion=userStoryVersion)
     print(userStory.id)
     return JsonResponse({'id': userStory.id}, safe=False)
+
+
+def getAllfilters(request):
+    personaObjects = list(Persona.objects.values_list('Name'))
+    epicObjects = list(Epic.objects.values_list('versionName'))
+    iWantToObjects = list(UserStory.objects.values_list('iWantTO'))
+    soThatObjects = list(UserStory.objects.values_list('soThat'))
+    devTasksObjects = list(DevelopmentTask.objects.values_list('description'))
+    RAIDSObjects = list(RAIDS.objects.values_list('description'))
+    userNameObjects = list(User.objects.values_list('username'))
+    projectObjects = list(Project.objects.values_list('name'))
+    businessObjects = list(Business.objects.values_list('name'))
+    return JsonResponse({'epic': epicObjects, 'persona': personaObjects, 'iWantTo': iWantToObjects,
+                         'soThat': soThatObjects, 'devTask': devTasksObjects, 'raids': RAIDSObjects,
+                         'username': userNameObjects, 'project': projectObjects, 'business': businessObjects}, safe=False)
+
+
+def addNewUserStory(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data['VersionName'])
+        print(data['VersionDescription'])
+        userStoryVersion = UserStoryVersion.objects.create(
+            name=data['VersionName'], description=data['VersionDescription'])
+        print(id)
+        userStory = UserStory.objects.create(
+            iWantTO="",
+            soThat="",
+            priority="",
+            userStoriesVersion=userStoryVersion)
+        print(userStory.id)
+        return JsonResponse({'id': userStory.id, 'versionId': userStoryVersion.id}, safe=False)
+    return JsonResponse({'id': 0, 'versionId': 0}, safe=False)

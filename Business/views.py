@@ -53,10 +53,16 @@ def add_business(request):
         for b in request.POST.get("businessIndustry"):
             businessIndustry.append(BusinessCategory.objects.get(id=int(b)))
         users = []
-        for u in request.POST.get("Customer"):
-            users.append(User.objects.get(id=int(u)))
-        for u in request.POST.get("Internal_User"):
-            users.append(User.objects.get(id=int(u)))
+        try:
+            for u in request.POST.get("Customer"):
+                users.append(User.objects.get(id=int(u)))
+        except:
+            pass
+        try:
+            for u in request.POST.get("Internal_User"):
+                users.append(User.objects.get(id=int(u)))
+        except:
+            pass
         print(users)
         print(businessIndustry)
         if form.is_valid() and form2.is_valid():

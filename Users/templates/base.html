@@ -174,6 +174,196 @@ td .lessWidth{
         if($('form').attr('method') == "post"){
             $('body').css('overflow-x', 'hidden');
         }
+        var persona = []
+            var epic = []
+            var devTask = []
+            var iWantTO = []
+            var soThat = []
+            var raids = []
+            $.ajax({
+                url: "" + window.location.origin + "/Apis/getAllfilters",
+                type: "GET", //send it through get method
+                contentType: 'application/json',
+                success: function (response) {
+                    epic = response['epic']
+                    persona = response['persona']
+                    iWantTO = response['iWantTo']
+                    soThat = response['soThat']
+                    devTask = response['devTask']
+                    raids = response['raids']
+                    userName = response['username']
+                    project = response['project']
+                    business = response['business']
+                    console.log(persona)
+                    console.log(epic)
+                    console.log(iWantTO)
+                    console.log(soThat)
+                    console.log(devTask)
+                    console.log(raids)
+                    console.log(userName)
+                    console.log(project)
+                    console.log(business)
+                    try {
+                        if (persona) {
+                            var personaObjects = persona;
+                            var objects = [];
+                            personaObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            var personasFields = Array.from(document.getElementsByClassName("personaInput"))
+                            personasFields.forEach(index=>{
+                                autocomplete(index, objects)
+                            });
+                        }
+                        if (epic) {
+                            var epicObjects = epic;
+                            var objects = [];
+                            epicObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            var epicFields = Array.from(document.getElementsByClassName("epicInputDetails"))
+                            epicFields.forEach(index => {
+                                autocomplete(index, objects)
+                            });
+                        }
+
+                    }
+                    catch (err) {
+                    }
+                    try {
+                        if (persona) {
+                            var personaObjects = persona;
+                            var objects = [];
+                            personaObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            autocomplete(document.getElementById("myInput"), objects);
+                        }
+                        if (epic) {
+                            var epicObjects = epic;
+                            var objects = [];
+                            epicObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            autocomplete(document.getElementById("epicInput"), objects);
+                        }
+
+                    }
+                    catch (err) {
+                    }
+                    try {
+                        if (persona) {
+                            var personaObjects = persona;
+                            var objects = [];
+                            personaObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            filterAutocomplete(document.getElementById("personaInputfilter"), objects);
+                        }
+                        if (iWantTO) {
+                            var iWantTOObjects = iWantTO;
+                            var objects = [];
+                            iWantTOObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            filterAutocomplete(document.getElementById("iWantToInput"), objects);
+                        }
+                        if (soThat) {
+                            var soThatObjects = soThat;
+                            var objects = [];
+                            soThatObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            filterAutocomplete(document.getElementById("soThatInput"), objects);
+                        }
+                        if (devTask) {
+                            var devTasksObjects = devTask;
+                            var objects = [];
+                            devTasksObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            filterAutocomplete(document.getElementById("devTaskInput"), objects);
+                        }
+                        if (raids) {
+                            var RAIDSObjects = raids;
+                            var objects = [];
+                            RAIDSObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            filterAutocomplete(document.getElementById("RAIDSInput"), objects);
+                        }
+                        if (epic) {
+                            var epicObjects = epic;
+                            var objects = [];
+                            epicObjects.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            filterAutocomplete(document.getElementById("epicInputfilter"), objects);
+                        }
+                    }
+                    catch (err) {
+                    }
+                    try {
+                        if (project) {
+                            var projectObject = project;
+                            var objects = [];
+                            projectObject.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            filterAutocomplete(document.getElementById("projectInput"), objects);
+                        }
+                        if (business) {
+                            var businessObject = business;
+                            var objects = [];
+                            businessObject.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            filterAutocomplete(document.getElementById("businessInput"), objects);
+                        }
+                        if (userName) {
+                            var nameObject = userName;
+                            var objects = [];
+                            nameObject.forEach(element => {
+                                if (!objects.includes(element)) {
+                                    objects.push(element);
+                                }
+                            });
+                            filterAutocomplete(document.getElementById("nameInput"), objects);
+                        }
+                    }
+                    catch (err) {
+                    }
+                },
+                error: function (xhr) {
+                    alert("Error happenedy");
+                    //Do Something to handle error
+                }
+            });
+        
         $('#example-getting-started').multiselect({
                 buttonClass: 'form-select',
                 templates: {
@@ -229,62 +419,140 @@ td .lessWidth{
                 }
             });
         }
-
-        $(".AddRaids").on('click', function (e) {
+        function newRaids(e){
             var currentValue = $(".Raids").val()
-            if(currentValue){
+            
+            if (Array.from(e.target.classList).includes('details')) {
+                //$(".Raids").val("")
+                var form = $('<div class="w-100 form-group row"></div>')
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona"></textarea></div>').prependTo(form);
+                form.appendTo($(e.target).prev());
+            }
+            else if (currentValue) {
                 $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                 form.prependTo($('.RAIDSDiv'));
                 //$('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
-            //elem.val(elem.val() + 'add this');
+                //elem.val(elem.val() + 'add this');
             }
-            else if (Array.from(e.target.classList).includes('details')){
+        }
+        $(".AddRaids").on('click', function (e) {
+            var currentValue = $(".Raids").val()
+            if (Array.from(e.target.classList).includes('details')){
                 $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
-                form.appendTo($('.RAIDSDiv'));
+                form.appendTo($(e.target).prev());
+            }
+            else if (currentValue) {
+                $(".Raids").val("")
+                var form = $('<div class="w-100 form-group row"></div>')
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                form.prependTo($('.RAIDSDiv'));
+                //$('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
+                //elem.val(elem.val() + 'add this');
             }
         });
-        $(".AddDev").on('click', function (e) {
+        function newDev(e){
             var currentValue = $(".Dev").val()
-            if(currentValue){
+            if (Array.from(e.target.classList).includes('details')) {
+                //$(".Dev").val("")
+                var form = $('<div class="w-100 form-group row"></div>')
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona"></textarea></div>').prependTo(form);
+                form.appendTo($(e.target).prev());
+            }
+            else if (currentValue) {
                 $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                 form.prependTo($(this).prev());
                 //$('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                 //elem.val(elem.val() + 'add this');
             }
-            else if (Array.from(e.target.classList).includes('details')) {
+        }
+        $(".AddDev").on('click', function (e) {
+            var currentValue = $(".Dev").val()
+            
+            if (Array.from(e.target.classList).includes('details')) {
                 $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                 form.appendTo($(this).prev());
             }
+            else if (currentValue) {
+                $(".Dev").val("")
+                var form = $('<div class="w-100 form-group row"></div>')
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                form.prependTo($(this).prev());
+                //$('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
+                //elem.val(elem.val() + 'add this');
+            }
         });
+        function newPersona(e){
+            var currentValue = $(".Persona").val()
+            if (Array.from(e.target.classList).includes('details')) {
+                //$(".Persona").val("")
+                var form = $('<div class=" form-group row"></div>')
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                var textarea = $('<textarea type="text" id="myInput" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona"></textarea>');
+                var personaObjects = persona;
+                var objects = [];
+                personaObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                autocomplete(textarea[0], objects);
+                textarea.prependTo(form);
+                console.log($(e.target));
+                form.appendTo($(e.target).prev());
+            }
+            else if(currentValue) {
+                $(".Persona").val("")
+                var form = $('<div class=" form-group row"></div>')
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="Persona" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                form.prependTo($('.PersonDiv'));
+                //$('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
+                //elem.val(elem.val() + 'add this');
+            }
+        }
         $(".AddPersona").on('click', function (e) {
                 var currentValue = $(".Persona").val()
-                if(currentValue){
+                if(Array.from(e.target.classList).includes('details')){
+                    $(".Persona").val("")
+                    var form = $('<div class=" form-group row"></div>')
+                    $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                    var textarea = $('<textarea type="text" id="myInput" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea>');
+                    var personaObjects = persona;
+                    var objects = [];
+                    personaObjects.forEach(element => {
+                        if (!objects.includes(element)) {
+                            objects.push(element);
+                        }
+                    });
+                    autocomplete(textarea[0], objects);
+                    textarea.prependTo(form);
+                    console.log($(this));
+                    form.appendTo($(this).prev());
+                }
+                else if (currentValue) {
                     $(".Persona").val("")
                     var form = $('<div class=" form-group row"></div>')
                     $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                     $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="Persona" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                     form.prependTo($('.PersonDiv'));
                     //$('<input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.PersonDiv'))));
-                //elem.val(elem.val() + 'add this');
-                }
-                else if(Array.from(e.target.classList).includes('details')){
-                    $(".Persona").val("")
-                    var form = $('<div class=" form-group row"></div>')
-                    $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                    $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addPersona(event, this)" class="form-control updatePersona bg-gray h-4rem" data-id="0"  name="Persona" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
-                    form.appendTo($(this).prev());
+                    //elem.val(elem.val() + 'add this');
                 }
             });
         $(".AddEstimates").on('click', function (e) {
@@ -490,6 +758,7 @@ td .lessWidth{
                         
                         $('#userStoryDetailsHeader').append($('<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">' + platfrom[index] + '</th>'));
                         $('.userStoryDetailsBody').append($('<td class=""><div class="form-group row lessWidth text-center" id ="nodejsreactjs"><input type="number" onchange="addEstimate(event,this)" id="' + i + '" class="form-control estimate bg-gray m-auto col-8" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div></td>'))
+                        $('.newUserStory').append($('<td class=""><div class="form-group row lessWidth text-center" id ="nodejsreactjs"><input type="number" onchange="addEstimate(event,this)" id="' + i + '" class="form-control estimate bg-gray m-auto col-8" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div></td>'))
                         // var divWithId = $('div#t' + i + '');
                         // if (!divWithId.length) {
                         //     $('.TotalEstimates').append($('<div class="mr-5" id="t' + i + '"><h6>' + platfrom[index] + '</h6><p id="t' + i + '" data="0"><span></span></p></div>'));
@@ -616,23 +885,355 @@ td .lessWidth{
         function RemoveNewUserStory(e){
             $('.newUserStory').addClass('d-none');
         }
-        $('#addUserStory').on('click',function(e){
-            var userStoryVersionId = $(this).attr('data-id');
+        function updateUserStory(e) {
+            var name = e.target.getAttribute('data-name');
+            var value = e.target.value;
+            var userStoryId = $(e.target).closest('tr').attr('id');
             $.ajax({
-                url: "" + window.location.origin + "/Apis/addUserStory/" + userStoryVersionId + "",
-                type: "GET", //send it through get method
+                url: "" + window.location.origin + "/Apis/editUserStory/" + userStoryId + "",
+                type: "PUT", //send it through get method
                 contentType: 'application/json',
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                data: JSON.stringify({ 'name': name, 'value': value }),
                 success: function (response) {
                     console.log(response)
-                    $('.newUserStory').attr("id", response['id']);
-                    $('.newUserStory').removeClass('d-none');
                 },
                 error: function (xhr) {
                     alert("Error happenedy");
                     //Do Something to handle error
                 }
             });
-            
+        }
+        $('#addUserStory').on('click',function(e){
+            var userStoryVersionId = $(this).attr('data-id');
+            if(userStoryVersionId){
+                $.ajax({
+                    url: "" + window.location.origin + "/Apis/addUserStory/" + userStoryVersionId + "",
+                    type: "GET", //send it through get method
+                    contentType: 'application/json',
+                    success: function (response) {
+                        console.log(response)
+                        $(`
+                    <tr id="`+ response['id'] + `" class="newUserStory">
+                <td></td>
+                <formy method="post" autocomplete="off">
+                    <td class="">
+                        <div class="row editmenu">
+                            
+                            <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
+                                <div style="width: 100%;" class="row PersonDiv">
+                                    
+                                </div>
+                                <div style="width:100% ;" class="row">
+                                    <div class="form-group row">
+                                        <div class="col-12 m-0 p-0">
+                                            <textarea type="text" id="personaInput" onchange="addPersona(event, this)" name="Persona" list="personList" style="display: inline;"
+                                                class="form-control addUserStory bg-gray personaInput suggested Persona h-4rem" id="myInput" aria-describedby="emailHelp"
+                                                placeholder="Persona"></textarea>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <p class="m-auto details AddPersona" onclick="newPersona(event)"
+                                            style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                            Add Another<i class="ml-1 text-danger fa fa-plus AddPersona"></i>
+                                        </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
+                            <textarea type="text" id="epicInputDetails" list="encodings" name="Epic" data-name="epic" onchange="updateUserStory(event, this)" class="form-control bg-gray epicInputDetails suggested input h-4rem"
+                                id="epicInput" aria-describedby="emailHelp" placeholder="Epic"></textarea>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group" style="min-width: 15rem;">
+                            <textarea type="text" id="IWantTO" name="IWantTO" onchange="updateUserStory(event, this)" data-name="iWantTo" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="IWantTO"></textarea>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group" style="min-width: 15rem;">
+                            <textarea type="text" id="SoThat" name="SoThat" onchange="updateUserStory(event, this)" data-name="soThat" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="SoThat"></textarea>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group pl-5 twiceWidth" style="height: 100%;min-width: 15rem;">
+                            <div style="width: 100%;" class="row DKDiv twiceWidth">
+                                
+                            </div>
+                            <div style="width:100% ;" class="row twiceWidth">
+                                <div class="form-group row twiceWidth">
+                                    <div class="col-12 m-0 p-0 twiceWidth">
+                                        <textarea type="text" id="DevTasks" onchange="addDevTask(event, this)" class="form-control bg-gray Dev col-12 h-4rem" name="Dev"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp"
+                                            placeholder="User Acceptance Criteria"></textarea>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            <p class="m-auto details AddDev" onclick="newDev(event)"
+                                        style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                        Add Another<i class="ml-1 text-danger fa fa-plus"></i></p>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group pl-5 twiceWidth" style="height: 100%;min-width: 15rem;">
+                            <div style="width: 100%;" class="row RAIDSDiv twiceWidth">
+                                
+                            </div>
+                            <div style="width:100% ;" class="row twiceWidth">
+                                <div class="form-group row twiceWidth">
+                                    <div class="col-12 m-0 p-0 twiceWidth">
+                                        <textarea type="text" id="R.A.I.DS" onchange="addRaids(event, this)" class="form-control Raids bg-gray col-12 h-4rem" name="RAIDS"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
+                                        <p class="m-auto AddDev"
+                                            style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            <p class="m-auto details AddRaids" onclick="newRaids(event)"
+                                        style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                        Add Another<i class="ml-1 text-danger fa fa-plus"></i></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group" style="min-width: 15rem;">
+                            <input type="text" data-name="Priority" data-name="Priority" onchange="updateUserStory(event, this)" name="Priority" class="form-control bg-gray"
+                                id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Priority">
+                        </div>
+                    </td>
+                    {% for e in selectedPlatforms %}
+                    <td class="">
+                        <div class=" form-group row lessWidth text-center" style="height: 100%;">
+                            <input type="number" id="{{e.id}}" onchange="addEstimate(event,this)" class="form-control addUserStory bg-gray estimate m-auto col-8"
+                                 required="" name="estimate[]" placeholder="{{e.name}}"
+                                aria-describedby="emailHelp">
+                        </div>
+                    </td>
+                    {% endfor %}
+                
+                </form>
+            </tr>
+                    `).appendTo($('#tbody'));
+                        
+                        try {
+                            if (persona) {
+                                var personaObjects = persona;
+                                var objects = [];
+                                personaObjects.forEach(element => {
+                                    if (!objects.includes(element)) {
+                                        objects.push(element);
+                                    }
+                                });
+                                var personasFields = Array.from(document.getElementsByClassName("personaInput"))
+                                personasFields.forEach(index => {
+                                    autocomplete(index, objects)
+                                });
+                            }
+                            if (epic) {
+                                var epicObjects = epic;
+                                var objects = [];
+                                epicObjects.forEach(element => {
+                                    if (!objects.includes(element)) {
+                                        objects.push(element);
+                                    }
+                                });
+                                var epicFields = Array.from(document.getElementsByClassName("epicInputDetails"))
+                                epicFields.forEach(index => {
+                                    autocomplete(index, objects)
+                                });
+                            }
+
+                        }
+                        catch (err) {
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("Error happenedy");
+                        //Do Something to handle error
+                    }
+                });
+                
+            }
+            else{
+                var versionName = $("input[name=VersionName]")
+                var versionDescription = $("input[name=VersionDescription]")
+                console.log(versionName.val());
+                if(!versionName.val().length && !versionDescription.val().length){
+                    alert("Please add name and description for version");
+                }
+                else{
+                    var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+                    $.ajax({
+                        url: "" + window.location.origin + "/Apis/addUserStory",
+                        type: "POST", //send it through get method
+                        contentType: 'application/json',
+                        headers: {
+                            "X-CSRFToken": csrftoken
+                        },
+                        data: JSON.stringify({ 'VersionName': versionName.val(), 'VersionDescription': versionDescription.val() }),
+                        success: function (response) {
+                            console.log(response)
+                            $(this).attr('data-id',response['versionId'])
+                            $(`
+                    <tr id="`+ response['id'] + `" class="newUserStory">
+                <td></td>
+                <formy method="post" autocomplete="off">
+                    <td class="">
+                        <div class="row editmenu">
+                            
+                            <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
+                                <div style="width: 100%;" class="row PersonDiv">
+                                    
+                                </div>
+                                <div style="width:100% ;" class="row">
+                                    <div class="form-group row">
+                                        <div class="col-12 m-0 p-0">
+                                            <textarea type="text" id="personaInput" onchange="addPersona(event, this)" name="Persona" list="personList" style="display: inline;"
+                                                class="form-control bg-gray addUserStory personaInput suggested Persona h-4rem" id="myInput" aria-describedby="emailHelp"
+                                                placeholder="Persona"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <p class="m-auto details AddPersona" onclick="newPersona(event)"
+                                            style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                            Add Another<i class="ml-1 text-danger fa fa-plus AddPersona"></i>
+                                        </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
+                            <textarea type="text" id="epicInputDetails" list="encodings" name="Epic" data-name="epic" onchange="updateUserStory(event, this)" class="form-control bg-gray epicInputDetails suggested input h-4rem"
+                                id="epicInput" aria-describedby="emailHelp" placeholder="Epic"></textarea>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group" style="min-width: 15rem;">
+                            <textarea type="text" id="IWantTO" name="IWantTO" onchange="updateUserStory(event, this)" data-name="iWantTo" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="IWantTO"></textarea>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group" style="min-width: 15rem;">
+                            <textarea type="text" id="SoThat" name="SoThat" onchange="updateUserStory(event, this)" data-name="soThat" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="SoThat"></textarea>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group pl-5 twiceWidth" style="height: 100%;min-width: 15rem;">
+                            <div style="width: 100%;" class="row DKDiv twiceWidth">
+                                
+                            </div>
+                            <div style="width:100% ;" class="row twiceWidth">
+                                <div class="form-group row twiceWidth">
+                                    <div class="col-12 m-0 p-0 twiceWidth">
+                                        <textarea type="text" id="DevTasks" onchange="addDevTask(event, this)" class="form-control bg-gray Dev col-12 h-4rem" name="Dev"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp"
+                                            placeholder="User Acceptance Criteria"></textarea>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            <p class="m-auto details AddDev" onclick="newDev(event)"
+                                        style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                        Add Another<i class="ml-1 text-danger fa fa-plus"></i></p>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="form-group pl-5 twiceWidth" style="height: 100%;min-width: 15rem;">
+                            <div style="width: 100%;" class="row RAIDSDiv twiceWidth">
+                                
+                            </div>
+                            <div style="width:100% ;" class="row twiceWidth">
+                                <div class="form-group row twiceWidth">
+                                    <div class="col-12 m-0 p-0 twiceWidth">
+                                        <textarea type="text" id="R.A.I.DS" onchange="addRaids(event, this)" class="form-control bg-gray bg-gray Raids col-12 h-4rem" name="RAIDS"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
+                                        <p class="m-auto AddDev"
+                                            style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            <p class="m-auto details AddRaids" onclick="newRaids(event)"
+                                        style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                                        Add Another<i class="ml-1 text-danger fa fa-plus"></i></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group" style="min-width: 15rem;">
+                            <input type="text" data-name="Priority" data-name="Priority" onchange="updateUserStory(event, this)" name="Priority" class="form-control bg-gray"
+                                id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Priority">
+                        </div>
+                    </td>
+                    {% for e in selectedPlatforms %}
+                    <td class="">
+                        <div class=" form-group row lessWidth text-center" style="height: 100%;">
+                            <input type="number" id="{{e.id}}" onchange="addEstimate(event,this)" class="form-control bg-gray addUserStory estimate m-auto col-8"
+                                 required="" name="estimate[]" placeholder="{{e.name}}"
+                                aria-describedby="emailHelp">
+                        </div>
+                    </td>
+                    {% endfor %}
+                
+                </form>
+            </tr>
+                    `).appendTo($('#tbody'));
+                            try {
+                                if (persona) {
+                                    var personaObjects = persona;
+                                    var objects = [];
+                                    personaObjects.forEach(element => {
+                                        if (!objects.includes(element)) {
+                                            objects.push(element);
+                                        }
+                                    });
+                                    var personasFields = Array.from(document.getElementsByClassName("personaInput"))
+                                    personasFields.forEach(index => {
+                                        autocomplete(index, objects)
+                                    });
+                                }
+                                if (epic) {
+                                    var epicObjects = epic;
+                                    var objects = [];
+                                    epicObjects.forEach(element => {
+                                        if (!objects.includes(element)) {
+                                            objects.push(element);
+                                        }
+                                    });
+                                    var epicFields = Array.from(document.getElementsByClassName("epicInputDetails"))
+                                    epicFields.forEach(index => {
+                                        autocomplete(index, objects)
+                                    });
+                                }
+
+                            }
+                            catch (err) {
+                            }
+                        },
+                        error: function (xhr) {
+                            alert("Error happenedy");
+                            //Do Something to handle error
+                        }
+                    });
+                    
+                }
+            }
         });
         window.onclick = function (event) {
                 if (!event.target.matches('.dropbtn')) {
@@ -650,171 +1251,8 @@ td .lessWidth{
                     //     }
                     // }
                 }
-            }  // Close the dropdown if the user clicks outside of 
+            }  // Close the dropdown if the user clicks outside of
         
-        try
-        {
-            var persona = '{{personaObjects|safe}}'.replace(/\n/g, "\\n")
-            var epic = '{{epicObjects|safe}}'.replace(/\n/g, "\\n")
-            if (JSON.parse(persona)) {
-                var personaObjects = JSON.parse(persona);
-                var objects = [];
-                personaObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                autocomplete(document.getElementById("personaInput"), objects);
-            }
-            if (JSON.parse(epic)) {
-                var epicObjects = JSON.parse(epic);
-                var objects = [];
-                epicObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                autocomplete(document.getElementById("epicInputDetails"), objects);
-            }
-            
-        }
-         catch (err) {
-        }
-        try 
-        {
-            var persona = '{{personaObjects|safe}}'.replace(/\n/g, "\\n")
-            if (JSON.parse(persona)) {
-                var personaObjects = JSON.parse(persona);
-                var objects = [];
-                personaObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                autocomplete(document.getElementById("myInput"), objects);
-            }
-            if (JSON.parse('{{epicObjects|safe}}')) {
-                var epicObjects = JSON.parse('{{epicObjects|safe}}');
-                var objects = [];
-                epicObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                autocomplete(document.getElementById("epicInput"), objects);
-            }
-            // if (JSON.parse('{{iWantTOObjects|safe}}')) {
-            //     var epicObjects = JSON.parse('{{iWantTOObjects|safe}}');
-            //     filterAutocomplete(document.getElementById("id_iWantTO"), epicObjects);
-            // }
-            // if (JSON.parse('{{epicObjects|safe}}')) {
-            //     var epicObjects = JSON.parse('{{epicObjects|safe}}');
-            //     filterAutocomplete(document.getElementById("epicFilter"), epicObjects);
-            // }
-        }
-        catch (err) {
-        }
-        try{
-            var persona = '{{personaObjects|safe}}'.replace(/\n/g, "\\n")
-            if (JSON.parse(persona)) {
-                var personaObjects = JSON.parse(persona);
-                var objects = [];
-                personaObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                filterAutocomplete(document.getElementById("personaInputfilter"), objects);
-            }
-            if (JSON.parse('{{iWantTOObjects|safe}}')) {
-                var iWantTOObjects = JSON.parse('{{iWantTOObjects|safe}}');
-                var objects = [];
-                iWantTOObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                filterAutocomplete(document.getElementById("iWantToInput"), objects);
-            }
-            if (JSON.parse('{{soThatObjects|safe}}')) {
-                var soThatObjects = JSON.parse('{{soThatObjects|safe}}');
-                var objects = [];
-                soThatObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                filterAutocomplete(document.getElementById("soThatInput"), objects);
-            }
-            console.log(JSON.parse('["dcfvd", "abdooooahmed7@gmail.com", "abdooooahmed7@gmail.com", "abdooooahmed7@gmail.com", "sdcdsc", "", "fdvf", "", "scdsc", "", "fgbgfb", "", "dfvfdf", "", "wede", "", "dfvfvf", "", "fvfdvf",  "dfvfv", "", "dfvfdv", "", "fvfdvf",  "fdfvfd",  "fvfdf",  "dc",  "csddc",  "scdscds",  "dfv",  "scdc",  "scsdcds",  "dcds", "fvdv", "sdcd", "sdsdcss", "sdscd", "fvdf", "login", "fggbf", "cdsssdcddccdc", "sdcdsd"]'))
-            if (JSON.parse('{{devTasksObjects|safe}}')) {
-                var devTasksObjects = JSON.parse('{{devTasksObjects|safe}}');
-                var objects = [];
-                devTasksObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                filterAutocomplete(document.getElementById("devTaskInput"), objects);
-            }
-            if (JSON.parse('{{RAIDSObjects|safe}}')) {
-                var RAIDSObjects = JSON.parse('{{RAIDSObjects|safe}}');
-                var objects = [];
-                RAIDSObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                filterAutocomplete(document.getElementById("RAIDSInput"), objects);
-            }
-            if (JSON.parse('{{epicObjects|safe}}')) {
-                var epicObjects = JSON.parse('{{epicObjects|safe}}');
-                var objects = [];
-                epicObjects.forEach(element => {
-                    if (!objects.includes(element)) {
-                        objects.push(element);
-                    }
-                });
-                filterAutocomplete(document.getElementById("epicInputfilter"), objects);
-            }
-        }
-        catch (err) {
-        }
-
-        try {
-                if (JSON.parse('{{projectObject|safe}}')) {
-                    var projectObject = JSON.parse('{{projectObject|safe}}');
-                    var objects = [];
-                    projectObject.forEach(element => {
-                        if (!objects.includes(element)) {
-                            objects.push(element);
-                        }
-                    });
-                    filterAutocomplete(document.getElementById("projectInput"), objects);
-                }
-                if (JSON.parse('{{businessObject|safe}}')) {
-                    var businessObject = JSON.parse('{{businessObject|safe}}');
-                    var objects = [];
-                    businessObject.forEach(element => {
-                        if (!objects.includes(element)) {
-                            objects.push(element);
-                        }
-                    });
-                    filterAutocomplete(document.getElementById("businessInput"), objects);
-                }
-                if (JSON.parse('{{nameObject|safe}}')) {
-                    var nameObject = JSON.parse('{{nameObject|safe}}');
-                    var objects = [];
-                    nameObject.forEach(element => {
-                        if (!objects.includes(element)) {
-                            objects.push(element);
-                        }
-                    });
-                    filterAutocomplete(document.getElementById("nameInput"), objects);
-                }
-            }
-            catch (err) {
-            }
     </script>
 </body>
     
