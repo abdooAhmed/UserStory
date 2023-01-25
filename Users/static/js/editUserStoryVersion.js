@@ -1,5 +1,8 @@
 $('.updateProject').change(function(e){
     var id = e.target.getAttribute('id');
+    if(!id){
+        return false
+    }
     var projectId = e.target.value;
     $.ajax({
         url: "" + window.location.origin + "/Apis/editProject/" + id + "",

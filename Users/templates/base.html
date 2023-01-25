@@ -497,6 +497,29 @@ td .lessWidth{
                 //elem.val(elem.val() + 'add this');
             }
         });
+        
+
+        function newPersonaByKey(e){
+            var key = e.charCode || e.keyCode || 0;
+            var parentNum =  ($(e.target).attr('data-parent') ? $(e.target).attr('data-parent') : 2);
+            if (key == 13) {
+                var form = $('<div class=" form-group row"></div>')
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                var textarea = $('<textarea type="text" onkeyup="newPersonaByKey(event, this)" data-parent="1" id="myInput" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona"></textarea>');
+                var personaObjects = persona;
+                var objects = [];
+                personaObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                autocomplete(textarea[0], objects);
+                textarea.prependTo(form);
+                console.log();
+                form.appendTo($(e.target).parents().eq(parentNum));
+            }
+        }
+
         function newPersona(e){
             var currentValue = $(".Persona").val()
             if (Array.from(e.target.classList).includes('details')) {
@@ -915,8 +938,8 @@ td .lessWidth{
                     contentType: 'application/json',
                     success: function (response) {
                         console.log(response)
+                        var row = $('<tr id="' + response['id'] + '" class="newUserStory"></tr>');
                         $(`
-                    <tr id="`+ response['id'] + `" class="newUserStory">
                 <td></td>
                 <formy method="post" autocomplete="off">
                     <td class="">
@@ -1012,20 +1035,22 @@ td .lessWidth{
                                 id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Priority">
                         </div>
                     </td>
-                    {% for e in selectedPlatforms %}
-                    <td class="">
-                        <div class=" form-group row lessWidth text-center" style="height: 100%;">
-                            <input type="number" id="{{e.id}}" onchange="addEstimate(event,this)" class="form-control addUserStory bg-gray estimate m-auto col-8"
-                                 required="" name="estimate[]" placeholder="{{e.name}}"
-                                aria-describedby="emailHelp">
-                        </div>
-                    </td>
-                    {% endfor %}
+                    
                 
                 </form>
-            </tr>
-                    `).appendTo($('#tbody'));
-                        
+                    `).appendTo(row);
+                    var platforms = Array.from($('.platform').val());
+                    console.log(platforms);
+                    for(var i =0 ;i<platforms.length;i++){
+                        $(`<td class="">
+                        <div class=" form-group row lessWidth text-center" style="height: 100%;">
+                            <input type="number" id="`+ platforms[i] +`" onchange="addEstimate(event,this)" class="form-control estimate updateEstimate bg-gray m-auto col-8"
+                                 required="" name="estimate[]" 
+                                aria-describedby="emailHelp">
+                        </div>
+                    </td>`).appendTo(row);
+                    }
+                    row.appendTo($('#tbody'));
                         try {
                             if (persona) {
                                 var personaObjects = persona;
@@ -1069,11 +1094,13 @@ td .lessWidth{
                 var versionName = $("input[name=VersionName]")
                 var versionDescription = $("input[name=VersionDescription]")
                 console.log(versionName.val());
+                var button = $(this);
                 if(!versionName.val().length && !versionDescription.val().length){
                     alert("Please add name and description for version");
                 }
                 else{
                     var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+                    var project = (($('.project').val())? $('.project').val():0);
                     $.ajax({
                         url: "" + window.location.origin + "/Apis/addUserStory",
                         type: "POST", //send it through get method
@@ -1081,12 +1108,13 @@ td .lessWidth{
                         headers: {
                             "X-CSRFToken": csrftoken
                         },
-                        data: JSON.stringify({ 'VersionName': versionName.val(), 'VersionDescription': versionDescription.val() }),
+                        data: JSON.stringify({ 'VersionName': versionName.val(), 'VersionDescription': versionDescription.val(),'project': $('.project').val() }),
                         success: function (response) {
-                            console.log(response)
-                            $(this).attr('data-id',response['versionId'])
+                            console.log($(this));
+                            button.attr('data-id',response['versionId'])
+                            $('.updateProject').attr('id', response['versionId'])
+                            var row = $('<tr id="'+ response['id'] + '" class="newUserStory"></tr>');
                             $(`
-                    <tr id="`+ response['id'] + `" class="newUserStory">
                 <td></td>
                 <formy method="post" autocomplete="off">
                     <td class="">
@@ -1099,7 +1127,7 @@ td .lessWidth{
                                 <div style="width:100% ;" class="row">
                                     <div class="form-group row">
                                         <div class="col-12 m-0 p-0">
-                                            <textarea type="text" id="personaInput" onchange="addPersona(event, this)" name="Persona" list="personList" style="display: inline;"
+                                            <textarea type="text" id="personaInput" onkeyup="newPersonaByKey(event, this)" onchange="addPersona(event, this)" name="Persona" list="personList" style="display: inline;"
                                                 class="form-control bg-gray addUserStory personaInput suggested Persona h-4rem" id="myInput" aria-describedby="emailHelp"
                                                 placeholder="Persona"></textarea>
                                         </div>
@@ -1181,19 +1209,23 @@ td .lessWidth{
                                 id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Priority">
                         </div>
                     </td>
-                    {% for e in selectedPlatforms %}
-                    <td class="">
-                        <div class=" form-group row lessWidth text-center" style="height: 100%;">
-                            <input type="number" id="{{e.id}}" onchange="addEstimate(event,this)" class="form-control bg-gray addUserStory estimate m-auto col-8"
-                                 required="" name="estimate[]" placeholder="{{e.name}}"
-                                aria-describedby="emailHelp">
-                        </div>
-                    </td>
-                    {% endfor %}
+                    
                 
                 </form>
-            </tr>
-                    `).appendTo($('#tbody'));
+                    `).appendTo(row);
+                    console.log();
+                    var platforms = Array.from($('.platform').val());
+                    console.log(platforms);
+                    for(var i =0 ;i<platforms.length;i++){
+                        $(`<td class="">
+                        <div class=" form-group row lessWidth text-center" style="height: 100%;">
+                            <input type="number" id="`+ platforms[i] +`" onchange="addEstimate(event,this)" class="form-control estimate updateEstimate bg-gray m-auto col-8"
+                                 required="" name="estimate[]" 
+                                aria-describedby="emailHelp">
+                        </div>
+                    </td>`).appendTo(row);
+                    }
+                    row.appendTo($('#tbody'));
                             try {
                                 if (persona) {
                                     var personaObjects = persona;

@@ -7,7 +7,6 @@
 <div>
     <h1 class="m-auto">Add UserStory Version</h1>
 </div>
-<form method="post" id="form" style="height: 100%;overflow:hidden;">
     {% csrf_token %}
     <input type="hidden" name="id" value="{{id}}" />
     <div class="row" style="width:100% ;">
@@ -24,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Project</label>
-                <select class="form-control form-select project" required name="project" style="display:block ;"
+                <select class="form-control form-select updateProject project" id="0" required name="project" style="display:block ;"
                     aria-label="Default select example">
                     <option value="">Open this select menu</option>
                     {% for p in persona %}
@@ -142,7 +141,6 @@
     
         </table>
     </div>
-</form>
 
 <div>
     <form method="get">

@@ -13,6 +13,7 @@
 	fullHeight();
 
 	$('#sidebarCollapse').on('click', function () {
+	  console.log($('.testimonial-group').css('max-width'));
       $('#sidebar').toggleClass('active');
   });
 

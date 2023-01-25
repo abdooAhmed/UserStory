@@ -216,15 +216,16 @@ def addUserStory(request, id):
 
 
 def getAllfilters(request):
-    personaObjects = list(Persona.objects.values_list('Name'))
-    epicObjects = list(Epic.objects.values_list('versionName'))
-    iWantToObjects = list(UserStory.objects.values_list('iWantTO'))
-    soThatObjects = list(UserStory.objects.values_list('soThat'))
-    devTasksObjects = list(DevelopmentTask.objects.values_list('description'))
-    RAIDSObjects = list(RAIDS.objects.values_list('description'))
-    userNameObjects = list(User.objects.values_list('username'))
-    projectObjects = list(Project.objects.values_list('name'))
-    businessObjects = list(Business.objects.values_list('name'))
+    personaObjects = list(set(Persona.objects.values_list('Name')))
+    epicObjects = list(set(Epic.objects.values_list('versionName')))
+    iWantToObjects = list(set(UserStory.objects.values_list('iWantTO')))
+    soThatObjects = list(set(UserStory.objects.values_list('soThat')))
+    devTasksObjects = list(
+        set(DevelopmentTask.objects.values_list('description')))
+    RAIDSObjects = list(set(RAIDS.objects.values_list('description')))
+    userNameObjects = list(set(User.objects.values_list('username')))
+    projectObjects = list(set(Project.objects.values_list('name')))
+    businessObjects = list(set(Business.objects.values_list('name')))
     return JsonResponse({'epic': epicObjects, 'persona': personaObjects, 'iWantTo': iWantToObjects,
                          'soThat': soThatObjects, 'devTask': devTasksObjects, 'raids': RAIDSObjects,
                          'username': userNameObjects, 'project': projectObjects, 'business': businessObjects}, safe=False)
@@ -238,6 +239,13 @@ def addNewUserStory(request):
         userStoryVersion = UserStoryVersion.objects.create(
             name=data['VersionName'], description=data['VersionDescription'])
         print(id)
+        if data['project'] and data['project'] != 0:
+            project = Project.objects.get(id=data['project'])
+            UserStoryVersion.objects.update_or_create(
+                id=userStoryVersion.id,
+                defaults={'Project': project},
+            )
+            print(project)
         userStory = UserStory.objects.create(
             iWantTO="",
             soThat="",
