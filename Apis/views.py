@@ -254,3 +254,12 @@ def addNewUserStory(request):
         print(userStory.id)
         return JsonResponse({'id': userStory.id, 'versionId': userStoryVersion.id}, safe=False)
     return JsonResponse({'id': 0, 'versionId': 0}, safe=False)
+
+
+def addPlatform(request):
+    if request.method == 'POST':
+        print("dc")
+        data = json.loads(request.body)
+        platform = Platform.objects.create(name=data["platform"])
+        return JsonResponse({'id': platform.id, 'name': platform.name}, safe=False)
+    return JsonResponse({'id': 0, 'versionId': 0}, safe=False)
