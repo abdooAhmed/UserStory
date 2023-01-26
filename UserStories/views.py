@@ -227,6 +227,8 @@ def Details(request, id):
     userStory = UserStory.objects.get(id=id)
     platformIds = [i.Platform.id for i in userStory.Estimates.all()]
     if userStory.userStoriesVersion:
-        userStory.userStoriesVersion.Project.project = len(
-            UserStoryVersion.objects.filter(Project=userStory.userStoriesVersion.Project).all())
+        if userStory.userStoriesVersion.Project:
+            userStory.userStoriesVersion.Project.project = len(
+                UserStoryVersion.objects.filter(Project=userStory.userStoriesVersion.Project).all())
+    print(userStory.userStoriesVersion.Project)
     return render(request, 'userStories/Details.html', {'userStory': userStory, 'platformIds': platformIds, 'platforms': platforms})
