@@ -158,6 +158,7 @@ def editUserStory(request, id):
 def editEstimate(request, id):
     if request.method == 'PUT':
         data = json.loads(request.body)
+        print(data['estimate'])
         Estimates.objects.update_or_create(
             id=id, defaults={'noOfHours': data['estimate']})
     return JsonResponse({'dataObject': 'dc'}, safe=False)
@@ -172,6 +173,7 @@ def addEstimate(request, id):
             noOfHours=data['estimate'], Platform=platformObject)
         userStory.Estimates.add(estimate)
         userStory.save()
+        return JsonResponse({'id': estimate.id}, safe=False)
     return JsonResponse({'dataObject': 'dc'}, safe=False)
 
 

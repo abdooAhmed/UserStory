@@ -419,6 +419,49 @@ td .lessWidth{
                 }
             });
         }
+        function newRaidsByKey(e){
+            var key = e.charCode || e.keyCode || 0;
+            var parentNum = ($(e.target).attr('data-parent') ? $(e.target).attr('data-parent') : 2);
+            if (e.keyCode === 13 && e.shiftKey) {
+                //console.log("enterKeyDown+ctrl");
+                $(e.target).val(function (i, val) {
+                    return val + "\n";
+                });
+                if (!$(e.target).val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $(e.target).css("cssText", "height: " + e.target.scrollHeight + "px !important;");
+                }
+            }
+            else if (key == 13) {
+               var form = $('<div class="w-100 form-group row"></div>')
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                var textarea = $('<textarea type="text" onkeydown="newRaidsByKey(event, this)" onchange="addRaids(event, this)" class="form-control bg-gray col-10 h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS"></textarea>');
+                var personaObjects = persona; 
+                var objects = [];
+                personaObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                autocomplete(textarea[0], objects);
+                textarea.prependTo(form);
+                console.log();
+                form.appendTo($(e.target).parents().eq(parentNum));
+            }
+            else {
+                if (!$(e.target).val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $(e.target).css("cssText", "height: " + e.target.scrollHeight + "px !important;");
+
+                }
+            }
+
+        }
+        
         function newRaids(e){
             var currentValue = $(".Raids").val()
             
@@ -426,14 +469,14 @@ td .lessWidth{
                 //$(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona"></textarea></div>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS"></textarea></div>').prependTo(form);
                 form.appendTo($(e.target).prev());
             }
             else if (currentValue) {
                 $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS">' + currentValue + '</textarea></div>').prependTo(form);
                 form.prependTo($('.RAIDSDiv'));
                 //$('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
                 //elem.val(elem.val() + 'add this');
@@ -445,33 +488,75 @@ td .lessWidth{
                 $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS"></textarea></div>').prependTo(form);
                 form.appendTo($(e.target).prev());
             }
             else if (currentValue) {
                 $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS">' + currentValue + '</textarea></div>').prependTo(form);
                 form.prependTo($('.RAIDSDiv'));
                 //$('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
                 //elem.val(elem.val() + 'add this');
             }
         });
+        function newDevTaskByKey(e){
+            var key = e.charCode || e.keyCode || 0;
+            var parentNum = ($(e.target).attr('data-parent') ? $(e.target).attr('data-parent') : 2);
+            if (e.keyCode === 13 && e.shiftKey) {
+                //console.log("enterKeyDown+ctrl");
+                
+                var value = $(e.target).val();
+                $(e.target).val(value + "\n");
+                if (!$(e.target).val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $(e.target).css("cssText", "height: " + e.target.scrollHeight + "px !important;");
+                }
+            }
+            else if (key == 13) {
+               var form = $('<div class="w-100 form-group row"></div>')
+                $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
+                var textarea = $('<textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray col-10 h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="User Acceptance Criteria"></textarea>');
+                var personaObjects = persona; 
+                var objects = [];
+                personaObjects.forEach(element => {
+                    if (!objects.includes(element)) {
+                        objects.push(element);
+                    }
+                });
+                autocomplete(textarea[0], objects);
+                textarea.prependTo(form);
+                console.log();
+                form.appendTo($(e.target).parents().eq(parentNum));
+            }
+            else {
+                if (!$(e.target).val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $(e.target).css("cssText", "height: " + e.target.scrollHeight + "px !important;");
+
+                }
+            }
+
+        }
         function newDev(e){
             var currentValue = $(".Dev").val()
             if (Array.from(e.target.classList).includes('details')) {
                 //$(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona"></textarea></div>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA"></textarea></div>').prependTo(form);
                 form.appendTo($(e.target).prev());
             }
             else if (currentValue) {
                 $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA">' + currentValue + '</textarea></div>').prependTo(form);
                 form.prependTo($(this).prev());
                 //$('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                 //elem.val(elem.val() + 'add this');
@@ -484,14 +569,14 @@ td .lessWidth{
                 $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA"></textarea></div>').prependTo(form);
                 form.appendTo($(this).prev());
             }
             else if (currentValue) {
                 $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA">' + currentValue + '</textarea></div>').prependTo(form);
                 form.prependTo($(this).prev());
                 //$('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                 //elem.val(elem.val() + 'add this');
@@ -502,10 +587,22 @@ td .lessWidth{
         function newPersonaByKey(e){
             var key = e.charCode || e.keyCode || 0;
             var parentNum =  ($(e.target).attr('data-parent') ? $(e.target).attr('data-parent') : 2);
-            if (key == 13) {
+            if (e.keyCode === 13 && e.shiftKey) {
+                //console.log("enterKeyDown+ctrl");
+                $(e.target).val(function (i, val) {
+                    return val + "\n";
+                });
+                if (!$(e.target).val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $(e.target).css("cssText", "height: " + e.target.scrollHeight + "px !important;");
+                }
+            }
+            else if (key == 13) {
                 var form = $('<div class=" form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                var textarea = $('<textarea type="text" onkeyup="newPersonaByKey(event, this)" data-parent="1" id="myInput" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona"></textarea>');
+                var textarea = $('<textarea type="text" onkeydown="newPersonaByKey(event, this)" data-parent="1" id="myInput" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona"></textarea>');
                 var personaObjects = persona;
                 var objects = [];
                 personaObjects.forEach(element => {
@@ -518,6 +615,15 @@ td .lessWidth{
                 console.log();
                 form.appendTo($(e.target).parents().eq(parentNum));
             }
+            else{
+                if (!$(e.target).val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $(e.target).css("cssText", "height: " + e.target.scrollHeight + "px !important;");
+
+                }
+            }
         }
 
         function newPersona(e){
@@ -526,7 +632,7 @@ td .lessWidth{
                 //$(".Persona").val("")
                 var form = $('<div class=" form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                var textarea = $('<textarea type="text" id="myInput" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona"></textarea>');
+                var textarea = $('<textarea type="text" id="myInput" onkeydown="newPersonaByKey(event, this)" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona"></textarea>');
                 var personaObjects = persona;
                 var objects = [];
                 personaObjects.forEach(element => {
@@ -555,7 +661,7 @@ td .lessWidth{
                     $(".Persona").val("")
                     var form = $('<div class=" form-group row"></div>')
                     $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                    var textarea = $('<textarea type="text" id="myInput" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea>');
+                    var textarea = $('<textarea type="text" id="myInput" onkeydown="newPersonaByKey(event, this)" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona"></textarea>');
                     var personaObjects = persona;
                     var objects = [];
                     personaObjects.forEach(element => {
@@ -590,6 +696,7 @@ td .lessWidth{
         //     });
         $(".Persona").keyup(function (e) {
             var key = e.charCode || e.keyCode || 0;
+            console.log(e.shiftKey);
             if (key == 13)
             {
                 var currentValue = $(".Persona").val()
@@ -638,22 +745,7 @@ td .lessWidth{
         });
 
 
-        function TotalEstimates(e){
-            var currentTotal = $('p#t' + e.target.id + '').attr('data');
-            console.log(currentTotal);
-            var total = Number(e.target.value) + Number(currentTotal);
-            $('p#t' + e.target.id + '').children('span').text(total);
-        }
-
-        function UpdateTotalEstimates(e) {
-            var total = 0;
-            $('.estimate').each(function(i,obj){
-                if(e.target.id == obj.id){
-                   total = total + Number(obj.value); 
-                }
-            });
-            $('p#t' + e.target.id + '').children('span').text(total);
-        }
+        
         
         $('.filter').change(function(){
             $('form').submit();
@@ -676,7 +768,6 @@ td .lessWidth{
         $("textarea").keyup(function (e) {
                 var key = e.charCode || e.keyCode || 0;
                 if (key == 13) {
-                    e.preventDefault();
                     if (!$("#" + this.id + "").val()) {
                         this.style.height = 'auto';
                     }
@@ -693,6 +784,32 @@ td .lessWidth{
                     }
                 }
         });
+        function textAreaKeyup(e){
+            var key = e.charCode || e.keyCode || 0;
+             if (e.keyCode === 13 && e.shiftKey) {
+                //console.log("enterKeyDown+ctrl");
+                $(e.target).val(function (i, val) {
+                    return val + "\n";
+                });
+                if (!$(e.target).val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $(e.target).css("cssText", "height: " + e.target.scrollHeight + "px !important;");
+                }
+            }
+            if (key == 13) {
+                e.preventDefault();
+            }
+            else{
+                if(!$(e.target).val()){
+                    e.target.style.height = 'auto';
+                }
+                else{
+                    $(e.target).css("cssText", "height: " + e.target.scrollHeight + "px !important;");
+                }
+            }
+        }
         $('textarea').each(function(e, obj){
             console.log($(obj));
             if (!obj.value) {
@@ -712,26 +829,25 @@ td .lessWidth{
 
         var keys = {};
 
-        $('body').keydown(function (e) {
-            keys[e.which] = true;
-            console.log(keys);
-            if(keys[13] && keys[17]){
-                if ($('form')) {
-                    $('form').submit();
-                }
-            }
-            if (keys[13] && keys[16]) {
-                if ($('form')) {
-                    var status = document.getElementById("status");
-                    status.checked = true;
-                    $('form').submit();
-                }
-            }
-        });
+        // $('body').keydown(function (e) {
+        //     keys[e.which] = true;
+        //     console.log(keys);
+        //     if(keys[13] && keys[17]){
+        //         if ($('form')) {
+        //             $('form').submit();
+        //         }
+        //     }
+        //     if (keys[13] && keys[16]) {
+        //         if ($('form')) {
+        //             var status = document.getElementById("status");
+        //             //$('form').submit();
+        //         }
+        //     }
+        // });
 
-        $('body').keyup(function (e) {
-            delete keys[e.which];
-        });
+        // $('body').keyup(function (e) {
+        //     delete keys[e.which];
+        // });
 
         $(".AddUserStory").on('click', function (e) {
                 var status = document.getElementById("status");
@@ -952,7 +1068,7 @@ td .lessWidth{
                                 <div style="width:100% ;" class="row">
                                     <div class="form-group row">
                                         <div class="col-12 m-0 p-0">
-                                            <textarea type="text" id="personaInput" onchange="addPersona(event, this)" name="Persona" list="personList" style="display: inline;"
+                                            <textarea type="text" id="personaInput" onkeydown="newPersonaByKey(event, this)" onchange="addPersona(event, this)" name="Persona" list="personList" style="display: inline;"
                                                 class="form-control addUserStory bg-gray personaInput suggested Persona h-4rem" id="myInput" aria-describedby="emailHelp"
                                                 placeholder="Persona"></textarea>
                                         </div>
@@ -969,19 +1085,19 @@ td .lessWidth{
                     </td>
                     <td class="">
                         <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
-                            <textarea type="text" id="epicInputDetails" list="encodings" name="Epic" data-name="epic" onchange="updateUserStory(event, this)" class="form-control bg-gray epicInputDetails suggested input h-4rem"
+                            <textarea type="text" id="epicInputDetails" list="encodings" onkeydown="textAreaKeyup(event, this)" name="Epic" data-name="epic" onchange="updateUserStory(event, this)" class="form-control bg-gray epicInputDetails suggested input h-4rem"
                                 id="epicInput" aria-describedby="emailHelp" placeholder="Epic"></textarea>
                         </div>
                     </td>
                     <td class="">
                         <div class="form-group" style="min-width: 15rem;">
-                            <textarea type="text" id="IWantTO" name="IWantTO" onchange="updateUserStory(event, this)" data-name="iWantTo" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                            <textarea type="text" id="IWantTO" name="IWantTO" onkeydown="textAreaKeyup(event, this)" onchange="updateUserStory(event, this)" data-name="iWantTo" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="IWantTO"></textarea>
                         </div>
                     </td>
                     <td class="">
                         <div class="form-group" style="min-width: 15rem;">
-                            <textarea type="text" id="SoThat" name="SoThat" onchange="updateUserStory(event, this)" data-name="soThat" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                            <textarea type="text" id="SoThat" name="SoThat" onkeydown="textAreaKeyup(event, this)" onchange="updateUserStory(event, this)" data-name="soThat" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="SoThat"></textarea>
                         </div>
                     </td>
@@ -993,7 +1109,7 @@ td .lessWidth{
                             <div style="width:100% ;" class="row twiceWidth">
                                 <div class="form-group row twiceWidth">
                                     <div class="col-12 m-0 p-0 twiceWidth">
-                                        <textarea type="text" id="DevTasks" onchange="addDevTask(event, this)" class="form-control bg-gray Dev col-12 h-4rem" name="Dev"
+                                        <textarea type="text" id="DevTasks" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray Dev col-12 h-4rem" name="Dev"
                                             id="exampleInputEmail1" aria-describedby="emailHelp"
                                             placeholder="User Acceptance Criteria"></textarea>
                                         
@@ -1015,7 +1131,7 @@ td .lessWidth{
                             <div style="width:100% ;" class="row twiceWidth">
                                 <div class="form-group row twiceWidth">
                                     <div class="col-12 m-0 p-0 twiceWidth">
-                                        <textarea type="text" id="R.A.I.DS" onchange="addRaids(event, this)" class="form-control Raids bg-gray col-12 h-4rem" name="RAIDS"
+                                        <textarea type="text" id="R.A.I.DS" onkeydown="newRaidsByKey(event, this)" onchange="addRaids(event, this)" class="form-control Raids bg-gray col-12 h-4rem" name="RAIDS"
                                             id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
                                         <p class="m-auto AddDev"
                                             style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
@@ -1127,7 +1243,7 @@ td .lessWidth{
                                 <div style="width:100% ;" class="row">
                                     <div class="form-group row">
                                         <div class="col-12 m-0 p-0">
-                                            <textarea type="text" id="personaInput" onkeyup="newPersonaByKey(event, this)" onchange="addPersona(event, this)" name="Persona" list="personList" style="display: inline;"
+                                            <textarea type="text" id="personaInput" onkeydown="newPersonaByKey(event, this)" onchange="addPersona(event, this)" name="Persona" list="personList" style="display: inline;"
                                                 class="form-control bg-gray addUserStory personaInput suggested Persona h-4rem" id="myInput" aria-describedby="emailHelp"
                                                 placeholder="Persona"></textarea>
                                         </div>
@@ -1143,19 +1259,19 @@ td .lessWidth{
                     </td>
                     <td class="">
                         <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
-                            <textarea type="text" id="epicInputDetails" list="encodings" name="Epic" data-name="epic" onchange="updateUserStory(event, this)" class="form-control bg-gray epicInputDetails suggested input h-4rem"
+                            <textarea type="text" id="epicInputDetails" list="encodings" onkeydown="textAreaKeyup(event, this)" name="Epic" data-name="epic" onchange="updateUserStory(event, this)" class="form-control bg-gray epicInputDetails suggested input h-4rem"
                                 id="epicInput" aria-describedby="emailHelp" placeholder="Epic"></textarea>
                         </div>
                     </td>
                     <td class="">
                         <div class="form-group" style="min-width: 15rem;">
-                            <textarea type="text" id="IWantTO" name="IWantTO" onchange="updateUserStory(event, this)" data-name="iWantTo" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                            <textarea type="text" id="IWantTO" name="IWantTO" onkeydown="textAreaKeyup(event, this)" onchange="updateUserStory(event, this)" data-name="iWantTo" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="IWantTO"></textarea>
                         </div>
                     </td>
                     <td class="">
                         <div class="form-group" style="min-width: 15rem;">
-                            <textarea type="text" id="SoThat" name="SoThat" onchange="updateUserStory(event, this)" data-name="soThat" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
+                            <textarea type="text" id="SoThat" name="SoThat" onkeydown="textAreaKeyup(event, this)" onchange="updateUserStory(event, this)" data-name="soThat" class="form-control bg-gray h-4rem" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="SoThat"></textarea>
                         </div>
                     </td>
@@ -1167,7 +1283,7 @@ td .lessWidth{
                             <div style="width:100% ;" class="row twiceWidth">
                                 <div class="form-group row twiceWidth">
                                     <div class="col-12 m-0 p-0 twiceWidth">
-                                        <textarea type="text" id="DevTasks" onchange="addDevTask(event, this)" class="form-control bg-gray Dev col-12 h-4rem" name="Dev"
+                                        <textarea type="text" id="DevTasks" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray Dev col-12 h-4rem" name="Dev"
                                             id="exampleInputEmail1" aria-describedby="emailHelp"
                                             placeholder="User Acceptance Criteria"></textarea>
                                         
@@ -1189,7 +1305,7 @@ td .lessWidth{
                             <div style="width:100% ;" class="row twiceWidth">
                                 <div class="form-group row twiceWidth">
                                     <div class="col-12 m-0 p-0 twiceWidth">
-                                        <textarea type="text" id="R.A.I.DS" onchange="addRaids(event, this)" class="form-control bg-gray bg-gray Raids col-12 h-4rem" name="RAIDS"
+                                        <textarea type="text" id="R.A.I.DS" onkeydown="newRaidsByKey(event, this)" onchange="addRaids(event, this)" class="form-control bg-gray bg-gray Raids col-12 h-4rem" name="RAIDS"
                                             id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
                                         <p class="m-auto AddDev"
                                             style="display: flex;justify-content: center;align-items: center;cursor: pointer;">

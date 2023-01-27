@@ -181,7 +181,7 @@
                                 </div>
                                 {% endfor %}
                             </div>
-                            <p class="m-auto AddDev details" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
+                            <p class="m-auto AddRaids details" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
                                 Add Another<i class="ml-1 text-danger fa fa-plus"></i></p>
                         </div>
                     </td>
@@ -197,7 +197,7 @@
                     {% if e.Platform.id == p.id %}
                     <td class="">
                         <div class=" form-group row lessWidth text-center" style="height: 100%;">
-                            <input type="number" id="{{e.Platform.id}}" class="form-control estimate updateEstimate bg-gray m-auto col-8"
+                            <input type="number" id="{{e.Platform.id}}" data-id="{{e.id}}" class="form-control estimate updateEstimate bg-gray m-auto col-8"
                                 value="{{e.noOfHours}}" required="" name="estimate[]" placeholder="{{e.Platform.name}}"
                                 aria-describedby="emailHelp">
                         </div>

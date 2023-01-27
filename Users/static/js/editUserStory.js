@@ -160,6 +160,7 @@ $('.updateUserStory').change(function(e){
 });
 
 $('.updateEstimate').change(function(e){
+    UpdateTotalEstimates();
     var estimateId = e.target.getAttribute('data-id');
     var estimate = e.target.value;
     $.ajax({
@@ -171,7 +172,7 @@ $('.updateEstimate').change(function(e){
         },  
         data: JSON.stringify({'estimate':estimate}),
         success: function (response) {
-            console.log(response)
+            UpdateTotalEstimates();
         },
         error: function (xhr) {
             alert("Error happenedy");
@@ -185,8 +186,29 @@ $('.updateEstimate').change(function(e){
 function addEstimate(e){
     var estimate = e.target.value;
     var userStoryId = $(e.target).closest('tr').attr('id');
+    var element = $(e.target);
     var id = e.target.id
-    $.ajax({
+    if(e.target.getAttribute('data-id')){
+        var estimateId = e.target.getAttribute('data-id');
+        $.ajax({
+        url: "" + window.location.origin + "/Apis/editEstimate/" + estimateId + "",
+        type: "PUT", //send it through get method
+        contentType: 'application/json',
+        headers:{
+           "X-CSRFToken": csrftoken
+        },  
+        data: JSON.stringify({'estimate':estimate}),
+        success: function (response) {
+            UpdateTotalEstimates();
+        },
+        error: function (xhr) {
+            alert("Error happenedy");
+            //Do Something to handle error
+        }
+    });
+    }
+    else{
+        $.ajax({
         url: "" + window.location.origin + "/Apis/addEstimate/" + userStoryId + "",
         type: "Post", //send it through get method
         contentType: 'application/json',
@@ -195,13 +217,15 @@ function addEstimate(e){
         },  
         data: JSON.stringify({'estimate':estimate,'id':id}),
         success: function (response) {
-            console.log(response)
+            element.attr('data-id',response['id']);
+            UpdateTotalEstimates();
         },
         error: function (xhr) {
             alert("Error happenedy");
             //Do Something to handle error
         }
     });
+    }
 }
 $('#AddPlatform').on('click',function AddPlatfom(e){
    var platform =  $('#platformName').val();
@@ -229,3 +253,23 @@ $('#AddPlatform').on('click',function AddPlatfom(e){
     });
    }
 });
+
+
+
+function UpdateTotalEstimates() {
+    var platform = $(".platform").val();
+    
+    var table = $('.sumEstimatesTable');
+    table.empty();
+    for(var i = 0 ;i< platform.length;i++){
+        var name = $('.platform option[value="'+ platform[i] +'"]');
+        var allEstimates = $("input[id^="+ platform[i] +"]");
+        var total = 0
+        for(var x = 0;x<allEstimates.length;x++){
+            total = total + parseInt(allEstimates[x].value);
+        }
+        console.log(name);
+        console.log(total);
+        table.append($('<tr><td>'+ name.text() +'</td><td>'+ total +'</td></tr>'));
+    }
+}

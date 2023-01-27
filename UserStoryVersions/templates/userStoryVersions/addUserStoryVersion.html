@@ -101,22 +101,32 @@
     
         </table>
     </div>
-    <div class="mb-3">
-        <button type="button" id="addUserStory" class="col-2 btn btn-success">add another
+   <div class="row w-100">
+    <div class="col-6 row mb-3">
+        <button type="button" id="addUserStory" style="height: 3rem;" class="col-6 mr-4 btn btn-success">add another
             UserStory</button>
-        <button type="submit" class="col-1 btn btn-success submit">Create</button>
+        <button type="submit" style="height: 3rem;" class="col-3 btn btn-success submit">Create</button>
     </div>
-    <div class="mb-3" style="float: right;">
-        <div class="row TotalEstimates">
-            {% for e in totalEstimates %}
-            <div class="mr-5" id="t{{e.id}}">
-                <h6>{{e.name}}</h6>
-                <p id="t{{e.id}}" data="{{e.hours}}"><span>{{e.hours}}</span></p>
-            </div>
-            {% endfor %}
-        </div>
+    <div class="mb-3 col-3">
+        <table class="col-12 table align-items-center mb-5">
+            <thead>
     
+                <tr>
+                    <th>
+                        Estimate
+                    </th>
+                    <th>
+                        Total
+                    </th>
+    
+                </tr>
+            </thead>
+            <tbody class="sumEstimatesTable">
+    
+            </tbody>
+        </table>
     </div>
+   </div>
     <div class="table-responsive p-0 d-none">
         <div class="spinner-border d-none" role="status">
             <span class="sr-only">Loading...</span>
