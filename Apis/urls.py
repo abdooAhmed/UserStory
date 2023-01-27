@@ -22,7 +22,7 @@ urlpatterns = [
          views.addUserStory, name='addUserStory'),
     path('getAllfilters', views.getAllfilters, name='getAllfilters'),
     path('addUserStory',
-         views.addNewUserStory, name='addUserStory'),
+         views.addNewUserStory, name=''),
     path('addPlatform',
          views.addPlatform, name='addPlatform')
 ]
