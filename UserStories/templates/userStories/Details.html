@@ -282,8 +282,8 @@
             </tr>
         </thead>
         <tbody>
+            {% if userStory.userStoriesVersion %}
             <tr>
-                
                 <td class="align-middle text-center rem-15">
                     <a class="d-block" href="{% url 'userStoryVersionDetails' userStory.userStoriesVersion.id %}">
                     <span class="text-secondary text-xs font-weight-bold">{{userStory.userStoriesVersion.name}}</span>
@@ -302,6 +302,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         </tbody>
     
     

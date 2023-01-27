@@ -576,8 +576,8 @@ td .lessWidth{
                 $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA">' + currentValue + '</textarea></div>').prependTo(form);
-                form.prependTo($(this).prev());
+                $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                form.prependTo($('.DKDiv'));
                 //$('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                 //elem.val(elem.val() + 'add this');
             }
@@ -696,50 +696,109 @@ td .lessWidth{
         //     });
         $(".Persona").keyup(function (e) {
             var key = e.charCode || e.keyCode || 0;
-            console.log(e.shiftKey);
             if (key == 13)
             {
                 var currentValue = $(".Persona").val()
-                if(currentValue){
+                if (key == 13 && e.shiftKey) {
+                    $(e.target).val(function (i, val) {
+                        return val + "\n";
+                    });
+                    if (!$(this).val()) {
+                        this.style.height = 'auto';
+                    }
+                    else {
+                        $(this).css("cssText", "height: " + this.scrollHeight + "px !important;");
+                    }
+                    e.preventDefault()
+                }
+                else if(currentValue){
                     $(".Persona").val("")
                     var form = $('<div class=" form-group row"></div>')
                     $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                    $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="Persona" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                    $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: ' + this.style.height +' !important;" name="Persona" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                     form.prependTo($('.PersonDiv'));
                     //$('<div class="col-10 m-0 p-0"><input type="text" class="form-control col-10" name="Persona" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona"></div>').prependTo($('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo($('<div class="form-group row"></div>').prependTo($('.PersonDiv'))));
+                }
+                else {
+                    if (!$(this).val()) {
+                        this.style.height = 'auto';
+                    }
+                    else {
+                        $(this).css("cssText", "height: " + this.scrollHeight + "px !important;");
+                    }
                 }
             }
         });
 
-        $(".Dev").keypress(function (e) {
+        $(".Dev").keydown(function (e) {
                 var key = e.charCode || e.keyCode || 0;
-                if (key == 13) {
+                if(key==13 && e.shiftKey){
+                    $(e.target).val(function (i, val) {
+                        return val + "\n";
+                    });
+                    if (!$(this).val()) {
+                        this.style.height = 'auto';
+                    }
+                    else {
+                        $(this).css("cssText", "height: " + this.scrollHeight + "px !important;");
+                    }
+                    e.preventDefault()
+                }
+                else if (key == 13) {
                     var currentValue = $(".Dev").val()
                     if(currentValue){
                         $(".Dev").val("")
                         var form = $('<div class="w-100 form-group row"></div>')
                         $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                        $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                        $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: ' + this.style.height +' !important;" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                         form.prependTo($('.DKDiv'));
                         //$('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                         
                     }
                 }
+                else{
+                    if (!$(this).val()) {
+                        this.style.height = 'auto';
+                    }
+                    else {
+                        $(this).css("cssText", "height: " + this.scrollHeight + "px !important;");
+                    }
+                }
+                
         });
 
-        $(".Raids").keypress(function (e) {
+        $(".Raids").keydown(function (e) {
                 var key = e.charCode || e.keyCode || 0;
-                if (key == 13) {
+                if(key==13 && e.shiftKey){
+                    $(e.target).val(function (i, val) {
+                        return val + "\n";
+                    });
+                    if (!$(this).val()) {
+                        this.style.height = 'auto';
+                    }
+                    else {
+                        $(this).css("cssText", "height: " + this.scrollHeight + "px !important;");
+                    }
+                    e.preventDefault()
+                }
+                else if (key == 13) {
                     var currentValue = $(".Raids").val()
                     if(currentValue){
                         console.log(currentValue);
                         $(".Raids").val("")
                         var form = $('<div class="w-100 form-group row"></div>')
                         $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                        $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
+                        $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: '+ this.style.height +' !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                         form.prependTo($('.RAIDSDiv'));
                         //$('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
                         
+                    }
+                }else{
+                    if (!$(this).val()) {
+                        this.style.height = 'auto';
+                    }
+                    else {
+                        $(this).css("cssText", "height: " + this.scrollHeight + "px !important;");
                     }
                 }
         });
@@ -768,19 +827,19 @@ td .lessWidth{
         $("textarea").keyup(function (e) {
                 var key = e.charCode || e.keyCode || 0;
                 if (key == 13) {
-                    if (!$("#" + this.id + "").val()) {
+                    if (!$(this).val()) {
                         this.style.height = 'auto';
                     }
                     else {
-                        $("#" + this.id + "").css("cssText", "height: " + this.scrollHeight + "px !important;");
+                        $(this).css("cssText", "height: " + this.scrollHeight + "px !important;");
                     }
                 }
                 else{
-                    if(!$("#" + this.id + "").val()){
+                    if(!$(this).val()){
                         this.style.height = 'auto';
                     }
                     else{
-                        $("#" + this.id + "").css("cssText", "height: " + this.scrollHeight + "px !important;");
+                        $(this).css("cssText", "height: " + this.scrollHeight + "px !important;");
                     }
                 }
         });
@@ -927,7 +986,7 @@ td .lessWidth{
                     var currentId = $('.platform option:selected').val();
                     platfrom = currentPlatform.split(',');
                     if (!estimateList.includes(i) && platfrom[index] && !$(".estimate#" + list[index] + "").length) {
-                        $('.estimateDiv').append($('<div class="col-6 form-group" id="' + platfrom[index] + '"><label for="exampleInputEmail1">' + platfrom[index] + '</label><input type="number" id="' + i + '" onkeyup="TotalEstimates(event)" class="form-control estimate" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div>'));
+                        $('.estimateDiv').append($('<div class="col-6 form-group" id="' + platfrom[index] + '"><label for="exampleInputEmail1">' + platfrom[index] + '</label><input type="number" onchange="UpdateTotalEstimates()" id="' + i + '" onkeyup="TotalEstimates(event)" class="form-control estimate" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div>'));
                         var divWithId = $('div#t' + i + '');
                         if (!divWithId.length) {
                             $('.TotalEstimates').append($('<div class="mr-5" id="t' + i + '"><h6>' + platfrom[index] + '</h6><p id="t' + i + '" data="0"><span></span></p></div>'));
@@ -935,6 +994,7 @@ td .lessWidth{
                     }
                     index++;
                 });
+                UpdateTotalEstimates();
             }
             estimateList = list;
         });

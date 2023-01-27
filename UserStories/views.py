@@ -230,5 +230,4 @@ def Details(request, id):
         if userStory.userStoriesVersion.Project:
             userStory.userStoriesVersion.Project.project = len(
                 UserStoryVersion.objects.filter(Project=userStory.userStoriesVersion.Project).all())
-    print(userStory.userStoriesVersion.Project)
     return render(request, 'userStories/Details.html', {'userStory': userStory, 'platformIds': platformIds, 'platforms': platforms})

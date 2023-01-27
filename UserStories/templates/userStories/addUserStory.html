@@ -44,7 +44,7 @@
             <div style="width:100% ;" class="row">
                 <div class="form-group row">
                     <div class="col-12 m-0 p-0">
-                        <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;" class="form-control Persona"
+                        <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;" class="form-control bg-gray h-4rem Persona"
                             id="myInput" aria-describedby="emailHelp" placeholder="Persona"></textarea>
                     </div>
                     <p class="m-auto AddPersona" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
@@ -56,17 +56,17 @@
         </div>
         <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
             <label for="exampleInputEmail1">Epic</label>
-            <textarea type="text" id="epicInput" list="encodings" name="Epic" class="form-control input" id="epicInput"
+            <textarea type="text" id="epicInput" list="encodings" name="Epic" class="form-control bg-gray h-4rem input" id="epicInput"
                 aria-describedby="emailHelp" placeholder="Epic"></textarea>
         </div>
         <div class="form-group" style="min-width: 15rem;">
             <label for="exampleInputEmail1">IWantTO</label>
-            <textarea type="text" id="IWantTO" name="IWantTO" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <textarea type="text" id="IWantTO" name="IWantTO" class="form-control bg-gray h-4rem" id="exampleInputEmail1" aria-describedby="emailHelp"
                 placeholder="IWantTO"></textarea>
         </div>
         <div class="form-group" style="min-width: 15rem;">
             <label for="exampleInputEmail1">SoThat</label>
-            <textarea type="text" id="SoThat" name="SoThat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <textarea type="text" id="SoThat" name="SoThat" class="form-control bg-gray h-4rem" id="exampleInputEmail1" aria-describedby="emailHelp"
                 placeholder="SoThat"></textarea>
         </div>
         <div class="form-group" style="padding-left: 1.8rem;min-width: 30rem;">
@@ -80,7 +80,7 @@
             </div>
             <div style="width:100% ;" class="row">
                 <div class="w-100 form-group row">
-                    <textarea type="text" id="DevTasks" class="form-control Dev col-12" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <textarea type="text" id="DevTasks" class="form-control bg-gray Dev col-12 h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Dev Tasks"></textarea>
                     
                     <p class="m-auto AddDev" style="display: flex;justify-content: center;align-items: center;cursor: pointer;">
@@ -101,7 +101,7 @@
             </div>
             <div style="width:100% ;" class="row">
                 <div class="w-100 form-group row">
-                    <textarea type="text" id="R.A.I.DS" class="form-control Raids col-12" name="RAIDS" id="exampleInputEmail1"
+                    <textarea type="text" id="R.A.I.DS" class="form-control Raids bg-gray col-12 h-4rem" name="RAIDS" id="exampleInputEmail1"
                         aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
                     <!-- <i class="col-2 m-auto btn btn-success fa fa-plus AddRaids"
                         style="display: flex;justify-content: center;align-items: center;"></i> -->
@@ -112,9 +112,9 @@
             </div>
         </div> 
         <div class="form-group" style="padding-left: .9rem;min-width: 15rem;">
-            <div style="width: 100%;" class="estimateDiv row no-gutters">
+            <div style="width: 100%;" class="estimateDiv row no-gutters text-center flex-nowrap">
                 {% for e in platformIds %}
-                <input type="number" id="{{e}}" class="form-control estimate col-6" aria-describedby="emailHelp">
+                <input type="number" id="{{e}}" class="form-control estimate bg-gray col-6" aria-describedby="emailHelp">
                 {% endfor %}
             </div>
         </div>
@@ -134,7 +134,7 @@
                     <div class="modal-body mx-3">
                         <div class="form-group ">
                             <label for="exampleInputEmail1">Description</label>
-                            <input type="text" name="US_Group" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            <input type="text" name="US_Group" class="form-control bg-gray" id="exampleInputEmail1" aria-describedby="emailHelp"
                                 placeholder="Description">
                         </div>
                     </div>
@@ -149,9 +149,32 @@
             <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
                 Modal Login Form</a>
         </div> -->
-        <button type="submit" class="col-1 btn btn-success ">Create</button>
-        <button type="button" class="col-2 btn btn-success" data-toggle="modal" data-target="#modalLoginForm"
-            >add to group</button>
+        <div class="row w-100">
+            <div class="col-6 row mb-3">
+            <button type="submit" class="col-3 mr-4 btn btn-success" style="height: 3rem;">Create</button>
+            <button type="button" class="col-6 btn btn-success" style="height: 3rem;" data-toggle="modal" data-target="#modalLoginForm"
+                >add to group</button>
+            </div>
+        <div class="mb-3 col-3">
+            <table class="col-12 table align-items-center mb-5">
+                <thead>
+        
+                    <tr>
+                        <th>
+                            Estimate
+                        </th>
+                        <th>
+                            Total
+                        </th>
+        
+                    </tr>
+                </thead>
+                <tbody class="sumEstimatesTable">
+        
+                </tbody>
+            </table>
+        </div>
+        </div>
     </div>
     <!-- <div class="form-group">
         <label for="exampleInputEmail1">US_Group</label>
