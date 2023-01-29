@@ -397,7 +397,7 @@ td .lessWidth{
         $('#example-getting-started5').multiselect({
                 buttonClass: 'form-select',
                 templates: {
-                    button: '<button type="button"  class="multiselect dropdown-toggle form-control w-100" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                    button: '<button type="button"  class="multiselect dropdown-toggle form-control w-100 selectPriority2" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 }
             });
         function remove(e) {
@@ -1100,7 +1100,23 @@ td .lessWidth{
                 },
                 data: JSON.stringify({ 'name': name, 'value': value }),
                 success: function (response) {
-                    console.log(response)
+                    if(name == 'Priority'){
+                        if($('[data-id="priority'+ userStoryId +'"]').length !=0){
+                            console.log($('[data-id="priority' + userStoryId + '"]'));
+                            $('button[data-id="priority' + userStoryId + '"]').attr('title',value);
+                            $('input[data-id="priority' + userStoryId + '"]').val(value);
+                            $('label[data-id="priority' + userStoryId + '"]').text(value);
+                        }
+                        else{
+                            var select = $('.selectPriority2').next();
+                            console.log($('.createSelectPriority option').length);
+                            $(`<button data-id="priority` + userStoryId + `" type="button" class="multiselect-option dropdown-item" title="` + value + `,"><span class="form-check">
+                        <input class="form-check-input" type="checkbox" data-id="priority`+ userStoryId + `" value="` + value + `" id="multiselect_vjjommr0br_0_` + $('.createSelectPriority option').length + `">
+                        <label class="form-check-label" data-id="priority`+ userStoryId + `" for="multiselect_vjjommr0br_0_` + $('.createSelectPriority option').length + `">` + value + `</label></span>
+                        </button>`).appendTo(select);
+                            $('<option value="' + value + '" data-multiselectid="multiselect_vjjommr0br_0_' + $('.createSelectPriority option').length + '">' + value + ',</option>').appendTo($('.createSelectPriority'))
+                        }
+                    }
                 },
                 error: function (xhr) {
                     alert("Error happenedy");

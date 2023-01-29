@@ -273,3 +273,33 @@ function UpdateTotalEstimates() {
         table.append($('<tr><td>'+ name.text() +'</td><td>'+ total +'</td></tr>'));
     }
 }
+function selectPriority(e){
+    finalResult = [];
+    var value = $(e.target).val();
+    for(var i=0;i<value.length;i++){
+        var elements = Array.from($('input[name="Priority"]'));
+        elements.forEach(element=>{
+            if($(element).val()==value[i]){
+
+                var inputs = Array.from($(element).closest("td").nextAll());
+                inputs.forEach(input=>{
+                    var id =  $(input).children().children().attr('id');
+                    var text= $('.platform option[value="'+ id +'"]').text();
+                    var total =parseInt($(input).children().children().val());
+                    objIndex = finalResult.findIndex((obj => obj.id == id))
+                    if(objIndex!=-1){
+                        finalResult[objIndex]['total'] = finalResult[objIndex]['total'] + total; 
+                    }else{
+                        finalResult.push({'id':id,'name':text,'total':total})
+                    }
+                })
+            }
+        });
+    }
+    console.log(finalResult);
+    var table = $('.sumEstimatesTable');
+    table.empty();
+    finalResult.forEach(final=>{
+        table.append($('<tr><td>'+ final['name'] +'</td><td>'+ final['total'] +'</td></tr>'));
+    });
+}
