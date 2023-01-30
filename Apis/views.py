@@ -25,6 +25,8 @@ def related_userStory(request):
         userStories = UserStory.objects.filter(
             Persona__Name__contains=persona)
         print(len(userStories))
+    else:
+        userStories = UserStory.objects.all()
     if bool(epic.strip()):
         userStories = userStories.filter(
             Epic__versionName__contains=epic)
@@ -42,11 +44,15 @@ def related_userStory(request):
         DevelopmentTask = []
         [DevelopmentTask.append(i.description)
          for i in userStory.DevelopmentTask.all()]
-        epicObject = userStory.Epic.versionName
+        try:
+            epicObject = userStory.Epic.versionName
+        except:
+            epicObject = ""
         dataObject.append(
             {'iWantTO': iWantTO, 'soThat': soThat, 'priority': priority, 'id': id, 'persona': personaObject,
              'RAIDS': RAIDS, 'devTask': DevelopmentTask, 'epic': epicObject})
     dataObject = dumps(dataObject)
+    print(dataObject)
     return JsonResponse(dataObject, safe=False)
 
 

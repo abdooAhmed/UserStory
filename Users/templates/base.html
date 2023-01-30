@@ -1100,6 +1100,20 @@ td .lessWidth{
                 },
                 data: JSON.stringify({ 'name': name, 'value': value }),
                 success: function (response) {
+                    if(name=="epic"){
+                        var epics = Array.from($('.epicInputDetails'));
+                        console.log(epics)
+                        epicsValue =[]
+                        epics.forEach(ep=>{
+                            epicsValue.push(ep.value)
+                        })
+                        var personas = Array.from($('.Persona'));
+                        personasValue = []
+                        personas.forEach(ep=>{
+                            personasValue.push(ep.value)
+                        })
+                        relatedUserStory(epicsValue,personasValue);
+                    }
                     if(name == 'Priority'){
                         if($('[data-id="priority'+ userStoryId +'"]').length !=0){
                             console.log($('[data-id="priority' + userStoryId + '"]'));

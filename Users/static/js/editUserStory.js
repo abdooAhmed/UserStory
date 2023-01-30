@@ -37,6 +37,18 @@ function addPersona(e){
         },  
         data: JSON.stringify({'persona':persona}),
         success: function (response) {
+            var epics = Array.from($('.epicInputDetails'));
+            console.log(epics)
+            epicsValue =[]
+            epics.forEach(ep=>{
+                epicsValue.push(ep.value)
+            })
+            var personas = Array.from($('textarea[name="Persona"]'));
+            personasValue = []
+            personas.forEach(ep=>{
+                personasValue.push(ep.value)
+            })
+            relatedUserStory(epicsValue,personasValue);
             console.log(response)
         },
         error: function (xhr) {
