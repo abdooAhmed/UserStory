@@ -56,7 +56,7 @@
                             <div class="form-group row">
                                 <div class="col-12 m-0 p-0">
                                     <textarea type="text" id="myInput" name="Persona" list="personList" style="display: inline;"
-                                        class="form-control bg-gray h-4rem" 
+                                        class="form-control relatedUserStory peronsaInputDetails bg-gray h-4rem" 
                                         id="myInput" aria-describedby="emailHelp"
                                         placeholder="Persona"></textarea>
                                 </div>
@@ -70,7 +70,7 @@
                 <td class="">
                     <div class="form-group m-0" style="margin: 0;min-width: 15rem;">
                         <textarea type="text" id="epicInput" name="Epic" data-name="epic" list="encodings"
-                            class="form-control  input bg-gray h-4rem" id="epicInput"
+                            class="form-control relatedUserStory epicInputDetails input bg-gray h-4rem" id="epicInput"
                             aria-describedby="emailHelp" placeholder="Epic"></textarea>
                     </div>
                 </td>
@@ -204,7 +204,32 @@
     <div class="form-group">
         <textarea type="text" name="Estimates" class="form-control mt-2 h-25 EstimatesArea" cols="10"></textarea>
     </div> -->
+    <div class="table-responsive p-0 d-none">
+        <div class="spinner-border d-none" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <table class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DevTask</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
+                    <th class="text-secondary opacity-7"></th>
+                </tr>
+            </thead>
+            <tbody class="relatedUserStory">
+    
+            </tbody>
+    
+    
+        </table>
+    </div>
 </form>
+
 <div>
     <form method="get">
         {% csrf_token %}
@@ -238,4 +263,5 @@
                     </div> -->
     </form>
 </div>
+
 {% endblock %}

@@ -1,3 +1,17 @@
+$('.relatedUserStory').on('change',function(){
+    var epics = Array.from($('.epicInputDetails'));
+    console.log(epics)
+    epicsValue =[]
+    epics.forEach(ep=>{
+        epicsValue.push(ep.value)
+    })
+    var personas = Array.from($('.peronsaInputDetails'));
+    personasValue = []
+    personas.forEach(ep=>{
+        personasValue.push(ep.value)
+    })
+    relatedUserStory(epicsValue,personasValue);
+})
 function relatedUserStory(epics,personas){
     $('.relatedUserStory').empty();
     
