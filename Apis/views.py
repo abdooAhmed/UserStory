@@ -283,32 +283,36 @@ def dataEntry(request):
     iWantTo = []
     finalDevTask = []
     finalRaids = []
+    row = [{}]
     for table, df in dfs.items():
         if table == "Persona":
-            for data in df[:5]:
+            for data in df[70:90]:
                 persona.append(data)
+                row.append({'persona': persona})
         if table == "Epic":
-            for data in df[:5]:
+            for data in df[70:90]:
                 epic.append(data)
+                row.append({'ep': persona})
         if table == "I want to":
-            for data in df[:5]:
+            for data in df[70:90]:
                 iWantTo.append(data)
         if table == "So that":
-            for data in df[:5]:
+            for data in df[70:90]:
                 soThat.append(data)
         if table == "DevTasks & RAIDs (Risk, Assumption, Issue & Dependency)":
-            for data in df[:5]:
+            for data in df[70:90]:
                 print(data)
                 listData = re.split(
                     '----------------RAIDs----------------', data)
                 print(listData)
                 devTask = listData[0]
                 raids = []
-                finalDevTask.append(re.split('-', devTask))
+                finalDevTask.append(re.split('\n-', devTask))
                 if len(listData) == 2:
                     raids = listData[1]
-
-                    finalRaids.append(re.split('(A)|(B)|(C)|(D)', raids))
+                    finalRaids.append(re.split(r'[()]', raids))
+                else:
+                    finalRaids.append([])
 
     print(len(persona))
     print(len(epic))
@@ -329,7 +333,8 @@ def dataEntry(request):
         raidsDb = []
         try:
             for Raid in finalRaids[x]:
-                raidsDb.append(RAIDS.objects.create(description=Raid))
+                if len(Raid) > 2:
+                    raidsDb.append(RAIDS.objects.create(description=Raid))
         except:
             pass
         userStory = UserStory.objects.create(
