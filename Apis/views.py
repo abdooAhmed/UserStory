@@ -5,6 +5,8 @@ from django.http import JsonResponse
 from json import dumps
 import json
 from django.http import QueryDict
+import pandas as pd
+import re
 # Create your views here.
 
 
@@ -270,4 +272,72 @@ def addPlatform(request):
         data = json.loads(request.body)
         platform = Platform.objects.create(name=data["platform"])
         return JsonResponse({'id': platform.id, 'name': platform.name}, safe=False)
+    return JsonResponse({'id': 0, 'versionId': 0}, safe=False)
+
+
+def dataEntry(request):
+    dfs = pd.read_excel('sum sheet.xlsx', sheet_name="Sheet2")
+    persona = []
+    epic = []
+    soThat = []
+    iWantTo = []
+    finalDevTask = []
+    finalRaids = []
+    for table, df in dfs.items():
+        if table == "Persona":
+            for data in df[:5]:
+                persona.append(data)
+        if table == "Epic":
+            for data in df[:5]:
+                epic.append(data)
+        if table == "I want to":
+            for data in df[:5]:
+                iWantTo.append(data)
+        if table == "So that":
+            for data in df[:5]:
+                soThat.append(data)
+        if table == "DevTasks & RAIDs (Risk, Assumption, Issue & Dependency)":
+            for data in df[:5]:
+                print(data)
+                listData = re.split(
+                    '----------------RAIDs----------------', data)
+                print(listData)
+                devTask = listData[0]
+                raids = []
+                finalDevTask.append(re.split('-', devTask))
+                if len(listData) == 2:
+                    raids = listData[1]
+
+                    finalRaids.append(re.split('(A)|(B)|(C)|(D)', raids))
+
+    print(len(persona))
+    print(len(epic))
+    print(len(soThat))
+    print(len(iWantTo))
+    print(len(finalDevTask))
+    print(len(finalRaids))
+    for x in range(len(persona)):
+        personaDb = []
+        personaDb.append(Persona.objects.create(
+            Name=persona[x]))
+        print(epic[x])
+        epicDb = Epic.objects.create(
+            versionName=epic[x])
+        devTaskDb = []
+        for dev in finalDevTask[x]:
+            devTaskDb.append(DevelopmentTask.objects.create(description=dev))
+        raidsDb = []
+        try:
+            for Raid in finalRaids[x]:
+                raidsDb.append(RAIDS.objects.create(description=Raid))
+        except:
+            pass
+        userStory = UserStory.objects.create(
+            iWantTO=iWantTo[x],
+            soThat=soThat[x],
+            Epic=epicDb
+        )
+        userStory.Persona.set(personaDb)
+        userStory.RAIDS.set(raidsDb)
+        userStory.DevelopmentTask.set(devTaskDb)
     return JsonResponse({'id': 0, 'versionId': 0}, safe=False)

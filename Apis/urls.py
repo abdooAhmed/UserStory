@@ -24,5 +24,7 @@ urlpatterns = [
     path('addUserStory',
          views.addNewUserStory, name=''),
     path('addPlatform',
-         views.addPlatform, name='addPlatform')
+         views.addPlatform, name='addPlatform'),
+    path('dataEntry',
+         views.dataEntry, name='dataEntry')
 ]
