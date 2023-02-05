@@ -11,7 +11,7 @@
             {{ form.as_p }}
             <div class="form-group">
                 <label for="exampleInputEmail1" style="display: block;width: 100%;">BusinessIndustries</label>
-                    <select id="example-getting-started1" name="businessIndustry" style="width: 100%;" class="form-control form-select platform"
+                    <select id="example-getting-started1" name="businessIndustry" style="width: 100%;" class="form-control form-select industry"
                         multiple="multiple">
                         {% for p in businessIndustries %}
                         <option class="projectOption" value="{{p.id}}">{{p.name}}</option>
@@ -54,19 +54,19 @@
                 <div class="modal-content">
                     <div class="modal-header text-center">
                         <h4 class="modal-title w-100 font-weight-bold">Business Industry</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body mx-3">
                         <div class="form-group ">
                             <label for="exampleInputEmail1">Name</label>
-                            <input type="text" name="Name" class="form-control" id="exampleInputEmail1"
+                            <input type="text" name="Name" class="form-control" id="industry"
                                 aria-describedby="emailHelp" placeholder="Name">
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <button  name="businessIndustry" type="submit" value="submit" name="businessIndustry" class="btn btn-success">Add</button>
+                        <button  name="businessIndustry" aria-hidden="true" data-dismiss="modal" aria-label="Close" type="button" value="submit" class="btn btn-success addIndustry">Add</button>
                     </div>
                 </div>
             </div>

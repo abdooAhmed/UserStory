@@ -41,11 +41,7 @@ def add_business(request):
     businessIndustries = BusinessCategory.objects.all()
     internal_User = User.objects.filter(Role=2)
     Customer = User.objects.filter(Role=1)
-    if request.method == 'GET' and 'businessIndustry' in request.GET:
-        BusinessCategory.objects.create(name=request.GET.get("Name"))
-        form = AddBusinessForm1()
-        form2 = AddBusinessForm2()
-        return redirect('/Business/AddBusiness/')
+
     if request.method == 'POST':
         form = AddBusinessForm1(request.POST)
         form2 = AddBusinessForm2(request.POST)

@@ -25,6 +25,8 @@ urlpatterns = [
          views.addNewUserStory, name=''),
     path('addPlatform',
          views.addPlatform, name='addPlatform'),
-    path('dataEntry',
-         views.dataEntry, name='dataEntry')
+    path('addIndustry',
+         views.addIndustry, name='addIndustry'),
+    #     path('dataEntry',
+    #          views.dataEntry, name='dataEntry')
 ]

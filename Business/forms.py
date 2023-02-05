@@ -13,8 +13,10 @@ class UserMyModelMultipleChoiceField(forms.ModelMultipleChoiceField):
 
 
 class AddBusinessForm1(forms.Form):
-    name = forms.CharField()
-    hourlyRate = forms.IntegerField()
+    name = forms.CharField(widget=forms.Textarea(
+        attrs={"rows": "2", "class": "bg-gray form-control col-6"}))
+    hourlyRate = forms.IntegerField(widget=forms.NumberInput(
+        attrs={"rows": "2", "class": "bg-gray form-control col-6"}))
     # LegalEntityName = forms.CharField()
     # Address = forms.CharField()
     # BusinessNumber = forms.IntegerField()
@@ -22,8 +24,13 @@ class AddBusinessForm1(forms.Form):
 
 
 class AddBusinessForm2(forms.Form):
-    LegalEntityName = forms.CharField(required=False)
-    Address = forms.CharField(required=False)
-    BusinessNumber = forms.IntegerField(required=False)
-    BusinessEmail = forms.CharField(required=False)
-    ABN = forms.IntegerField(required=False)
+    LegalEntityName = forms.CharField(required=False, widget=forms.Textarea(
+        attrs={"rows": "2", "class": "bg-gray form-control col-6"}))
+    Address = forms.CharField(required=False, widget=forms.Textarea(
+        attrs={"rows": "2", "class": "bg-gray form-control col-6"}))
+    BusinessNumber = forms.IntegerField(required=False, widget=forms.NumberInput(
+        attrs={"rows": "2", "class": "bg-gray form-control col-6"}))
+    BusinessEmail = forms.CharField(required=False, widget=forms.Textarea(
+        attrs={"rows": "2", "class": "bg-gray form-control col-6"}))
+    ABN = forms.IntegerField(required=False, widget=forms.NumberInput(
+        attrs={"rows": "2", "class": "bg-gray form-control col-6"}))

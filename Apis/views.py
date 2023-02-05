@@ -1,4 +1,4 @@
-from UserStoryApp.models import UserStory, UserStoryVersion, Business, Persona, User, DevelopmentTask, RAIDS, Epic, Estimates, Platform, Project
+from UserStoryApp.models import UserStory, UserStoryVersion, Business, BusinessCategory, Persona, User, DevelopmentTask, RAIDS, Epic, Estimates, Platform, Project
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.http import JsonResponse
@@ -275,74 +275,83 @@ def addPlatform(request):
     return JsonResponse({'id': 0, 'versionId': 0}, safe=False)
 
 
-def dataEntry(request):
-    dfs = pd.read_excel('sum sheet.xlsx', sheet_name="Sheet2")
-    persona = []
-    epic = []
-    soThat = []
-    iWantTo = []
-    finalDevTask = []
-    finalRaids = []
-    row = [{}]
-    for table, df in dfs.items():
-        if table == "Persona":
-            for data in df[70:90]:
-                persona.append(data)
-                row.append({'persona': persona})
-        if table == "Epic":
-            for data in df[70:90]:
-                epic.append(data)
-                row.append({'ep': persona})
-        if table == "I want to":
-            for data in df[70:90]:
-                iWantTo.append(data)
-        if table == "So that":
-            for data in df[70:90]:
-                soThat.append(data)
-        if table == "DevTasks & RAIDs (Risk, Assumption, Issue & Dependency)":
-            for data in df[70:90]:
-                print(data)
-                listData = re.split(
-                    '----------------RAIDs----------------', data)
-                print(listData)
-                devTask = listData[0]
-                raids = []
-                finalDevTask.append(re.split('\n-', devTask))
-                if len(listData) == 2:
-                    raids = listData[1]
-                    finalRaids.append(re.split(r'[()]', raids))
-                else:
-                    finalRaids.append([])
+def addIndustry(request):
+    if request.method == 'POST':
+        print("dc")
+        data = json.loads(request.body)
+        cate = BusinessCategory.objects.create(name=data["name"])
+        print(cate)
+        return JsonResponse({'id': cate.id, 'name': cate.name}, safe=False)
+    return JsonResponse({'id': 0, 'name': 0}, safe=False)
 
-    print(len(persona))
-    print(len(epic))
-    print(len(soThat))
-    print(len(iWantTo))
-    print(len(finalDevTask))
-    print(len(finalRaids))
-    for x in range(len(persona)):
-        personaDb = []
-        personaDb.append(Persona.objects.create(
-            Name=persona[x]))
-        print(epic[x])
-        epicDb = Epic.objects.create(
-            versionName=epic[x])
-        devTaskDb = []
-        for dev in finalDevTask[x]:
-            devTaskDb.append(DevelopmentTask.objects.create(description=dev))
-        raidsDb = []
-        try:
-            for Raid in finalRaids[x]:
-                if len(Raid) > 2:
-                    raidsDb.append(RAIDS.objects.create(description=Raid))
-        except:
-            pass
-        userStory = UserStory.objects.create(
-            iWantTO=iWantTo[x],
-            soThat=soThat[x],
-            Epic=epicDb
-        )
-        userStory.Persona.set(personaDb)
-        userStory.RAIDS.set(raidsDb)
-        userStory.DevelopmentTask.set(devTaskDb)
-    return JsonResponse({'id': 0, 'versionId': 0}, safe=False)
+# def dataEntry(request):
+#     dfs = pd.read_excel('sum sheet.xlsx', sheet_name="Sheet2")
+#     persona = []
+#     epic = []
+#     soThat = []
+#     iWantTo = []
+#     finalDevTask = []
+#     finalRaids = []
+#     row = [{}]
+#     for table, df in dfs.items():
+#         if table == "Persona":
+#             for data in df[70:90]:
+#                 persona.append(data)
+#                 row.append({'persona': persona})
+#         if table == "Epic":
+#             for data in df[70:90]:
+#                 epic.append(data)
+#                 row.append({'ep': persona})
+#         if table == "I want to":
+#             for data in df[70:90]:
+#                 iWantTo.append(data)
+#         if table == "So that":
+#             for data in df[70:90]:
+#                 soThat.append(data)
+#         if table == "DevTasks & RAIDs (Risk, Assumption, Issue & Dependency)":
+#             for data in df[70:90]:
+#                 print(data)
+#                 listData = re.split(
+#                     '----------------RAIDs----------------', data)
+#                 print(listData)
+#                 devTask = listData[0]
+#                 raids = []
+#                 finalDevTask.append(re.split('\n-', devTask))
+#                 if len(listData) == 2:
+#                     raids = listData[1]
+#                     finalRaids.append(re.split(r'[()]', raids))
+#                 else:
+#                     finalRaids.append([])
+
+#     print(len(persona))
+#     print(len(epic))
+#     print(len(soThat))
+#     print(len(iWantTo))
+#     print(len(finalDevTask))
+#     print(len(finalRaids))
+#     for x in range(len(persona)):
+#         personaDb = []
+#         personaDb.append(Persona.objects.create(
+#             Name=persona[x]))
+#         print(epic[x])
+#         epicDb = Epic.objects.create(
+#             versionName=epic[x])
+#         devTaskDb = []
+#         for dev in finalDevTask[x]:
+#             devTaskDb.append(DevelopmentTask.objects.create(description=dev))
+#         raidsDb = []
+#         try:
+#             for Raid in finalRaids[x]:
+#                 if len(Raid) > 2:
+#                     raidsDb.append(RAIDS.objects.create(description=Raid))
+#         except:
+#             pass
+#         userStory = UserStory.objects.create(
+#             iWantTO=iWantTo[x],
+#             soThat=soThat[x],
+#             Epic=epicDb
+#         )
+#         userStory.Persona.set(personaDb)
+#         userStory.RAIDS.set(raidsDb)
+#         userStory.DevelopmentTask.set(devTaskDb)
+#     return JsonResponse({'id': 0, 'versionId': 0}, safe=False)
