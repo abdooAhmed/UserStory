@@ -1165,6 +1165,7 @@ textarea{
         }
         $('#addUserStory').on('click',function(e){
             var userStoryVersionId = $(this).attr('data-id');
+            $(".currentInput").removeClass("currentInput");
             if(userStoryVersionId){
                 $.ajax({
                     url: "" + window.location.origin + "/Apis/addUserStory/" + userStoryVersionId + "",
