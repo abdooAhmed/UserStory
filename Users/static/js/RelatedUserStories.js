@@ -55,14 +55,14 @@ function relatedUserStory(epics,personas){
                 table.addClass('d-none')
             }
             data.forEach(element => {
-                var iwantTo = $('<td class="align-middle text-center ">'+ element['iWantTO'] +'</td>')
-                var soThat = $('<td class="align-middle text-center ">'+ element['soThat'] +'</td>')
-                var epic = $('<td class="align-middle text-center ">'+ element['epic'] +'</td>')
-                var priority = $('<td class="align-middle text-center ">'+ element['priority'] +'</td>')
-                var devTask = $('<td class="align-middle text-center ">'+ element['devTask'].join() +'</td>')
-                var RAIDS = $('<td class="align-middle text-center ">'+ element['RAIDS'].join() +'</td>')
-                var persona = $('<td class="align-middle text-center ">'+ element['persona'].join() +'</td>')
-                var row = $('<tr ></tr>')
+                var iwantTo = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="iWantTO">'+ element['iWantTO'] +'</td>')
+                var soThat = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="soThat">'+ element['soThat'] +'</td>')
+                var epic = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="epic">'+ element['epic'] +'</td>')
+                var priority = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="priority">'+ element['priority'] +'</td>')
+                var devTask = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="devTask">'+ element['devTask'].join() +'</td>')
+                var RAIDS = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="RAIDS">'+ element['RAIDS'].join() +'</td>')
+                var persona = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="persona">'+ element['persona'].join() +'</td>')
+                var row = $('<tr></tr>')
                 row.append(persona).append(epic).append(iwantTo).append(soThat).append(devTask).append(RAIDS);
                 $('.relatedUserStory').append(row);
                 $('.spinner-border').addClass('d-none')
@@ -78,4 +78,84 @@ function relatedUserStory(epics,personas){
     }
     $('.spinner-border').addClass('d-none')
     $('.spinner-border').removeClass('d-block')
+}
+
+function selectUserStory(e){
+    console.log(e.target.textContent);
+    switch (e.target.id) {
+        case 'iWantTO':
+            $('.currentInput[name="IWantTO"]').val(e.target.textContent);
+            $('.currentInput[name="IWantTO"]').val(function (i, val) {
+                    return val + "\n";
+                });
+                if (!$('.currentInput[name="IWantTO"]').val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $('.currentInput[name="IWantTO"]').css("cssText", "height: " + $('.currentInput[name="IWantTO"]').prop("scrollHeight") + "px !important;");
+            }
+            break;
+        case 'soThat':
+            $('.currentInput[name="SoThat"]').val(e.target.textContent);
+            $('.currentInput[name="SoThat"]').val(function (i, val) {
+                    return val + "\n";
+                });
+                if (!$('.currentInput[name="SoThat"]').val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $('.currentInput[name="SoThat"]').css("cssText", "height: " + $('.currentInput[name="SoThat"]').prop("scrollHeight") + "px !important;");
+            }
+            break;
+        case 'epic':
+            $('.currentInput[name="Epic"]').val(e.target.textContent);
+            $('.currentInput[name="Epic"]').val(function (i, val) {
+                    return val + "\n";
+                });
+                if (!$('.currentInput[name="Epic"]').val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $('.currentInput[name="Epic"]').css("cssText", "height: " + $('.currentInput[name="Epic"]').prop("scrollHeight") + "px !important;");
+            }
+            break;
+        case 'priority':
+            $('.currentInput[name="Epic"]').val(e.target.textContent);
+            break;
+        case 'persona':
+            $('.currentInput[name="Persona"]').val(e.target.textContent);
+            $('.currentInput[name="Persona"]').val(function (i, val) {
+                    return val + "\n";
+                });
+                if (!$('.currentInput[name="Persona"]').val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $('.currentInput[name="Persona"]').css("cssText", "height: " + $('.currentInput[name="Persona"]').prop("scrollHeight") + "px !important;");
+            }
+            break;
+        case 'RAIDS':
+            $('.currentInput[name="RAIDS"]').val(e.target.textContent);
+            $('.currentInput[name="RAIDS"]').val(function (i, val) {
+                    return val + "\n";
+                });
+                if (!$('.currentInput[name="RAIDS"]').val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $('.currentInput[name="RAIDS"]').css("cssText", "height: " + $('.currentInput[name="RAIDS"]').prop("scrollHeight") + "px !important;");
+            }
+            break;
+        case 'devTask':
+            $('.currentInput[name="Dev"]').val(e.target.textContent);
+            $('.currentInput[name="Dev"]').val(function (i, val) {
+                    return val + "\n";
+                });
+                if (!$('.currentInput[name="Dev"]').val()) {
+                    e.target.style.height = 'auto';
+                }
+                else {
+                    $('.currentInput[name="Dev"]').css("cssText", "height: " + $('.currentInput[name="Dev"]').prop("scrollHeight") + "px !important;");
+            }
+        }
 }
