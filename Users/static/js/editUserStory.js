@@ -241,6 +241,7 @@ function addEstimate(e){
 }
 $('#AddPlatform').on('click',function AddPlatfom(e){
    var platform =  $('#platformName').val();
+   $('#platformName').val("");
    if(platform){
     $.ajax({
         url: "" + window.location.origin + "/Apis/addPlatform",
