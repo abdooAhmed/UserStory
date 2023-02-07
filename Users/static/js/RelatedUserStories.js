@@ -55,15 +55,16 @@ function relatedUserStory(epics,personas){
                 table.addClass('d-none')
             }
             data.forEach(element => {
-                var iwantTo = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="iWantTO">'+ element['iWantTO'] +'</td>')
-                var soThat = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="soThat">'+ element['soThat'] +'</td>')
-                var epic = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="epic">'+ element['epic'] +'</td>')
-                var priority = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="priority">'+ element['priority'] +'</td>')
-                var devTask = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="devTask">'+ element['devTask'].join() +'</td>')
-                var RAIDS = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="RAIDS">'+ element['RAIDS'].join() +'</td>')
-                var persona = $('<td class="align-middle text-center cursor-pointer" onclick=selectUserStory(event,this) id="persona">'+ element['persona'].join() +'</td>')
-                var row = $('<tr></tr>')
-                row.append(persona).append(epic).append(iwantTo).append(soThat).append(devTask).append(RAIDS);
+
+                var iwantTo = $('<td class="align-middle text-center cursor-pointer" id="iWantTO" style="min-width: 16.5rem;">'+ element['iWantTO'] +'</td>')
+                var soThat = $('<td class="align-middle text-center cursor-pointer" id="soThat" style="min-width: 16.5rem;">'+ element['soThat'] +'</td>')
+                var epic = $('<td class="align-middle text-center cursor-pointer" id="epic" style="min-width: 16.5rem;">'+ element['epic'] +'</td>')
+                var priority = $('<td class="align-middle text-center cursor-pointer" id="priority">'+ element['priority'] +'</td>')
+                var devTask = $('<td class="align-middle text-center cursor-pointer" id="devTask" style="min-width: 31.5rem ;">'+ element['devTask'].join() +'</td>')
+                var RAIDS = $('<td class="align-middle text-center cursor-pointer" id="RAIDS" style="min-width: 31.5rem ;">'+ element['RAIDS'].join() +'</td>')
+                var persona = $('<td class="align-middle text-center cursor-pointer" id="persona" style="min-width: 16.5rem;">'+ element['persona'].join() +'</td>')
+                var row = $('<tr onclick=selectUserStory(event,this)></tr>')
+                row.append($('<td></td>')).append(persona).append(epic).append(iwantTo).append(soThat).append(devTask).append(RAIDS);
                 $('.relatedUserStory').append(row);
                 $('.spinner-border').addClass('d-none')
                 $('.spinner-border').removeClass('d-block')
@@ -81,10 +82,16 @@ function relatedUserStory(epics,personas){
 }
 
 function selectUserStory(e){
-    console.log(e.target.textContent);
-    switch (e.target.id) {
+    var element = $(e.target);
+    if(e.target.tagName == "TD")
+    {
+        element = $(e.target.parentNode);
+    }
+    var children = element.children();
+    for(var i =0;i<children.length;i++){
+        switch (children[i].id) {
         case 'iWantTO':
-            $('.currentInput[name="IWantTO"]').val(e.target.textContent);
+            $('.currentInput[name="IWantTO"]').val(children[i].textContent);
             $('.currentInput[name="IWantTO"]').val(function (i, val) {
                     return val + "\n";
                 });
@@ -96,7 +103,7 @@ function selectUserStory(e){
             }
             break;
         case 'soThat':
-            $('.currentInput[name="SoThat"]').val(e.target.textContent);
+            $('.currentInput[name="SoThat"]').val(children[i].textContent);
             $('.currentInput[name="SoThat"]').val(function (i, val) {
                     return val + "\n";
                 });
@@ -108,7 +115,7 @@ function selectUserStory(e){
             }
             break;
         case 'epic':
-            $('.currentInput[name="Epic"]').val(e.target.textContent);
+            $('.currentInput[name="Epic"]').val(children[i].textContent);
             $('.currentInput[name="Epic"]').val(function (i, val) {
                     return val + "\n";
                 });
@@ -120,10 +127,10 @@ function selectUserStory(e){
             }
             break;
         case 'priority':
-            $('.currentInput[name="Epic"]').val(e.target.textContent);
+            $('.currentInput[name="Epic"]').val(children[i].textContent);
             break;
         case 'persona':
-            $('.currentInput[name="Persona"]').val(e.target.textContent);
+            $('.currentInput[name="Persona"]').val(children[i].textContent);
             $('.currentInput[name="Persona"]').val(function (i, val) {
                     return val + "\n";
                 });
@@ -135,7 +142,7 @@ function selectUserStory(e){
             }
             break;
         case 'RAIDS':
-            $('.currentInput[name="RAIDS"]').val(e.target.textContent);
+            $('.currentInput[name="RAIDS"]').val(children[i].textContent);
             $('.currentInput[name="RAIDS"]').val(function (i, val) {
                     return val + "\n";
                 });
@@ -147,7 +154,7 @@ function selectUserStory(e){
             }
             break;
         case 'devTask':
-            $('.currentInput[name="Dev"]').val(e.target.textContent);
+            $('.currentInput[name="Dev"]').val(children[i].textContent);
             $('.currentInput[name="Dev"]').val(function (i, val) {
                     return val + "\n";
                 });
@@ -158,4 +165,5 @@ function selectUserStory(e){
                     $('.currentInput[name="Dev"]').css("cssText", "height: " + $('.currentInput[name="Dev"]').prop("scrollHeight") + "px !important;");
             }
         }
+    }
 }

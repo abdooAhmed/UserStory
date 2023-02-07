@@ -100,8 +100,33 @@
     
     
         </table>
+        <div class="w-100 p-0 d-none">
+            <div class="spinner-border d-none" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <table class="table align-items-center mb-0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
+                        </th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DevTask</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
+                        <th class="text-secondary opacity-7"></th>
+                    </tr>
+                </thead>
+                <tbody class="relatedUserStory">
+        
+                </tbody>
+        
+        
+            </table>
+        </div>
     </div>
-   <div class="row w-100">
+   <div class="mt-5 row w-100">
     <div class="col-6 row mb-3">
         <button type="button" id="addUserStory" style="height: 3rem;" class="col-6 mr-4 btn btn-success">add another
             UserStory</button>
@@ -110,7 +135,7 @@
     <div class="mb-3 col-6 row">
     <div class="form-group col-3">
         <label for="exampleInputEmail1" style="display: block;width: 100%;">Priority</label>
-        <select id="example-getting-started5" name="platforms" style="width: 100%;"
+        <select id="example-getting-started5" style="width: 100%;"
             class="form-control form-select createSelectPriority" onchange="selectPriority(event, this)" multiple="multiple">
             
         </select>
@@ -136,30 +161,7 @@
     </div>
     </div>
    </div>
-    <div class="table-responsive p-0 d-none">
-        <div class="spinner-border d-none" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <table class="table align-items-center mb-0">
-            <thead>
-                <tr>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
-                    </th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DevTask</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
-                    <th class="text-secondary opacity-7"></th>
-                </tr>
-            </thead>
-            <tbody class="relatedUserStory">
-                
-            </tbody>
     
-    
-        </table>
-    </div>
 
 <div>
     

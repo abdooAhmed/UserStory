@@ -256,7 +256,7 @@ $('#AddPlatform').on('click',function AddPlatfom(e){
             $(`<button type="button" class="multiselect-option dropdown-item" title="`+ response['name'] +`,"><span class="form-check">
             <input class="form-check-input" type="checkbox" value="`+response['id']+`" id="multiselect_vjjommr0br_0_0">
             <label class="form-check-label" for="multiselect_vjjommr0br_0_0">`+response['name']+`,</label></span>
-            </button>`).appendTo($('.multiselect-container'))
+            </button>`).appendTo($('.multiselect-container:first'))
             $('<option value="'+ response['id'] +'" data-multiselectid="multiselect_vjjommr0br_0_0">'+response['name']+',</option>').appendTo($('.platform'))
         },
         error: function (xhr) {
