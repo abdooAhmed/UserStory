@@ -89,11 +89,11 @@
                     </div>
                 </td>
                 <td class="">
-                    <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
-                        <div style="width: 100%;" class="row DKDiv">
-                            <div class="form-group row">
+                    <div class="form-group pl-5 twiceWidth" style="height: 100%;">
+                        <div style="width: 100%;" class="row DKDiv twiceWidth">
+                            <div class="form-group row twiceWidth">
                                 <div class="col-12 m-0 p-0">
-                                    <textarea type="text" id="DevTasks" name="Dev"
+                                    <textarea type="text" id="DevTasks" name="Dev" onkeydown="newDevTaskByKey(event, this)"
                                         class="form-control currentInput bg-gray h-4rem" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"
                                         placeholder="Dev Tasks"></textarea>
@@ -107,11 +107,11 @@
                     </div>
                 </td>
                 <td class="">
-                    <div class="form-group pl-5" style="height: 100%;min-width: 15rem;">
-                        <div style="width: 100%;" class="row RAIDSDiv">
-                            <div class="form-group row">
+                    <div class="form-group pl-5 twiceWidth" style="height: 100%;min-width: 15rem;">
+                        <div style="width: 100%;" class="row RAIDSDiv twiceWidth">
+                            <div class="form-group row twiceWidth">
                                 <div class="col-12 m-0 p-0">
-                                    <textarea type="text" name="RAIDS"  id="R.A.I.DS"
+                                    <textarea type="text" name="RAIDS" onkeydown="newRaidsByKey(event, this)" id="R.A.I.DS"
                                         class="form-control currentInput bg-gray h-4rem" id="exampleInputEmail1"
                                         aria-describedby="emailHelp" placeholder="R.A.I.DS"></textarea>
                                 </div>
@@ -129,6 +129,31 @@
     
     
     </table>
+    <div class="p-0 d-none">
+        <div class="spinner-border d-none" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <table class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DevTask</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
+                    <th class="text-secondary opacity-7"></th>
+                </tr>
+            </thead>
+            <tbody class="relatedUserStory">
+    
+            </tbody>
+    
+    
+        </table>
+    </div>
     </div>
     <div>
         <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -204,30 +229,6 @@
     <div class="form-group">
         <textarea type="text" name="Estimates" class="form-control mt-2 h-25 EstimatesArea" cols="10"></textarea>
     </div> -->
-    <div class="table-responsive p-0 d-none">
-        <div class="spinner-border d-none" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <table class="table align-items-center mb-0">
-            <thead>
-                <tr>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Persona</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Epic
-                    </th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">iWantTO</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">soThat</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DevTask</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RAIDS</th>
-                    <th class="text-secondary opacity-7"></th>
-                </tr>
-            </thead>
-            <tbody class="relatedUserStory">
-    
-            </tbody>
-    
-    
-        </table>
-    </div>
 </form>
 
 <div>

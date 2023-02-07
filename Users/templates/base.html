@@ -454,7 +454,8 @@ textarea{
                 }
             }
             else if (key == 13) {
-                var currentValue = $(".Raids").val()
+                var currentValue = $('.currentInput[name="RAIDS"]').val();
+                $('.currentInput[name="RAIDS"]').val("");
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 var textarea = $('<textarea type="text" onkeydown="newRaidsByKey(event, this)" onchange="addRaids(event, this)" class="form-control bg-gray col-10 h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS">' + currentValue + '</textarea>');
@@ -503,7 +504,8 @@ textarea{
             }
         }
         $(".AddRaids").on('click', function (e) {
-            var currentValue = $(".Raids").val()
+            var currentValue = $('.currentInput[name="RAIDS"]').val();
+            $('.currentInput[name="RAIDS"]').val();
             if (Array.from(e.target.classList).includes('details')){
                 $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
@@ -513,7 +515,7 @@ textarea{
             }
             else if (currentValue) {
                 $(".Raids").val("")
-                var form = $('<div class="w-100 form-group row"></div>')
+                var form = $('<div class="w-100 form-group row twiceWidth"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS">' + currentValue + '</textarea></div>').prependTo(form);
                 form.prependTo($('.RAIDSDiv'));
@@ -537,7 +539,8 @@ textarea{
                 }
             }
             else if (key == 13) {
-                var currentValue = $(".Dev").val()
+                var currentValue = $('.currentInput[name="Dev"]').val();
+                $('.currentInput[name="Dev"]').val("");
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 var textarea = $('<textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray col-10 h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="User Acceptance Criteria">' + currentValue + '</textarea>');
@@ -595,7 +598,7 @@ textarea{
             }
             else if (currentValue) {
                 $('.currentInput[name="Dev"]').val("")
-                var form = $('<div class="form-group row"></div>')
+                var form = $('<div class="form-group row twiceWidth"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control bg-gray" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea></div>').prependTo(form);
                 form.prependTo($('.DKDiv'));
