@@ -180,7 +180,12 @@ async function selectUserStory(e){
                         for(var x =1;x<data['RAIDS'].length;x++){
                             var form = $('<div class="w-100 form-group row twiceWidth"></div>')
                             $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                            $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS" data-id="'+ data['RAIDS'][x]['id'] +'">' + data['RAIDS'][x]['name'] + '</textarea></div>').prependTo(form);
+                            var textArea = $('<textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS" data-id="'+ data['RAIDS'][x]['id'] +'">' + data['RAIDS'][x]['name'] + '</textarea>')
+                            textArea.val(function (i, val) {
+                                return val + "\n";
+                            });
+                            textArea = resizeTextArea(textArea);
+                            textArea.prependTo($('<div class="col-10 m-0 p-0"></div>').prependTo(form));
                             form.prependTo($('.RAIDSDiv'));
                         }
                         break;
@@ -200,7 +205,13 @@ async function selectUserStory(e){
                         for(var x =1;x<data['devTask'].length;x++){
                             var form = $('<div class="form-group row twiceWidth"></div>')
                             $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                            $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control bg-gray" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona" data-id="'+ data['devTask'][x]['id'] +'">' + data['devTask'][x]['name'] + '</textarea></div>').prependTo(form);
+                            var textArea = $('<textarea type="text" style="height:auto !important" class="form-control bg-gray" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Persona" data-id="'+ data['devTask'][x]['id'] +'"></textarea>')
+                            textArea.val(data['devTask'][x]['name']);
+                            textArea.val(function (i, val) {
+                                return val + "\n";
+                            });
+                            textArea = resizeTextArea(textArea);
+                            textArea.prependTo($('<div class="col-10 m-0 p-0"></div>').prependTo(form));
                             form.prependTo($('.DKDiv'));
                         }
                 }
@@ -212,4 +223,13 @@ async function selectUserStory(e){
             //Do Something to handle error
         }
     });
+}
+
+function resizeTextArea(element){
+    var originalValue = $('.currentInput[name="Dev"]').val();
+    $('.currentInput[name="Dev"]').val(element.val());
+    var scrollHeight = $('.currentInput[name="Dev"]').prop("scrollHeight")
+    $('.currentInput[name="Dev"]').val(originalValue);
+    element.css("cssText", "height: " + scrollHeight + "px !important;");
+    return element
 }

@@ -46,8 +46,12 @@ def add_business(request):
         form = AddBusinessForm1(request.POST)
         form2 = AddBusinessForm2(request.POST)
         businessIndustry = []
-        for b in request.POST.get("businessIndustry"):
-            businessIndustry.append(BusinessCategory.objects.get(id=int(b)))
+        try:
+            for b in request.POST.get("businessIndustry"):
+                businessIndustry.append(
+                    BusinessCategory.objects.get(id=int(b)))
+        except:
+            pass
         users = []
         try:
             for u in request.POST.get("Customer"):

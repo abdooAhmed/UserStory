@@ -322,7 +322,8 @@ def addUserStory(request, id):
         soThat="",
         priority="",
         userStoriesVersion=userStoryVersion)
-    print(userStory.id)
+    print("UserStoryVersion")
+    print(userStory.userStoriesVersion.id)
     return JsonResponse({'id': userStory.id}, safe=False)
 
 
@@ -362,7 +363,8 @@ def addNewUserStory(request):
             soThat="",
             priority="",
             userStoriesVersion=userStoryVersion)
-        print(userStory.id)
+        print("UserStoryVersion")
+        print(userStory.userStoriesVersion.id)
         return JsonResponse({'id': userStory.id, 'versionId': userStoryVersion.id}, safe=False)
     return JsonResponse({'id': 0, 'versionId': 0}, safe=False)
 
