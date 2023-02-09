@@ -27,6 +27,8 @@ urlpatterns = [
          views.addPlatform, name='addPlatform'),
     path('addIndustry',
          views.addIndustry, name='addIndustry'),
+    path('addSelectedUserStory/<int:id>',
+         views.addSelectedUserStory, name='addSelectedUserStory'),
     #     path('dataEntry',
     #          views.dataEntry, name='dataEntry')
 ]

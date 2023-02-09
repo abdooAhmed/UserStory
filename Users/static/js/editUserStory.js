@@ -28,7 +28,27 @@ $('.updatePersona').change(function(e){
 function addPersona(e){
     var userStoryId = $(e.target).closest('tr').attr('id');
     var persona = e.target.value;
-     $.ajax({
+    var personaId = e.target.getAttribute('data-id');
+    if(personaId){
+        $.ajax({
+        url: "" + window.location.origin + "/Apis/editPersona/" + personaId + "",
+        type: "PUT", //send it through get method
+        contentType: 'application/json',
+        headers:{
+           "X-CSRFToken": csrftoken
+        },  
+        data: JSON.stringify({'persona':persona}),
+        success: function (response) {
+            console.log(response)
+        },
+        error: function (xhr) {
+            alert("Error happenedy");
+            //Do Something to handle error
+        }
+    });
+    }
+    else{
+        $.ajax({
         url: "" + window.location.origin + "/Apis/addPersona/" + userStoryId + "",
         type: "POST", //send it through get method
         contentType: 'application/json',
@@ -37,6 +57,7 @@ function addPersona(e){
         },  
         data: JSON.stringify({'persona':persona}),
         success: function (response) {
+            $(e.target).attr('data-id', response['id']);
             var epics = Array.from($('.epicInputDetails'));
             console.log(epics)
             epicsValue =[]
@@ -56,6 +77,7 @@ function addPersona(e){
             //Do Something to handle error
         }
     });
+    }
 }
 
 $('.updateDevTask').change(function(e){
@@ -84,10 +106,12 @@ $('.updateDevTask').change(function(e){
 
 function addDevTask(e){
     var userStoryId = $(e.target).closest('tr').attr('id');
+    var devTaskId = e.target.getAttribute('data-id');
     var devTask = e.target.value;
-     $.ajax({
-        url: "" + window.location.origin + "/Apis/addDevTask/" + userStoryId + "",
-        type: "POST", //send it through get method
+    if(devTaskId){
+        $.ajax({
+        url: "" + window.location.origin + "/Apis/editDevTask/" + devTaskId + "",
+        type: "PUT", //send it through get method
         contentType: 'application/json',
         headers:{
            "X-CSRFToken": csrftoken
@@ -101,6 +125,27 @@ function addDevTask(e){
             //Do Something to handle error
         }
     });
+    }
+    else{
+         $.ajax({
+        url: "" + window.location.origin + "/Apis/addDevTask/" + userStoryId + "",
+        type: "POST", //send it through get method
+        contentType: 'application/json',
+        headers:{
+           "X-CSRFToken": csrftoken
+        },  
+        data: JSON.stringify({'devTask':devTask}),
+        success: function (response) {
+            $(e.target).attr('data-id', response['id']);
+            console.log(response)
+        },
+        error: function (xhr) {
+            alert("Error happenedy");
+            //Do Something to handle error
+        }
+    });
+    }
+    
 }
 
 
@@ -130,10 +175,12 @@ $('.updateRaids').change(function(e){
 
 function addRaids(e){
     var userStoryId = $(e.target).closest('tr').attr('id');
+    var raidsId = e.target.getAttribute('data-id');
     var raids = e.target.value;
-     $.ajax({
-        url: "" + window.location.origin + "/Apis/addRaids/" + userStoryId + "",
-        type: "POST", //send it through get method
+    if(raidsId){
+        $.ajax({
+        url: "" + window.location.origin + "/Apis/editRaids/" + raidsId + "",
+        type: "PUT", //send it through get method
         contentType: 'application/json',
         headers:{
            "X-CSRFToken": csrftoken
@@ -147,6 +194,26 @@ function addRaids(e){
             //Do Something to handle error
         }
     });
+    }
+    else{
+         $.ajax({
+        url: "" + window.location.origin + "/Apis/addRaids/" + userStoryId + "",
+        type: "POST", //send it through get method
+        contentType: 'application/json',
+        headers:{
+           "X-CSRFToken": csrftoken
+        },  
+        data: JSON.stringify({'raids':raids}),
+        success: function (response) {
+            $(e.target).attr('data-id', response['id']);
+            console.log(response)
+        },
+        error: function (xhr) {
+            alert("Error happenedy");
+            //Do Something to handle error
+        }
+    });
+    }
 }
 
 $('.updateUserStory').change(function(e){

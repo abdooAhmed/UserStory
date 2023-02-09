@@ -11,6 +11,8 @@ import re
 
 
 def del_userStroy(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     print(id)
     instance = UserStory.objects.get(id=id)
     instance.delete()
@@ -59,6 +61,8 @@ def related_userStory(request):
 
 
 def editPersona(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     if request.method == 'PUT':
         data = json.loads(request.body)
         persona = Persona.objects.get(id=id)
@@ -71,6 +75,8 @@ def editPersona(request, id):
 
 
 def addPersona(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     if request.method == 'POST':
         userStory = UserStory.objects.get(id=id)
         data = json.loads(request.body)
@@ -79,10 +85,13 @@ def addPersona(request, id):
         # persona.Name = request.
         userStory.Persona.add(persona)
         userStory.save()
+        return JsonResponse({'id': persona.id}, safe=False)
     return JsonResponse({'dataObject': 'dc'}, safe=False)
 
 
 def editDevTask(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     if request.method == 'PUT':
         data = json.loads(request.body)
         devTask = DevelopmentTask.objects.get(id=id)
@@ -93,6 +102,8 @@ def editDevTask(request, id):
 
 
 def addDevTask(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     if request.method == 'POST':
         userStory = UserStory.objects.get(id=id)
         data = json.loads(request.body)
@@ -101,10 +112,13 @@ def addDevTask(request, id):
         # persona.Name = request.
         userStory.DevelopmentTask.add(devTask)
         userStory.save()
+        return JsonResponse({'id': devTask.id}, safe=False)
     return JsonResponse({'dataObject': 'dc'}, safe=False)
 
 
 def editRaids(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     if request.method == 'PUT':
         data = json.loads(request.body)
         raids = RAIDS.objects.get(id=id)
@@ -115,6 +129,8 @@ def editRaids(request, id):
 
 
 def addRaids(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     if request.method == 'POST':
         userStory = UserStory.objects.get(id=id)
         data = json.loads(request.body)
@@ -126,7 +142,82 @@ def addRaids(request, id):
     return JsonResponse({'dataObject': 'dc'}, safe=False)
 
 
+def addSelectedUserStory(request, id):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        newUserStory = UserStory.objects.get(id=id)
+        print(newUserStory.id)
+        print(data['id'])
+        userStory = UserStory.objects.get(id=data['id'])
+        try:
+            epic = Epic.objects.get(id=newUserStory.Epic.id)
+            epic.delete()
+        except:
+            pass
+        try:
+            newUserStory.Persona.all().delete()
+        except:
+            pass
+        try:
+            newUserStory.RAIDS.all().delete()
+        except:
+            pass
+        try:
+            newUserStory.DevelopmentTask.all().delete()
+        except:
+            pass
+        newEpic = Epic.objects.create(versionName=userStory.Epic.versionName)
+        UserStory.objects.update_or_create(
+            id=id,
+            defaults={'iWantTO': userStory.iWantTO,
+                      'soThat': userStory.soThat, 'Epic': newEpic},
+        )
+        print("done")
+        devData = userStory.DevelopmentTask.all()
+        newPersona = []
+        for p in userStory.Persona.all():
+            newPersona.append(Persona.objects.create(Name=p.Name))
+        newRaids = []
+        for p in userStory.RAIDS.all():
+            newRaids.append(addRaidsLocal(p.description))
+        newDev = []
+        for p in devData:
+            newDev.append(addDevTaskLocal(p.description))
+        newUserStory.Persona.set(newPersona)
+        newUserStory.RAIDS.set(newRaids)
+        newUserStory.DevelopmentTask.set(newDev)
+        newUserStory = UserStory.objects.get(id=id)
+        personaObject = []
+        [personaObject.append({'id': i.id, 'name': i.Name})
+         for i in newUserStory.Persona.all()]
+        RAIDS = []
+        [RAIDS.append({'id': i.id, 'name': i.description})
+         for i in newUserStory.RAIDS.all()]
+        DevelopmentTask = []
+        [DevelopmentTask.append({'id': i.id, 'name': i.description})
+         for i in newUserStory.DevelopmentTask.all()]
+        print(DevelopmentTask)
+        dataObject = {'iWantTO': newUserStory.iWantTO, 'soThat': newUserStory.soThat, 'id': id, 'persona': personaObject,
+                      'RAIDS': RAIDS, 'devTask': DevelopmentTask, 'epic': newUserStory.Epic.versionName}
+        dataObject = dumps(dataObject)
+        print(dataObject)
+        return JsonResponse(dataObject, safe=False)
+        # persona.Name = request.
+    return JsonResponse({'id': 0, 'name': 0}, safe=False)
+
+
+def addDevTaskLocal(des):
+    return DevelopmentTask.objects.create(
+        description=des)
+
+
+def addRaidsLocal(des):
+    return RAIDS.objects.create(description=des)
+
+
 def editUserStory(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     print("dc")
     if request.method == 'PUT':
         userStory = UserStory.objects.get(id=id)
@@ -164,6 +255,8 @@ def editUserStory(request, id):
 
 
 def editEstimate(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     if request.method == 'PUT':
         data = json.loads(request.body)
         print(data['estimate'])
@@ -173,6 +266,8 @@ def editEstimate(request, id):
 
 
 def addEstimate(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     if request.method == 'POST':
         userStory = UserStory.objects.get(id=id)
         data = json.loads(request.body)
@@ -186,6 +281,8 @@ def addEstimate(request, id):
 
 
 def editProject(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     if request.method == 'PUT':
         data = json.loads(request.body)
         project = Project.objects.get(id=data['projectId'])
@@ -197,6 +294,8 @@ def editProject(request, id):
 
 
 def editUserStoryVersion(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     print("dc")
     if request.method == 'PUT':
         data = json.loads(request.body)
@@ -214,6 +313,8 @@ def editUserStoryVersion(request, id):
 
 
 def addUserStory(request, id):
+    if id == 0:
+        return JsonResponse({'dataObject': 'dc'}, safe=False)
     userStoryVersion = UserStoryVersion.objects.get(id=id)
     print(id)
     userStory = UserStory.objects.create(
@@ -283,6 +384,7 @@ def addIndustry(request):
         print(cate)
         return JsonResponse({'id': cate.id, 'name': cate.name}, safe=False)
     return JsonResponse({'id': 0, 'name': 0}, safe=False)
+
 
 # def dataEntry(request):
 #     dfs = pd.read_excel('sum sheet.xlsx', sheet_name="Sheet2")

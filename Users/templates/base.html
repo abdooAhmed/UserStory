@@ -540,10 +540,13 @@ textarea{
             }
             else if (key == 13) {
                 var currentValue = $('.currentInput[name="Dev"]').val();
+                var hight = e.target.scrollHeight;
                 $('.currentInput[name="Dev"]').val("");
+                var id = $('.currentInput[name="Dev"]').attr("data-id");
+                $('.currentInput[name="Dev"]').attr("data-id","0")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                var textarea = $('<textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray col-10 h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="User Acceptance Criteria">' + currentValue + '</textarea>');
+                var textarea = $('<textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray col-10 h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" style="height:'+ hight +'px !important;" data-id="'+ id +'" placeholder="User Acceptance Criteria">' + currentValue + '</textarea>');
                 var personaObjects = persona; 
                 var objects = [];
                 personaObjects.forEach(element => {
