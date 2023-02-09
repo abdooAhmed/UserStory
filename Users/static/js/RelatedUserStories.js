@@ -66,7 +66,7 @@ function relatedUserStory(epics,personas){
                 var row = $('<tr id='+ element['id'] +' onclick=selectUserStory(event,this)></tr>')
                 row.append($('<td></td>')).append(persona).append(epic).append(iwantTo).append(soThat).append(devTask).append(RAIDS);
                 $('.relatedUserStory').append(row);
-                var table = $('.relatedUserStory').parent().closest('table');
+                var table = $('.relatedUserStory').parent('table');
                 table =   table.parent()
                 table.css("cssText", "max-height: 15rem !important;overflow-y: auto;overflow-x: hidden;width: " + $('#mainTable').width() + "px !important;");
                 $('.spinner-border').addClass('d-none')
