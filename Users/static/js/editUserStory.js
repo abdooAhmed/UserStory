@@ -25,11 +25,30 @@ $('.updatePersona').change(function(e){
     }
 });
 
+function removeField(name,id){
+    $.ajax({
+        url: "" + window.location.origin + "/Apis/RemoveField",
+        type: "PUT", //send it through get method
+        contentType: 'application/json',
+        headers:{
+           "X-CSRFToken": csrftoken
+        },  
+        data: JSON.stringify({'name':name,'id':id}),
+        success: function (response) {
+            console.log(response)
+        },
+        error: function (xhr) {
+            alert("Error happenedy");
+            //Do Something to handle error
+        }
+    });
+}
+
 function addPersona(e){
     var userStoryId = $(e.target).closest('tr').attr('id');
     var persona = e.target.value;
     var personaId = e.target.getAttribute('data-id');
-    if(personaId){
+    if(personaId>0){
         $.ajax({
         url: "" + window.location.origin + "/Apis/editPersona/" + personaId + "",
         type: "PUT", //send it through get method
@@ -39,6 +58,19 @@ function addPersona(e){
         },  
         data: JSON.stringify({'persona':persona}),
         success: function (response) {
+            $(e.target).attr('data-id', response['id']);
+            var epics = Array.from($('.epicInputDetails'));
+            console.log(epics)
+            epicsValue =[]
+            epics.forEach(ep=>{
+                epicsValue.push(ep.value)
+            })
+            var personas = Array.from($('textarea[name="Persona"]'));
+            personasValue = []
+            personas.forEach(ep=>{
+                personasValue.push(ep.value)
+            })
+            relatedUserStory(epicsValue,personasValue);
             console.log(response)
         },
         error: function (xhr) {
@@ -108,7 +140,7 @@ function addDevTask(e){
     var userStoryId = $(e.target).closest('tr').attr('id');
     var devTaskId = e.target.getAttribute('data-id');
     var devTask = e.target.value;
-    if(devTaskId){
+    if(devTaskId>0){
         $.ajax({
         url: "" + window.location.origin + "/Apis/editDevTask/" + devTaskId + "",
         type: "PUT", //send it through get method
@@ -153,7 +185,7 @@ $('.updateRaids').change(function(e){
     var raidsId = e.target.getAttribute('data-id');
     var raids = e.target.value;
     var userStoryId = $(this).closest('tr').attr('id');
-    if(raidsId){
+    if(raidsId>0){
         $.ajax({
         url: "" + window.location.origin + "/Apis/editRaids/" + raidsId + "",
         type: "PUT", //send it through get method
@@ -177,7 +209,7 @@ function addRaids(e){
     var userStoryId = $(e.target).closest('tr').attr('id');
     var raidsId = e.target.getAttribute('data-id');
     var raids = e.target.value;
-    if(raidsId){
+    if(raidsId>0){
         $.ajax({
         url: "" + window.location.origin + "/Apis/editRaids/" + raidsId + "",
         type: "PUT", //send it through get method
@@ -267,7 +299,7 @@ function addEstimate(e){
     var userStoryId = $(e.target).closest('tr').attr('id');
     var element = $(e.target);
     var id = e.target.id
-    if(e.target.getAttribute('data-id')){
+    if(e.target.getAttribute('data-id')>0){
         var estimateId = e.target.getAttribute('data-id');
         $.ajax({
         url: "" + window.location.origin + "/Apis/editEstimate/" + estimateId + "",

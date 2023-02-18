@@ -421,6 +421,12 @@ textarea{
             });
         function remove(e) {
             e.parentNode.remove();
+            if($(e).prev().attr('data-id') > 0){
+                removeField($(e).prev().attr('name'), $(e).prev().attr('data-id'));
+            }
+            else if($(e).prev().children(":first").attr('data-id') > 0){
+                removeField($(e).prev().children(":first").attr('name'), $(e).prev().children(":first").attr('data-id'));
+            }
         }
 
         function removeRow(e){
@@ -487,18 +493,17 @@ textarea{
             var currentValue = $(".Raids").val()
             
             if (Array.from(e.target.classList).includes('details')) {
-                $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS">' + currentValue + '</textarea></div>').prependTo(form);
-                form.prependTo($(e.target).prev());
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS"></textarea></div>').prependTo(form);
+                form.appendTo($(e.target).prev());
             }
             else if (currentValue) {
                 $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" style="height: 38px !important;" name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS">' + currentValue + '</textarea></div>').prependTo(form);
-                form.prependTo($('.RAIDSDiv'));
+                form.appendTo($('.RAIDSDiv'));
                 //$('<input type="text" class="form-control Raids col-10" name="RAIDS" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="R.A.I.DS">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"></i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.RAIDSDiv'))));
                 //elem.val(elem.val() + 'add this');
             }
@@ -510,8 +515,8 @@ textarea{
                 $(".Raids").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS">' + currentValue + '</textarea></div>').prependTo(form);
-                form.prependTo($(e.target).prev());
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onchange="addRaids(event, this)" class="form-control bg-gray h-4rem"  name="RAIDS" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="RAIDS"></textarea></div>').prependTo(form);
+                form.appendTo($(e.target).prev());
             }
             else if (currentValue) {
                 $(".Raids").val("")
@@ -557,7 +562,7 @@ textarea{
                 autocomplete(textarea[0], objects);
                 textarea.prependTo(form);
                 console.log();
-                form.prependTo($(e.target).parents().eq(parentNum));
+                form.appendTo($(e.target).parents().eq(parentNum));
             }
             else {
                 if (!$(e.target).val()) {
@@ -573,18 +578,16 @@ textarea{
         function newDev(e){
             var currentValue = $(".Dev").val()
             if (Array.from(e.target.classList).includes('details')) {
-                $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA">' + currentValue + '</textarea></div>').prependTo(form);
-                form.prependTo($(e.target).prev());
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA"></textarea></div>').prependTo(form);
+                form.appendTo($(e.target).prev());
             }
             else if (currentValue) {
-                $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
                 $('<div class="col-10 m-0 p-0"><textarea type="text" class="form-control" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA">' + currentValue + '</textarea></div>').prependTo(form);
-                form.prependTo($(this).prev());
+                form.appendTo($(this).prev());
                 //$('<input type="text" class="form-control col-10" name="Dev" value="' + currentValue + '" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dev Tasks">').prependTo($('<div class="w-100 form-group row"><i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i></div>').prependTo($('<div style="width:100%;" class="row"></div>').prependTo($('.DKDiv'))));
                 //elem.val(elem.val() + 'add this');
             }
@@ -596,8 +599,8 @@ textarea{
                 $(".Dev").val("")
                 var form = $('<div class="w-100 form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                $('<div class="col-10 m-0 p-0"><textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA">' + currentValue + '</textarea></div>').prependTo(form);
-                form.prependTo($(this).prev());
+                $('<div class="col-10 m-0 p-0"><textarea type="text" onkeydown="newDevTaskByKey(event, this)" onchange="addDevTask(event, this)" class="form-control bg-gray h-4rem" name="Dev" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="USER ACCEPTANCE CRITERIA"></textarea></div>').prependTo(form);
+                form.appendTo($(this).prev());
             }
             else if (currentValue) {
                 $('.currentInput[name="Dev"]').val("")
@@ -660,10 +663,9 @@ textarea{
         function newPersona(e){
             var currentValue = $(".Persona").val()
             if (Array.from(e.target.classList).includes('details')) {
-                $(".Persona").val("")
                 var form = $('<div class=" form-group row"></div>')
                 $('<i class="col-2 m-auto text-danger fa fa-times" onclick="remove(this)" style="display: flex;justify-content: center;align-items: center;cursor: pointer;"</i>').prependTo(form);
-                var textarea = $('<textarea type="text" id="myInput" onkeydown="newPersonaByKey(event, this)" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona">' + currentValue + '</textarea>');
+                var textarea = $('<textarea type="text" id="myInput" onkeydown="newPersonaByKey(event, this)" onchange="addPersona(event, this)" class="form-control col-10 updatePersona bg-gray h-4rem" data-id="0"  name="Persona"  aria-describedby="emailHelp" placeholder="Persona"></textarea>');
                 var personaObjects = persona;
                 var objects = [];
                 personaObjects.forEach(element => {
@@ -674,7 +676,7 @@ textarea{
                 autocomplete(textarea[0], objects);
                 textarea.prependTo(form);
                 console.log($(e.target));
-                form.prependTo($(e.target).prev());
+                form.appendTo($(e.target).prev());
             }
             else if(currentValue) {
                 $(".Persona").val("")
@@ -970,6 +972,7 @@ textarea{
                         var estimate = document.getElementsByClassName('estimate')[i];
                         var id = estimate.id;
                         if (!list.includes(estimate.id)) {
+                            $('#h' + estimate.id + '').remove();
                             estimate.parentNode.remove();
                             if (!$('#' + id + '').length) {
                                 $('div#t' + id + '').remove();
@@ -985,7 +988,7 @@ textarea{
                     console.log(platfrom[index]);
                     if (!estimateList.includes(i) && platfrom[index] && !$(".estimate#" + list[index] + "").length) {
                         
-                        $('#userStoryDetailsHeader').append($('<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">' + platfrom[index] + '</th>'));
+                        $('#userStoryDetailsHeader').append($('<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" id="h' + i + '">' + platfrom[index] + '</th>'));
                         $('.userStoryDetailsBody').append($('<td class=""><div class="form-group row lessWidth text-center" id ="nodejsreactjs"><input type="number" onchange="addEstimate(event,this)" id="' + i + '" class="form-control estimate bg-gray m-auto col-8" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div></td>'))
                         $('.newUserStory').append($('<td class=""><div class="form-group row lessWidth text-center" id ="nodejsreactjs"><input type="number" onchange="addEstimate(event,this)" id="' + i + '" class="form-control estimate bg-gray m-auto col-8" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div></td>'))
                         // var divWithId = $('div#t' + i + '');
@@ -1003,6 +1006,7 @@ textarea{
                         var estimate = document.getElementsByClassName('estimate')[i];
                         var id = estimate.id;
                         if (!list.includes(estimate.id)) {
+                            $('#h'+ estimate.id +'').remove();
                             estimate.parentNode.remove();
                             if (!$('#' + id + '').length) {
                                 $('div#t' + id + '').remove();
@@ -1018,7 +1022,7 @@ textarea{
                     console.log(platfrom[index]);
                     if (!estimateList.includes(i) && platfrom[index] && !$(".estimate#" + list[index] + "").length) {
 
-                        $('#userStoryDetailsHeader1').append($('<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">' + platfrom[index] + '</th>'));
+                        $('#userStoryDetailsHeader1').append($('<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" id="h' + i + '">' + platfrom[index] + '</th>'));
                         $('.userStoryDetailsBody').append($('<td class=""><div class="form-group row lessWidth text-center" id ="nodejsreactjs"><input type="number" onchange="UpdateTotalEstimates()" id="' + i + '" class="form-control estimate bg-gray m-auto col-8" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div></td>'))
                         $('.newUserStory').append($('<td class=""><div class="form-group row lessWidth text-center" id ="nodejsreactjs"><input type="number" onchange="UpdateTotalEstimates()" id="' + i + '" class="form-control estimate bg-gray m-auto col-8" required name="estimate[]" placeholder="' + platfrom[index] + '" aria-describedby="emailHelp"></div></td>'))
                         // var divWithId = $('div#t' + i + '');

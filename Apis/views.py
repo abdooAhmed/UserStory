@@ -388,6 +388,20 @@ def addIndustry(request):
     return JsonResponse({'id': 0, 'name': 0}, safe=False)
 
 
+def RemoveField(request):
+    data = json.loads(request.body)
+    name = data['name']
+    id = data['id']
+    if name == "Persona":
+        instance = Persona.objects.get(id=id)
+        instance.delete()
+    elif name == "Dev":
+        instance = DevelopmentTask.objects.get(id=id)
+        instance.delete()
+    else:
+        instance = RAIDS.objects.get(id=id)
+        instance.delete()
+    return JsonResponse({'id': 0, 'name': 0}, safe=False)
 # def dataEntry(request):
 #     dfs = pd.read_excel('sum sheet.xlsx', sheet_name="Sheet2")
 #     persona = []

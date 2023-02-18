@@ -29,6 +29,6 @@ urlpatterns = [
          views.addIndustry, name='addIndustry'),
     path('addSelectedUserStory/<int:id>',
          views.addSelectedUserStory, name='addSelectedUserStory'),
-    #     path('dataEntry',
-    #          views.dataEntry, name='dataEntry')
+    path('RemoveField',
+         views.RemoveField, name='RemoveField')
 ]
